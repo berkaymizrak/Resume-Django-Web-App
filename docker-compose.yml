@@ -1,0 +1,46 @@
+version: "3.8"
+services:
+  postgres_resume:
+    container_name: postgres_resume
+    hostname: postgres_resume
+    image: postgres:latest
+    env_file:
+      - resume/docker.env
+    networks:
+      - main_resume
+#    restart: unless-stopped
+    ports:
+      - "0.0.0.0:5432:5432"
+    volumes:
+      - "postgresql-data:/var/lib/postgresql/data"
+
+  app_resume:
+    container_name: app_resume
+    hostname: app_resume
+    build:
+      context: .
+      args:
+        REPO_PATH: ./
+    env_file:
+      - resume/docker.env
+    environment:
+      - "COMMANDS=1"
+    volumes:
+      - static-data:/srv/public
+#      - socket-data:/srv/socket-data
+      - .:/srv/app_resume
+    ports:
+      - "0.0.0.0:8000:8000"
+#    restart: unless-stopped
+    depends_on:
+      - postgres_resume
+    working_dir: /srv/app_resume
+    networks:
+      - main_resume
+
+networks:
+  main_resume:
+
+volumes:
+  postgresql-data:
+  static-data:

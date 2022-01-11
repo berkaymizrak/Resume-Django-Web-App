@@ -1,0 +1,31 @@
+
+
+{% if messages %}
+
+    {% for message in messages %}
+
+        <div class="row" style="margin-top: 25px">
+            <div class="col-md-6 col-md-offset-3">
+                <div
+                        {% if message.tags == 'info' %}
+                            class="alert alert-info"
+                        {% elif message.tags == 'success' %}
+                            class="alert alert-success"
+                        {% elif message.tags == 'warning' %}
+                            class="alert alert-warning"
+                        {% elif message.tags == 'error' %}
+                            class="alert alert-danger"
+                        {% else %}
+                            class="alert alert-{{ message.tags }}"
+                        {% endif %}
+                >
+                    {{ message }}
+                    <span class="closebtn" style="float: right" onclick="this.parentElement.style.display='none';">X</span>
+                </div>
+
+            </div>
+        </div>
+
+    {% endfor %}
+
+{% endif %}

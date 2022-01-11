@@ -1,0 +1,16 @@
+{% extends 'layout.html' %}
+{% load template_filters %}
+
+{% block title %}
+    {{ site_title|get_object_value }} - {{ object.file.name|get_object_value }}
+{% endblock %}
+
+
+{% block body %}
+
+    <div style="text-align: center;">
+        <img src="{{ object.file.url|get_object_value }}" alt="{{ site_title|get_object_value }} - {{ object.file.name|get_object_value }}">
+    </div>
+
+{% endblock %}
+
