@@ -9,99 +9,139 @@ from django.dispatch import receiver
 # from django.core.files.storage import FileSystemStorage
 from django.conf import settings
 from django.core.files.storage import default_storage
-from resume.custom_storages import MediaStorage, ImageSettingsStorage, DocumentStorage
+from resume.custom_storages import MediaStorage, ImageSettingStorage, DocumentStorage
 
 
 # Create your models here.
 
 
-class GeneralSettings(models.Model):
-    setting = models.CharField(default='', max_length=254, verbose_name='Ayar', help_text='', blank=True, null=True)
-    description = models.CharField(default='', max_length=254, verbose_name='Açıklama', help_text='', blank=True,
-                                   null=True)
-    parameter = models.TextField(default='', verbose_name='Parametre', help_text='', blank=True, null=True)
+class GeneralSetting(models.Model):
+    name = models.CharField(default='', max_length=254, verbose_name='Name', help_text='', blank=True, null=True)
+    description = models.CharField(
+        default='',
+        max_length=254,
+        verbose_name='Description',
+        help_text='',
+        blank=True,
+        null=True,
+    )
+    parameter = models.TextField(default='', verbose_name='Parameter', help_text='', blank=True, null=True)
 
-    date = models.DateTimeField(verbose_name='Oluşturma Tarihi', blank=True, auto_now_add=True)
+    date = models.DateTimeField(verbose_name='Created Date', blank=True, auto_now_add=True)
 
     class Meta:
-        verbose_name_plural = 'Genel Ayarlar'
-        verbose_name = 'Genel Ayar'
+        verbose_name_plural = 'General Settings'
+        verbose_name = 'General Setting'
         ordering = ('setting',)
 
     def __str__(self):
-        return 'Genel Ayar: %s' % self.setting
+        return 'General Setting: %s' % self.name
 
 
-class ImageSettings(models.Model):
-    setting = models.CharField(default='', max_length=254, verbose_name='Ayar', help_text='', blank=True, null=True)
-    description = models.CharField(default='', max_length=254, verbose_name='Açıklama', help_text='', blank=True,
-                                   null=True)
-    file = models.ImageField(default='',
-                             storage=ImageSettingsStorage(),
-                             verbose_name='Görsel', help_text='', blank=True, null=True)
+class ImageSetting(models.Model):
+    name = models.CharField(default='', max_length=254, verbose_name='Name', help_text='', blank=True, null=True)
+    description = models.CharField(
+        default='',
+        max_length=254,
+        verbose_name='Description',
+        help_text='',
+        blank=True,
+        null=True,
+    )
+    file = models.ImageField(
+        default='',
+        storage=ImageSettingStorage(),
+        verbose_name='Image',
+        help_text='',
+        blank=True,
+        null=True,
+    )
 
-    date = models.DateTimeField(verbose_name='Oluşturma Tarihi', blank=True, auto_now_add=True)
+    date = models.DateTimeField(verbose_name='Created Date', blank=True, auto_now_add=True)
 
     class Meta:
-        verbose_name_plural = 'Görsel Ayarlar'
-        verbose_name = 'Görsel Ayar'
+        verbose_name_plural = 'Image Settings'
+        verbose_name = 'Image Setting'
         ordering = ('setting',)
 
     def __str__(self):
-        return 'Görsel Ayar: %s' % self.setting
+        return 'Image Setting: %s' % self.name
 
 
 class Document(models.Model):
-    button_text = models.CharField(default='Download', max_length=254, verbose_name='Buton Yazısı', help_text='',
-                                   blank=True, null=True)
-    file = models.FileField(default='',
-                            storage=DocumentStorage(),
-                            verbose_name='Döküman', help_text='')
-
-    date = models.DateTimeField(verbose_name='Oluşturma Tarihi', blank=True, auto_now_add=True)
+    button_text = models.CharField(
+        default='Download',
+        max_length=254,
+        verbose_name='Button Text',
+        help_text='',
+        blank=True,
+        null=True,
+    )
+    file = models.FileField(
+        default='',
+        storage=DocumentStorage(),
+        verbose_name='Document',
+        help_text='',
+    )
+    date = models.DateTimeField(verbose_name='Created Date', blank=True, auto_now_add=True)
 
     class Meta:
-        verbose_name_plural = 'Döküman'
-        verbose_name = 'Döküman'
+        verbose_name_plural = 'Documents'
+        verbose_name = 'Document'
         ordering = ('date',)
 
     def __str__(self):
-        return 'Döküman: %s' % self.button_text
+        return 'Document: %s' % self.button_text
 
 
-class Skills(models.Model):
-    order = models.IntegerField(default=1, verbose_name='Sıralama', blank=True)
-    header = models.CharField(default='', max_length=254, verbose_name='Yetenek Adı', help_text='', blank=True,
-                              null=True)
-    percent = models.IntegerField(default=50, verbose_name='Yüzdelik (%)',
-                                  validators=[MinValueValidator(0), MaxValueValidator(100)])
+class Skill(models.Model):
+    order = models.IntegerField(default=1, verbose_name='Order', blank=True)
+    name = models.CharField(
+        default='',
+        max_length=254,
+        verbose_name='Name',
+        help_text='',
+        blank=True,
+        null=True,
+    )
+    percent = models.IntegerField(
+        default=50,
+        verbose_name='Percent',
+        validators=[MinValueValidator(0), MaxValueValidator(100)],
+    )
 
-    date = models.DateTimeField(verbose_name='Oluşturma Tarihi', blank=True, auto_now_add=True)
+    date = models.DateTimeField(verbose_name='Created Date', blank=True, auto_now_add=True)
 
     class Meta:
-        verbose_name_plural = 'Yetenek'
-        verbose_name = 'Yetenek'
+        verbose_name_plural = 'Skills'
+        verbose_name = 'Skill'
         ordering = ('order',)
 
     def __str__(self):
-        return 'Yetenek: %s' % self.header
+        return 'Skill: %s' % self.name
 
 
-class Features(models.Model):
-    order = models.IntegerField(default=1, verbose_name='Sıralama', blank=True)
-    header = models.CharField(default='', max_length=254, verbose_name='Özellik', help_text='', blank=True, null=True)
-    icon = models.CharField(default='', max_length=254, verbose_name='İkon (Font Awesome)',
-                            help_text='https://fontawesome.com/v5.15/icons?d=gallery&p=2&m=free', blank=True, null=True)
+class Feature(models.Model):
+    order = models.IntegerField(default=1, verbose_name='Order', blank=True)
+    name = models.CharField(default='', max_length=254, verbose_name='Name', help_text='', blank=True, null=True)
+    icon = models.CharField(
+        default='',
+        max_length=254,
+        verbose_name='Icon (Font Awesome)',
+        help_text='https://fontawesome.com/v5.15/icons?d=gallery&p=2&m=free',
+        blank=True,
+        null=True,
+    )
 
-    date = models.DateTimeField(verbose_name='Oluşturma Tarihi', blank=True, auto_now_add=True)
+    date = models.DateTimeField(verbose_name='Created Date', blank=True, auto_now_add=True)
 
     class Meta:
-        verbose_name_plural = 'Özellikler'
-        verbose_name = 'Özellik'
+        verbose_name_plural = 'Features'
+        verbose_name = 'Feature'
         ordering = ('order',)
 
     def __str__(self):
-        return 'Özellik: %s' % self.header
+        return 'Feature: %s' % self.name
 
     def save(self, *args, **kwargs):
         if 'ot-circle' not in self.icon and 'class=' in self.icon:
@@ -112,23 +152,23 @@ class Features(models.Model):
         super().save(*args, **kwargs)
 
 
-class Messages(models.Model):
-    name = models.CharField(default='', max_length=254, verbose_name='Ad Soyad', help_text='', blank=True)
-    email = models.CharField(default='', max_length=254, verbose_name='E-posta', help_text='', blank=True)
-    # subject = models.CharField(default='', max_length=254, verbose_name='Konu', help_text='', blank=True)
-    message = models.CharField(default='', max_length=999, verbose_name='Mesajınız', help_text='', blank=True)
-    error_message = models.TextField(default='', verbose_name='Hata Mesajı', help_text='', blank=True, null=True)
-    success = models.BooleanField(default=True, verbose_name='Başarılı')
+class Message(models.Model):
+    name = models.CharField(default='', max_length=254, verbose_name='Name', help_text='', blank=True)
+    email = models.CharField(default='', max_length=254, verbose_name='Email', help_text='', blank=True)
+    # subject = models.CharField(default='', max_length=254, verbose_name='Subject', help_text='', blank=True)
+    message = models.CharField(default='', max_length=999, verbose_name='Your Message', help_text='', blank=True)
+    error_message = models.TextField(default='', verbose_name='Error Message', help_text='', blank=True, null=True)
+    success = models.BooleanField(default=True, verbose_name='Success')
 
     date = models.DateTimeField(blank=True, auto_now_add=True)
 
     class Meta:
-        verbose_name_plural = 'Mesajlar'
-        verbose_name = 'Mesaj'
+        verbose_name_plural = 'Messages'
+        verbose_name = 'Message'
         ordering = ('-date',)
 
     def __str__(self):
-        return 'Mesaj: %s' % self.name
+        return 'Message: %s' % self.name
 
 
 def delete_old_file(model, media_storage=None, instance=None, delete_older=False, path=None):
@@ -177,8 +217,8 @@ def delete_old_file(model, media_storage=None, instance=None, delete_older=False
     return False
 
 
-@receiver(models.signals.post_delete, sender=ImageSettings)
-def auto_delete_file_on_delete_ImageSettings(sender, instance, **kwargs):
+@receiver(models.signals.post_delete, sender=ImageSetting)
+def auto_delete_file_on_delete_ImageSetting(sender, instance, **kwargs):
     """
     Deletes file from filesystem
     when corresponding `MediaFile` object is deleted.
@@ -186,8 +226,8 @@ def auto_delete_file_on_delete_ImageSettings(sender, instance, **kwargs):
     delete_old_file(sender, instance=instance, delete_older=False)
 
 
-@receiver(models.signals.pre_save, sender=ImageSettings)
-def auto_delete_file_on_change_ImageSettings(sender, instance, **kwargs):
+@receiver(models.signals.pre_save, sender=ImageSetting)
+def auto_delete_file_on_change_ImageSetting(sender, instance, **kwargs):
     """
     Deletes old file from filesystem
     when corresponding `MediaFile` object is updated

@@ -26,7 +26,7 @@ def get_val_in_type(value, val_type):
 
 def get_parameter(setting, val_type='str'):
     try:
-        parameter = GeneralSettings.objects.get(setting=setting).parameter
+        parameter = GeneralSetting.objects.get(setting=setting).parameter
     except:
         parameter = ''
 
@@ -37,7 +37,7 @@ def get_parameter(setting, val_type='str'):
 
 def get_image(setting):
     try:
-        image = ImageSettings.objects.get(setting=setting).file.url
+        image = ImageSetting.objects.get(setting=setting).file.url
         if not image:
             raise Exception
     except:
@@ -46,8 +46,8 @@ def get_image(setting):
     return image
 
 
-def get_skills_table():
-    skills = Skills.objects.all().order_by('order')
+def get_Skill_table():
+    skills = Skill.objects.all().order_by('order')
     skills_1 = []
     skills_2 = []
 

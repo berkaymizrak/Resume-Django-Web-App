@@ -15,7 +15,7 @@ from django.http import JsonResponse
 # from django.core.files.storage import FileSystemStorage
 # from django.core.files.storage import default_storage
 import os
-from resume.custom_storages import MediaStorage, ImageSettingsStorage, DocumentStorage
+from resume.custom_storages import MediaStorage, ImageSettingStorage, DocumentStorage
 
 from .decorators import *
 from django.contrib.auth.decorators import user_passes_test
@@ -45,7 +45,7 @@ def send_mail_check(request, name, subject, message, to, reply_to=settings.DEFAU
         success = False
         error_message = str(e)
 
-    Messages.objects.create(
+    Message.objects.create(
         name=name,
         email=to,
         message=message,
@@ -168,8 +168,8 @@ def ajax_create_image_name(request):
 
 def parse_model_details(model_param):
     if model_param == 'image_settings':
-        model = ImageSettings
-        media_storage = ImageSettingsStorage()
+        model = ImageSetting
+        media_storage = ImageSettingStorage()
     elif model_param == 'document':
         model = Document
         media_storage = DocumentStorage()
@@ -278,8 +278,8 @@ def index(request):
                 message = 'Invalid reCAPTCHA. Please try again.'
                 messages.error(request, message)
         else:
-            mesaj = "Please fill all required fields."
-            messages.error(request, mesaj)
+            message = "Please fill all required fields."
+            messages.error(request, message)
     else:
         redirect_contact = request.session.get('redirect_contact', None)
         try:
@@ -292,9 +292,9 @@ def index(request):
     contact_header = utils.get_parameter('contact_header')
     contact_description = utils.get_parameter('contact_description')
 
-    skills_1, skills_2 = utils.get_skills_table()
+    skills_1, skills_2 = utils.get_skill_table()
 
-    features = Features.objects.all().order_by('order')
+    features = Feature.objects.all().order_by('order')
 
     context = {
         'skills_1': skills_1,
@@ -315,7 +315,7 @@ def index(request):
 
 def special_links(request, slug):
     try:
-        object = ImageSettings.objects.get(setting=slug)
+        object = ImageSetting.objects.get(setting=slug)
     except:
         object = None
 

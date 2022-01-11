@@ -5,8 +5,8 @@ from user.models import *
 # Register your models here.
 
 
-@admin.register(GeneralSettings)
-class GeneralSettingsAdmin(admin.ModelAdmin):
+@admin.register(GeneralSetting)
+class GeneralSettingAdmin(admin.ModelAdmin):
 
     list_display = ['id', 'setting', 'description', 'parameter', 'date']
     search_fields = ['setting', 'description', 'parameter', ]
@@ -14,11 +14,11 @@ class GeneralSettingsAdmin(admin.ModelAdmin):
     # list_filter = ['sebep', 'user']
 
     class Meta:
-        model = GeneralSettings
+        model = GeneralSetting
 
 
-@admin.register(ImageSettings)
-class ImageSettingsAdmin(admin.ModelAdmin):
+@admin.register(ImageSetting)
+class ImageSettingAdmin(admin.ModelAdmin):
 
     list_display = ['id', 'setting', 'description', 'file', 'date']
     search_fields = ['setting', 'description', 'file', ]
@@ -26,11 +26,11 @@ class ImageSettingsAdmin(admin.ModelAdmin):
     # list_filter = ['sebep', 'user']
 
     class Meta:
-        model = ImageSettings
+        model = ImageSetting
 
 
-@admin.register(Skills)
-class SkillsAdmin(admin.ModelAdmin):
+@admin.register(Skill)
+class SkillAdmin(admin.ModelAdmin):
 
     list_display = ['id', 'order', 'header', 'percent', 'date']
     search_fields = ['header', ]
@@ -38,11 +38,11 @@ class SkillsAdmin(admin.ModelAdmin):
     # list_filter = ['header', ]
 
     class Meta:
-        model = Skills
+        model = Skill
 
 
-@admin.register(Features)
-class FeaturesAdmin(admin.ModelAdmin):
+@admin.register(Feature)
+class FeatureAdmin(admin.ModelAdmin):
 
     list_display = ['id', 'order', 'header', 'icon', 'date']
     search_fields = ['header', ]
@@ -50,11 +50,11 @@ class FeaturesAdmin(admin.ModelAdmin):
     # list_filter = ['header', ]
 
     class Meta:
-        model = Features
+        model = Feature
 
 
-@admin.register(Messages)
-class MessagesAdmin(admin.ModelAdmin):
+@admin.register(Message)
+class MessageAdmin(admin.ModelAdmin):
 
     list_display = ['name', 'email', 'message', 'success', 'error_message', 'date']
     search_fields = ['name', 'email', 'message', ]
@@ -62,7 +62,7 @@ class MessagesAdmin(admin.ModelAdmin):
     list_filter = ['success', 'error_message', ]
 
     class Meta:
-        model = Messages
+        model = Message
 
 
 @admin.register(Document)
