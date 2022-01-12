@@ -287,24 +287,22 @@ def index(request):
         except:
             pass
 
-    about_header = utils.get_parameter('about_header')
-    about_description = utils.get_parameter('about_description')
-    contact_header = utils.get_parameter('contact_header')
-    contact_description = utils.get_parameter('contact_description')
+    person_name = utils.get_parameter('person_name')
+    person_position = utils.get_parameter('person_position')
+    person_description = utils.get_parameter('person_description')
+    person_image = utils.get_image('person_image')
 
-    skills_1, skills_2 = utils.get_skill_table()
-
-    features = Feature.objects.all().order_by('order')
+    skills = Skill.objects.all()
+    social_medias = SocialMedia.objects.all()
 
     context = {
-        'skills_1': skills_1,
-        'skills_2': skills_2,
-        'features': features,
+        'skills': skills,
+        'social_medias': social_medias,
 
-        'about_header': about_header,
-        'about_description': about_description,
-        'contact_header': contact_header,
-        'contact_description': contact_description,
+        'person_name': person_name,
+        'person_position': person_position,
+        'person_description': person_description,
+        'person_image': person_image,
 
         'form': form,
         'redirect_contact': redirect_contact,

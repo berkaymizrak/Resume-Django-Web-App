@@ -1,15 +1,16 @@
 from django.contrib import admin
 
 from user.models import *
+from import_export.admin import ImportExportModelAdmin
 
 # Register your models here.
 
 
 @admin.register(GeneralSetting)
-class GeneralSettingAdmin(admin.ModelAdmin):
+class GeneralSettingAdmin(ImportExportModelAdmin):
 
-    list_display = ['id', 'setting', 'description', 'parameter', 'date']
-    search_fields = ['setting', 'description', 'parameter', ]
+    list_display = ['id', 'name', 'description', 'parameter', 'date']
+    search_fields = ['name', 'description', 'parameter', ]
     list_editable = ['parameter', ]
     # list_filter = ['sebep', 'user']
 
@@ -18,10 +19,10 @@ class GeneralSettingAdmin(admin.ModelAdmin):
 
 
 @admin.register(ImageSetting)
-class ImageSettingAdmin(admin.ModelAdmin):
+class ImageSettingAdmin(ImportExportModelAdmin):
 
-    list_display = ['id', 'setting', 'description', 'file', 'date']
-    search_fields = ['setting', 'description', 'file', ]
+    list_display = ['id', 'name', 'description', 'file', 'date']
+    search_fields = ['name', 'description', 'file', ]
     list_editable = ['file', ]
     # list_filter = ['sebep', 'user']
 
@@ -30,31 +31,31 @@ class ImageSettingAdmin(admin.ModelAdmin):
 
 
 @admin.register(Skill)
-class SkillAdmin(admin.ModelAdmin):
+class SkillAdmin(ImportExportModelAdmin):
 
-    list_display = ['id', 'order', 'header', 'percent', 'date']
-    search_fields = ['header', ]
-    list_editable = ['order', 'header', 'percent', ]
-    # list_filter = ['header', ]
+    list_display = ['id', 'order', 'name', 'percent', 'date']
+    search_fields = ['name', ]
+    list_editable = ['order', 'name', 'percent', ]
+    # list_filter = ['name', ]
 
     class Meta:
         model = Skill
 
 
-@admin.register(Feature)
-class FeatureAdmin(admin.ModelAdmin):
+@admin.register(SocialMedia)
+class SocialMediaAdmin(ImportExportModelAdmin):
 
-    list_display = ['id', 'order', 'header', 'icon', 'date']
-    search_fields = ['header', ]
-    list_editable = ['order', 'header', 'icon', ]
-    # list_filter = ['header', ]
+    list_display = ['id', 'order', 'url', 'icon', 'date']
+    search_fields = ['url', ]
+    list_editable = ['order', 'url', 'icon', ]
+    # list_filter = ['name', ]
 
     class Meta:
-        model = Feature
+        model = SocialMedia
 
 
 @admin.register(Message)
-class MessageAdmin(admin.ModelAdmin):
+class MessageAdmin(ImportExportModelAdmin):
 
     list_display = ['name', 'email', 'message', 'success', 'error_message', 'date']
     search_fields = ['name', 'email', 'message', ]
@@ -66,7 +67,7 @@ class MessageAdmin(admin.ModelAdmin):
 
 
 @admin.register(Document)
-class DocumentAdmin(admin.ModelAdmin):
+class DocumentAdmin(ImportExportModelAdmin):
     list_display = ['id', 'button_text', 'file', 'date']
     search_fields = ['button_text', 'file', ]
     list_editable = ['button_text', 'file', ]

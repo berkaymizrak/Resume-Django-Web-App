@@ -32,7 +32,7 @@ class GeneralSetting(models.Model):
     class Meta:
         verbose_name_plural = 'General Settings'
         verbose_name = 'General Setting'
-        ordering = ('setting',)
+        ordering = ('name',)
 
     def __str__(self):
         return 'General Setting: %s' % self.name
@@ -62,7 +62,7 @@ class ImageSetting(models.Model):
     class Meta:
         verbose_name_plural = 'Image Settings'
         verbose_name = 'Image Setting'
-        ordering = ('setting',)
+        ordering = ('name',)
 
     def __str__(self):
         return 'Image Setting: %s' % self.name
@@ -121,9 +121,9 @@ class Skill(models.Model):
         return 'Skill: %s' % self.name
 
 
-class Feature(models.Model):
+class SocialMedia(models.Model):
     order = models.IntegerField(default=1, verbose_name='Order', blank=True)
-    name = models.CharField(default='', max_length=254, verbose_name='Name', help_text='', blank=True, null=True)
+    url = models.URLField(default='', max_length=254, verbose_name='URL', help_text='', blank=True, null=True)
     icon = models.CharField(
         default='',
         max_length=254,
@@ -136,12 +136,12 @@ class Feature(models.Model):
     date = models.DateTimeField(verbose_name='Created Date', blank=True, auto_now_add=True)
 
     class Meta:
-        verbose_name_plural = 'Features'
-        verbose_name = 'Feature'
+        verbose_name_plural = 'Social Medias'
+        verbose_name = 'Social Media'
         ordering = ('order',)
 
     def __str__(self):
-        return 'Feature: %s' % self.name
+        return 'Social Media: %s' % self.icon
 
     def save(self, *args, **kwargs):
         if 'ot-circle' not in self.icon and 'class=' in self.icon:
