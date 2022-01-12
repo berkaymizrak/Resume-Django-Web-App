@@ -15,7 +15,7 @@
                         </div>
                         <div class="media-body">
                             <div class="personal_text">
-                                <h6>Hello Everybody, i am</h6>
+                                <h6>I am</h6>
                                 <h3>{{ person_name }}</h3>
                                 <h4>{{ person_position }}</h4>
                                 <p>
@@ -71,7 +71,8 @@
                             <div class="skill_main">
                                 <div class="skill_item">
                                     <h4>
-                                        {{ skill.name|get_object_value_or_none }} <span class="counter">{{ skill.percent }}</span>%
+                                        {{ skill.name|get_object_value_or_none }} <span
+                                            class="counter">{{ skill.percent }}</span>%
                                     </h4>
                                     <div class="progress_br">
                                         <div class="progress">
@@ -138,7 +139,8 @@
                         </div>
                         <input type="hidden" id="g-recaptcha-response" name="g-recaptcha-response">
                         <div class="col-md-12 text-right">
-                            <button id="submit_btn" type="submit" value="submit" class="btn submit_btn">Send Message</button>
+                            <button id="submit_btn" type="submit" value="submit" class="btn submit_btn">Send Message
+                            </button>
                         </div>
                     </form>
                 </div>
