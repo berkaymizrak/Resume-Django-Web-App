@@ -83,6 +83,7 @@ class Document(models.Model):
         verbose_name='Document',
         help_text='',
     )
+    show_on_page = models.BooleanField(default=True, verbose_name='Show on Page')
     date = models.DateTimeField(verbose_name='Created Date', blank=True, auto_now_add=True)
 
     class Meta:

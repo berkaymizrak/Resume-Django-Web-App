@@ -68,11 +68,11 @@ class MessageAdmin(ImportExportModelAdmin):
 
 @admin.register(Document)
 class DocumentAdmin(ImportExportModelAdmin):
-    list_display = ['id', 'button_text', 'file', 'date']
+    list_display = ['id', 'button_text', 'file', 'show_on_page', 'date']
     search_fields = ['button_text', 'file', ]
-    list_editable = ['button_text', 'file', ]
+    list_editable = ['button_text', 'file', 'show_on_page', ]
 
-    list_filter = ['button_text']
+    list_filter = ['button_text', 'show_on_page', ]
 
     class Meta:
         model = Document

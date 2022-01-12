@@ -294,10 +294,12 @@ def index(request):
 
     skills = Skill.objects.all()
     social_medias = SocialMedia.objects.all()
+    documents = Document.objects.filter(show_on_page=True)
 
     context = {
         'skills': skills,
         'social_medias': social_medias,
+        'documents': documents,
 
         'person_name': person_name,
         'person_position': person_position,

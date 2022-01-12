@@ -88,6 +88,19 @@
                                     </li>
                                 {% endfor %}
                             </ul>
+
+                            <div class="row">
+                                {% for document in documents %}
+                                    <div class="col-md-6">
+
+                                        <div class="more_btn">
+                                            <a class="main_btn" href="{{ document.file.url }}"
+                                               target="_blank">{{ document.button_text }}</a>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -98,11 +111,11 @@
 <!--================End Home Banner Area =================-->
 
 <!--================Welcome Area =================-->
-<section class="welcome_area p_120" style="padding-top: 0; padding-bottom: 60px; ">
+<section class="welcome_area p_120" style="padding-bottom: 60px; ">
     <div class="container">
         <div class="row welcome_inner">
             {% for skill in skills %}
-                <div class="col-lg-6">
+                <div class="col-md-6">
                     <div class="tools_expert">
                         <div class="skill_main">
                             <div class="skill_item">
@@ -174,6 +187,27 @@
     </div>
 </section>
 <!--================Contact Area =================-->
+
+<!--================Footer Area =================-->
+<footer class="footer_area p-3">
+    <div class="container">
+        <div class="footer_inner">
+            <aside class="f_widget ab_widget">
+                <p>
+                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                    Copyright &copy;2021
+                    All rights reserved
+                    | This website designed by
+                    <a href="https://colorlib.com" target="_blank">Colorlib</a>
+                    | This website developed by
+                    <a href="https://berkaymizrak.com">BerkayMizrak</a>
+                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                </p>
+            </aside>
+        </div>
+    </div>
+</footer>
+<!--================End Footer Area =================-->
 
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
