@@ -10,16 +10,16 @@
                 <div class="banner_content">
                     <div class="media">
                         <div class="d-flex">
-                            <img src="{{ person_image|get_image_url }}" alt="Berkay Mizrak Photo"
+                            <img src="{{ person_image }}" alt="Berkay Mizrak Photo"
                                  style="width: 100%; max-width: 500px">
                         </div>
                         <div class="media-body">
                             <div class="personal_text">
                                 <h6>Hello Everybody, i am</h6>
-                                <h3>{{ person_name|get_object_value_or_none }}</h3>
-                                <h4>{{ person_position|get_object_value_or_none }}</h4>
+                                <h3>{{ person_name }}</h3>
+                                <h4>{{ person_position }}</h4>
                                 <p>
-                                    {{ person_description|get_object_value_or_none }}
+                                    {{ person_description }}
                                 </p>
                                 <ul class="list basic_info">
                                     <li>
