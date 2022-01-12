@@ -6,7 +6,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="icon" href="{% static 'favicon.png' %}" type="image/png">
-    <title>{{ site_title }}{% block title %}{% if home_detail_title %} | {{ home_detail_title }}{% endif %}{% endblock %}</title>
+    <title>{{ site_title }}{% block title %}{% if home_detail_title %} | {{ home_detail_title }}
+    {% endif %}{% endblock %}</title>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="{% static 'template/css/bootstrap.css' %}">
     <link rel="stylesheet" href="{% static 'template/vendors/linericon/style.css' %}">
@@ -24,22 +25,22 @@
     <link rel="stylesheet" href="{% static 'template/css/style.css' %}">
     <link rel="stylesheet" href="{% static 'template/css/responsive.css' %}">
 
-        <script src='https://www.google.com/recaptcha/api.js?render={{ GOOGLE_RECAPTCHA_SITE_KEY }}'></script>
+    <script src='https://www.google.com/recaptcha/api.js?render={{ GOOGLE_RECAPTCHA_SITE_KEY }}'></script>
 
-{#            <style>#}
-{#                .grecaptcha-badge {#}
-{#                     opacity:0; !important;#}
-{#                }#}
-{#            </style>#}
+    <style>
+        .grecaptcha-badge {
+            opacity: 0 !important;
+        }
+    </style>
 
-            <script>
-                //global grecaptcha
-                grecaptcha.ready(function () {
-                    grecaptcha.execute('{{ GOOGLE_RECAPTCHA_SITE_KEY }}', {action: "{% url 'index' %}"}).then(function (token) {
-                        document.getElementById('g-recaptcha-response').value = token;
-                    });
-                });
-            </script>
+    <script>
+        //global grecaptcha
+        grecaptcha.ready(function () {
+            grecaptcha.execute('{{ GOOGLE_RECAPTCHA_SITE_KEY }}', {action: "{% url 'index' %}"}).then(function (token) {
+                document.getElementById('g-recaptcha-response').value = token;
+            });
+        });
+    </script>
 </head>
 <body>
 
@@ -116,5 +117,9 @@
 <script src="{% static 'template/vendors/counter-up/jquery.counterup.min.js' %}"></script>
 <script src="{% static 'template/js/mail-script.js' %}"></script>
 <script src="{% static 'template/js/theme.js' %}"></script>
+{% block extra_scripts %}
+
+{% endblock %}
+
 </body>
 </html>

@@ -1,4 +1,5 @@
 {% extends 'layout.html' %}
+{% load static %}
 
 {% block content %}
     <!--================Home Banner Area =================-->
@@ -112,26 +113,31 @@
                         {% csrf_token %}
                         <div class="col-md-6">
                             <div class="form-group">
-                                <input type="text" class="form-control" id="name" name="name"
-                                       placeholder="Enter your name">
+                                <input type="text" class="form-control" id="{{ form.name.id_for_label }}"
+                                       name="{{ form.name.html_name }}"
+                                       placeholder="{{ form.name.label }}">
                             </div>
                             <div class="form-group">
-                                <input type="email" class="form-control" id="email" name="email"
-                                       placeholder="Enter email address">
+                                <input type="email" class="form-control" id="{{ form.email.id_for_label }}"
+                                       name="{{ form.email.html_name }}"
+                                       placeholder="{{ form.email.label }}">
                             </div>
                             <div class="form-group">
-                                <input type="text" class="form-control" id="subject" name="subject"
-                                       placeholder="Enter Subject">
+                                <input type="text" class="form-control" id="{{ form.subject.id_for_label }}"
+                                       name="{{ form.subject.html_name }}"
+                                       placeholder="{{ form.subject.label }}">
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                            <textarea class="form-control" name="message" id="message" rows="1"
-                                      placeholder="Enter Message"></textarea>
+                            <textarea class="form-control" name="{{ form.message.html_name }}"
+                                      id="{{ form.message.id_for_label }}" rows="1"
+                                      placeholder="{{ form.message.label }}"></textarea>
                             </div>
                         </div>
+                        <input type="hidden" id="g-recaptcha-response" name="g-recaptcha-response">
                         <div class="col-md-12 text-right">
-                            <button type="button" value="submit" class="btn submit_btn">Send Message</button>
+                            <button id="submit_btn" type="submit" value="submit" class="btn submit_btn">Send Message</button>
                         </div>
                     </form>
                 </div>
@@ -140,5 +146,44 @@
     </section>
     <!--================Contact Area =================-->
 
+    <!--================Contact Success and Error message Area =================-->
+    <div id="success" class="modal modal-message fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <i class="fas fa-times"></i>
+                    </button>
+                    <h2>Thank you</h2>
+                    <p id="success_message">Your message is successfully sent...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modals error -->
+
+    <div id="error" class="modal modal-message fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <i class="fas fa-times"></i>
+                    </button>
+                    <h2>Sorry !</h2>
+                    <p id="error_message"> Something went wrong </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--================End Contact Success and Error message Area =================-->
+
+{% endblock %}
+
+{% block extra_scripts %}
+    <!-- contact js -->
+    <script src="{% static 'template/js/jquery.form.js' %}"></script>
+    <script src="{% static 'template/js/jquery.validate.min.js' %}"></script>
+    <script src="{% static 'template/js/contact.js' %}"></script>
 {% endblock %}
 

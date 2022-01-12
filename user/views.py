@@ -99,7 +99,7 @@ def index(request):
                     to=email,
                 )
                 context['success'] = True
-                context['message'] = 'Message successfully sent.'
+                context['message'] = 'Your message is successfully sent...'
             else:
                 context['success'] = False
                 context['message'] = 'Invalid reCAPTCHA. Please try again.'

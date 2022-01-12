@@ -155,10 +155,10 @@ class SocialMedia(models.Model):
 
 
 class Message(models.Model):
-    name = models.CharField(default='', max_length=254, verbose_name='Name', help_text='', blank=True)
-    email = models.CharField(default='', max_length=254, verbose_name='Email', help_text='', blank=True)
-    subject = models.CharField(default='', max_length=254, verbose_name='Subject', help_text='', blank=True)
-    message = models.CharField(default='', max_length=999, verbose_name='Your Message', help_text='', blank=True)
+    name = models.CharField(default='', max_length=254, verbose_name='Enter Your Name', help_text='', blank=True)
+    email = models.CharField(default='', max_length=254, verbose_name='Enter Email Address', help_text='', blank=True)
+    subject = models.CharField(default='', max_length=254, verbose_name='Enter Subject', help_text='', blank=True)
+    message = models.CharField(default='', max_length=999, verbose_name='Enter Message', help_text='', blank=True)
     error_message = models.TextField(default='', verbose_name='Error Message', help_text='', blank=True, null=True)
     success = models.BooleanField(default=True, verbose_name='Success')
 
