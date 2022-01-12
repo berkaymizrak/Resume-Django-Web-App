@@ -6,7 +6,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="icon" href="{% static 'favicon.png' %}" type="image/png">
-    <title>MeetMe Personal</title>
+    <title>{{ site_title }}</title>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="{% static 'template/css/bootstrap.css' %}">
     <link rel="stylesheet" href="{% static 'template/vendors/linericon/style.css' %}">
@@ -179,7 +179,7 @@
                         </div>
                     </div>
                     <div class="col-md-12 text-right">
-                        <button type="submit" value="submit" class="btn submit_btn">Send Message</button>
+                        <button type="button" value="submit" class="btn submit_btn">Send Message</button>
                     </div>
                 </form>
             </div>

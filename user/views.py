@@ -245,7 +245,7 @@ def parse_file_list(request, in_POST=True):
 
 def index(request):
     form = ContactForm(request.POST or None)
-    if request.method == 'POST':
+    if request.method == 'POST' and False:
         redirect_contact = True
         if form.is_valid():
             ''' reCAPTCHA validation '''
@@ -287,6 +287,8 @@ def index(request):
         except:
             pass
 
+    site_title = utils.get_parameter('site_title')
+    site_description = utils.get_parameter('site_description')
     person_name = utils.get_parameter('person_name')
     person_position = utils.get_parameter('person_position')
     person_description = utils.get_parameter('person_description')
@@ -301,6 +303,8 @@ def index(request):
         'social_medias': social_medias,
         'documents': documents,
 
+        'site_title': site_title,
+        'site_description': site_description,
         'person_name': person_name,
         'person_position': person_position,
         'person_description': person_description,
