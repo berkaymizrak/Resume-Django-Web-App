@@ -15,6 +15,10 @@ theme.
 @Developer URL: http://rocky.wethemez.com
 Author E-mail: rockybd1995@gmail.com
 
+
+
+
+
 @Default Styles
 
 Table of Content:
@@ -301,9 +305,10 @@ button:focus {
 .home_banner_area {
   position: relative;
   z-index: 1;
-  background-image: -moz-linear-gradient(0deg, #766dff 0%, #88f3ff 100%);
-  background-image: -webkit-linear-gradient(0deg, #766dff 0%, #88f3ff 100%);
-  background-image: -ms-linear-gradient(0deg, #766dff 0%, #88f3ff 100%);
+  /*background-image: -moz-linear-gradient(0deg, #766dff 0%, #88f3ff 100%);*/
+  /*background-image: -webkit-linear-gradient(0deg, #766dff 0%, #88f3ff 100%);*/
+  /*background-image: -ms-linear-gradient(0deg, #766dff 0%, #88f3ff 100%);*/
+  background-color: #1e1e1e;
   margin-bottom: 200px; }
   .home_banner_area .box_1620 {
     min-height: 700px;
@@ -328,6 +333,19 @@ button:focus {
       .home_banner_area .banner_inner .banner_content .media .media-body {
         vertical-align: middle;
         align-self: center; }
+
+      .profilePicture {
+        border-color: #f8bf03;
+        border-left-style: solid;
+        border-width: 15px;
+      }
+
+
+
+
+
+
+
 
 .blog_banner {
   min-height: 780px;
@@ -2411,7 +2429,7 @@ h6 {
 .submit_btn {
   width: auto;
   display: inline-block;
-  background: #766dff;
+  background: black;
   padding: 0px 50px;
   color: #fff;
   font-family: "Roboto", sans-serif;
@@ -2534,7 +2552,7 @@ h6 {
     .tools_expert .skill_main .skill_item .progress {
       height: 10px;
       border-radius: 10px;
-      background: #e8e8e8; }
+      background: #737373; }
       .tools_expert .skill_main .skill_item .progress .progress-bar {
         width: 0%;
         transition: width .6s ease;
@@ -2542,9 +2560,9 @@ h6 {
         border-radius: 5px;
         vertical-align: middle;
         align-self: center;
-        background-image: -moz-linear-gradient(0deg, #766dff 0%, #88f3ff 100%);
-        background-image: -webkit-linear-gradient(0deg, #766dff 0%, #88f3ff 100%);
-        background-image: -ms-linear-gradient(0deg, #766dff 0%, #88f3ff 100%); }
+        F6A404FFF6A404FF        background-image: -moz-linear-gradient(0deg, #f8e78f 0%, #f6a404 100%);
+        background-image: -webkit-linear-gradient(0deg, #f8e78f 0%, #f6a404 100%);
+        background-image: -ms-linear-gradient(0deg, #f8e78f 0%, #f6a404 100%); }
 
 /* End Welcome Area css
 ============================================================================================ */
@@ -2754,22 +2772,23 @@ h6 {
       line-height: 40px;
       width: 40px;
       /*background: #e8e8e8;*/
-      background: #52b9eb;
+      background: #3b3b3b;
       border-radius: 5px;
       display: inline-block;
       text-align: center;
       color: #fff;
       font-size: 16px; }
     .personal_text .personal_social li:hover a {
-      background-image: -moz-linear-gradient(0deg, #766dff 0%, #88f3ff 100%);
-      background-image: -webkit-linear-gradient(0deg, #766dff 0%, #88f3ff 100%);
-      background-image: -ms-linear-gradient(0deg, #766dff 0%, #88f3ff 100%); }
+      background-image: -moz-linear-gradient(0deg, #f8e78f 0%, #f6a404 100%);
+      background-image: -webkit-linear-gradient(0deg, #f1ca06 0%, #f6a404 100%);
+      background-image: -ms-linear-gradient(0deg, #f1ca06 0%, #f6a404 100%); }
 
-/* End Personal Profile Area css
+/* End Personal Profile Area cssF8E78FFFF8E78FFF
 ============================================================================================ */
 /*---------------------------------------------------- */
 /*----------------------------------------------------*/
 /* Gallery Area css
+
 ============================================================================================ */
 .isotope_fillter {
   margin-bottom: 50px; }
@@ -2848,7 +2867,7 @@ h6 {
 /* Testimonials Area css
 ============================================================================================ */
 .testimonials_area {
-  background: #f9f9ff; }
+  background: #f5f5f5; }
   .testimonials_area.testi_two {
     background: #fff; }
     .testimonials_area.testi_two .testi_inner {
@@ -2917,7 +2936,7 @@ h6 {
   color: #777777;
   margin-bottom: 30px; }
   .ab_widget p a {
-    color: #766dff; }
+    color: #f6bd04; }
   .ab_widget p + p {
     margin-bottom: 0px; }
 

@@ -86,7 +86,7 @@
 					border-radius: 5px;
 					vertical-align: middle;
 					align-self: center;
-					background-image: -moz-linear-gradient( 0deg, rgb(118,109,255) 0%, rgb(136,243,255) 100%);
+					background-image: -moz-linear-gradient( 0deg, rgb(206, 153, 54) 0%, rgb(136,243,255) 100%);
 					background-image: -webkit-linear-gradient( 0deg, rgb(118,109,255) 0%, rgb(136,243,255) 100%);
 					background-image: -ms-linear-gradient( 0deg, rgb(118,109,255) 0%, rgb(136,243,255) 100%);
 				}
@@ -101,10 +101,11 @@
 /* My Tabs Area css
 ============================================================================================ */
 .mytabs_area{
-	background-image: -moz-linear-gradient( 0deg, rgb(118,109,255) 0%, rgb(136,243,255) 100%);
-	background-image: -webkit-linear-gradient( 0deg, rgb(118,109,255) 0%, rgb(136,243,255) 100%);
-	background-image: -ms-linear-gradient( 0deg, rgb(118,109,255) 0%, rgb(136,243,255) 100%);
+	background-image: -moz-linear-gradient( 0deg, rgb(248, 231, 143) 0%, rgb(246, 164, 4) 100%);
+	background-image: -webkit-linear-gradient( 0deg, rgb(248, 231, 143) 0%, rgb(246, 164, 4) 100%);
+	background-image: -ms-linear-gradient( 0deg, rgb(248, 231, 143) 0%, rgb(246, 164, 4) 100%);
 }
+
 .tabs_inner{
 	.nav.nav-tabs{
 		display: block;
