@@ -1,16 +1,46 @@
 {% extends 'layout.html' %}
 {% load template_filters %}
 
-{% block title %}
-    {{ site_title|get_object_value }} - {{ object.file.name|get_object_value }}
+
+{% block detailed_title %}
+    | {{ object.file.name|get_object_value_or_none }}
 {% endblock %}
 
 
 {% block body %}
 
     <div style="text-align: center;">
-        <img src="{{ object.file.url|get_object_value }}" alt="{{ site_title|get_object_value }} - {{ object.file.name|get_object_value }}">
+        <img id="image_obj"
+             src="{{ object.file|get_image_url }}"
+             alt="{{ site_title|get_object_value_or_none }} - {{ object.file.name|get_object_value_or_none }}">
     </div>
 
+{% endblock %}
+
+
+{% block extra_scripts %}
+    <script>
+        function resizecontainer() {
+            let height = window.innerHeight;
+            let width = window.innerWidth;
+
+            document.querySelector('#image_obj').style.maxHeight = height + 'px';
+            document.querySelector('#image_obj').style.maxWidth = width + 'px';
+        }
+
+        window.addEventListener('load', (event) => {
+            resizecontainer();
+        });
+
+        // Javascript resize function:
+        {#window.addEventListener('resize', (event) => {#}
+        {#    resizecontainer();#}
+        {# });#}
+        // Instead of above function, jQuery used to fire resize function:
+        window.onresize = function(event) {
+            resizecontainer();
+        };
+
+    </script>
 {% endblock %}
 

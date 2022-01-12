@@ -18,7 +18,7 @@ def get_image_url(image):
         return settings.DEFAULT_PNG
 
 @register.filter
-def get_object_value(value):
+def get_object_value_or_none(value):
     if value:
         return value
     else:

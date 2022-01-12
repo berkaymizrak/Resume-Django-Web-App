@@ -139,7 +139,7 @@ def index(request):
 
 def special_links(request, slug):
     try:
-        object = ImageSetting.objects.get(setting=slug)
+        object = ImageSetting.objects.get(name=slug)
     except:
         object = None
 
@@ -157,7 +157,7 @@ def special_links(request, slug):
 
 def csrf_failure(request, reason=""):
     context = {
-        'message': 'You may be already signed in. Please refresh the page.'
+        'reason': reason,
     }
     return render(request, '403.html', context=context)
 

@@ -1,4 +1,5 @@
 {% load static %}
+{% load template_filters %}
 <!doctype html>
 <html lang="en">
 <head>
@@ -6,8 +7,16 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="icon" href="{% static 'favicon.png' %}" type="image/png">
-    <title>{{ site_title }}{% block title %}{% if home_detail_title %} | {{ home_detail_title }}
-    {% endif %}{% endblock %}</title>
+    <title>
+        {% block title %}
+            {{ site_title|get_object_value_or_default }}
+            {% block detailed_title %}
+                {% if home_detail_title %}
+                    | {{ home_detail_title }}
+                {% endif %}
+            {% endblock %}
+        {% endblock %}
+    </title>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="{% static 'template/css/bootstrap.css' %}">
     <link rel="stylesheet" href="{% static 'template/vendors/linericon/style.css' %}">
@@ -41,6 +50,11 @@
             });
         });
     </script>
+
+    {% block extra_head %}
+
+    {% endblock %}
+
 </head>
 <body>
 

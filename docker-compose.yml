@@ -21,6 +21,7 @@ services:
       context: .
       args:
         REPO_PATH: ./
+      dockerfile: Dockerfile
     env_file:
       - resume/docker.env
     environment:

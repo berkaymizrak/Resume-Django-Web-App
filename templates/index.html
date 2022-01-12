@@ -1,5 +1,6 @@
 {% extends 'layout.html' %}
 {% load static %}
+{% load template_filters %}
 
 {% block content %}
     <!--================Home Banner Area =================-->
@@ -9,16 +10,16 @@
                 <div class="banner_content">
                     <div class="media">
                         <div class="d-flex">
-                            <img src="{{ person_image }}" alt="Berkay Mizrak Photo"
+                            <img src="{{ person_image|get_image_url }}" alt="Berkay Mizrak Photo"
                                  style="width: 100%; max-width: 500px">
                         </div>
                         <div class="media-body">
                             <div class="personal_text">
                                 <h6>Hello Everybody, i am</h6>
-                                <h3>{{ person_name }}</h3>
-                                <h4>{{ person_position }}</h4>
+                                <h3>{{ person_name|get_object_value_or_none }}</h3>
+                                <h4>{{ person_position|get_object_value_or_none }}</h4>
                                 <p>
-                                    {{ person_description }}
+                                    {{ person_description|get_object_value_or_none }}
                                 </p>
                                 <ul class="list basic_info">
                                     <li>
@@ -45,7 +46,7 @@
 
                                             <div class="more_btn">
                                                 <a class="main_btn" href="{{ document.file.url }}"
-                                                   target="_blank">{{ document.button_text }}</a>
+                                                   target="_blank">{{ document.button_text|get_object_value_or_none }}</a>
                                             </div>
                                         </div>
                                     {% endfor %}
@@ -70,7 +71,7 @@
                             <div class="skill_main">
                                 <div class="skill_item">
                                     <h4>
-                                        {{ skill.name }} <span class="counter">{{ skill.percent }}</span>%
+                                        {{ skill.name|get_object_value_or_none }} <span class="counter">{{ skill.percent }}</span>%
                                     </h4>
                                     <div class="progress_br">
                                         <div class="progress">
@@ -115,24 +116,24 @@
                             <div class="form-group">
                                 <input type="text" class="form-control" id="{{ form.name.id_for_label }}"
                                        name="{{ form.name.html_name }}"
-                                       placeholder="{{ form.name.label }}">
+                                       placeholder="{{ form.name.label|get_object_value_or_none }}">
                             </div>
                             <div class="form-group">
                                 <input type="email" class="form-control" id="{{ form.email.id_for_label }}"
                                        name="{{ form.email.html_name }}"
-                                       placeholder="{{ form.email.label }}">
+                                       placeholder="{{ form.email.label|get_object_value_or_none }}">
                             </div>
                             <div class="form-group">
                                 <input type="text" class="form-control" id="{{ form.subject.id_for_label }}"
                                        name="{{ form.subject.html_name }}"
-                                       placeholder="{{ form.subject.label }}">
+                                       placeholder="{{ form.subject.label|get_object_value_or_none }}">
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                             <textarea class="form-control" name="{{ form.message.html_name }}"
                                       id="{{ form.message.id_for_label }}" rows="1"
-                                      placeholder="{{ form.message.label }}"></textarea>
+                                      placeholder="{{ form.message.label|get_object_value_or_none }}"></textarea>
                             </div>
                         </div>
                         <input type="hidden" id="g-recaptcha-response" name="g-recaptcha-response">

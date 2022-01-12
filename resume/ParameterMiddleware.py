@@ -1,25 +1,57 @@
-from django.conf import settings
 from django.utils.deprecation import MiddlewareMixin
 from django.shortcuts import redirect, reverse
 
 
 class ParameterMiddleware(MiddlewareMixin):
-    def process_view(self, request, view_func, view_args, view_kwargs):
-        """
-        Intro popup will be shown only once.
-        'show_intro' key in session will be checked in views.py and will be sent to frontend.
-        Javascript function will check show_intro to show popup or not.
-        """
-        intro = request.GET.get('intro', None)
-        if intro:
-            request.session['show_intro'] = False
-            request.session['redirected'] = True
-            return redirect(reverse(view_func))
-        else:
-            redirected = request.session.get('redirected', None)
-            if redirected:
-                request.session['redirected'] = False
-            else:
-                request.session['show_intro'] = True
+    """
+    ParameterMiddleware is set to receive people who come with reference of other users with get parameter of 'ref'
+    and saves it into the session. Thus, if user visit other pages of website, all get parameters and 'ref' will stay
+    end of the url all the time, on all different links.
+
+    For example:
+    1. User comes from:
+        https://berkaymizrak.com/?ref=example_user&page=5
+    2. User goes to about and then register pages by clicking buttons on page and get parameters stay as they are:
+            https://berkaymizrak.com/about/?ref=example_user&page=5
+            https://berkaymizrak.com/register/?ref=example_user&page=5
+
+    You can just make it for only 'ref' parameter also:
+        https://berkaymizrak.com/?ref=example_user&page=5
+        >>
+        https://berkaymizrak.com/about/?ref=example_user
+        https://berkaymizrak.com/register/?ref=example_user
+    """
+
+    def save_ref_to_session(self, request, key='ref'):
+        # 'ref' reads from session
+        get_ref_from_session = request.session.get(key, None)
+        get_ref_from_link = request.GET.get(key, None)
+
+        if get_ref_from_link:
+            if get_ref_from_session != get_ref_from_link:
+                # if url has 'ref' and the 'ref' not saved in session, then save it to session
+                request.session[key] = get_ref_from_link
+            # Return None to not get infinite loop.
             return None
+        else:
+            return get_ref_from_session
+
+    def process_view(self, request, view_func, view_args, view_kwargs):
+        # Gets all parameters from url. This is optional, you can remove here if you want to keep only 'ref' or
+        # selected any parameter.
+        parameters = request.GET.urlencode()
+        if parameters:
+            parameters = '&' + str(parameters)
+        # __All parameters optional until here.__
+
+
+        get_ref = self.save_ref_to_session(request)
+
+        # Checks;
+        #   get_ref: if 'ref' exist in url, save it to session and return None; if 'ref' exist in session but not in url,
+        #   then redirect to url with parameter.
+        #   not request.user.is_authenticated: runs only for not authenticated users.
+        return get_ref and not request.user.is_authenticated and redirect(reverse(view_func) + '?ref=' + get_ref + parameters)
+        # if you want to make without all parameters, only for selected parameters:
+        # return get_ref and not request.user.is_authenticated and redirect(reverse(view_func) + '?ref=' + get_ref)
 
