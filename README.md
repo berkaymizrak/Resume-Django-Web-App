@@ -22,7 +22,7 @@ To start project,
 
    `docker-compose up --build app_resume`
 
-## Django Command
+## Django Management Command
 
 A Django management command is created as colorful with user-friendly progressbar and the functionality is just for example.
 
