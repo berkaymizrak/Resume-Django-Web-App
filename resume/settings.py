@@ -130,7 +130,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 
-LANGUAGE_CODE = 'tr'
+LANGUAGE_CODE = 'en'
 
 TIME_ZONE = 'Europe/Istanbul'
 
@@ -199,8 +199,8 @@ GOOGLE_RECAPTCHA_SECRET_KEY = env('GOOGLE_RECAPTCHA_SECRET_KEY')
 # ---------------------------- GOOGLE RECAPTCHA ----------------------------
 
 # ---------------------------- EMAIL SETTINGS ----------------------------
-EMAIL_USE_SSL = True
-EMAIL_USE_TLS = False
+# EMAIL_USE_SSL = True
+# EMAIL_USE_TLS = False
 
 vars().update(env.email_url())
 DEFAULT_FROM_EMAIL = env("DEFAULT_FROM_EMAIL")
