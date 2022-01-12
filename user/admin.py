@@ -1,6 +1,7 @@
 from django.contrib import admin
 
 from user.models import *
+from user import forms
 from import_export.admin import ImportExportModelAdmin
 
 # Register your models here.
@@ -32,6 +33,7 @@ class ImageSettingAdmin(ImportExportModelAdmin):
 
 @admin.register(Skill)
 class SkillAdmin(ImportExportModelAdmin):
+    form = forms.SkillAdminForm
 
     list_display = ['id', 'order', 'name', 'percent', 'date']
     search_fields = ['name', ]

@@ -145,11 +145,12 @@ class SocialMedia(models.Model):
         return 'Social Media: %s' % self.icon
 
     def save(self, *args, **kwargs):
-        if 'ot-circle' not in self.icon and 'class=' in self.icon:
-            icon_list = self.icon.split('class=')
-            if len(icon_list) >= 2:
-                icon_list[1] = icon_list[1][:1] + 'ot-circle ' + icon_list[1][1:]
-                self.icon = 'class='.join(icon_list)
+        if self.icon:
+            if 'ot-circle' not in self.icon and 'class=' in self.icon:
+                icon_list = self.icon.split('class=')
+                if len(icon_list) >= 2:
+                    icon_list[1] = icon_list[1][:1] + 'ot-circle ' + icon_list[1][1:]
+                    self.icon = 'class='.join(icon_list)
         super().save(*args, **kwargs)
 
 
