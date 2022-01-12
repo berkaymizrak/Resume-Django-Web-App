@@ -224,8 +224,8 @@ if not DEBUG:
         os.environ['HTTPS'] = "on"
         os.environ['wsgi.url_scheme'] = 'https'
 
-    if SECURE_SSL_REDIRECT:
-        del DATABASES['default']['OPTIONS']['sslmode']
+    # if SECURE_SSL_REDIRECT:
+    #     del DATABASES['default']['OPTIONS']['sslmode']
 # ---------------------------- HEROKU AND SSL SERVER SETTINGS ----------------------------
 
 
