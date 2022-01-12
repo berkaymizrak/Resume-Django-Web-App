@@ -1,230 +1,144 @@
-{% load static %}
-<!doctype html>
-<html lang="en">
-<head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="icon" href="{% static 'favicon.png' %}" type="image/png">
-    <title>{{ site_title }}</title>
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="{% static 'template/css/bootstrap.css' %}">
-    <link rel="stylesheet" href="{% static 'template/vendors/linericon/style.css' %}">
-    {#    <link rel="stylesheet" href="{% static 'template/css/font-awesome.min.css' %}">#}
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
-          integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ=="
-          crossorigin="anonymous" referrerpolicy="no-referrer"/>
-    <link rel="stylesheet" href="{% static 'template/vendors/owl-carousel/owl.carousel.min.css' %}">
-    <link rel="stylesheet" href="{% static 'template/vendors/lightbox/simpleLightbox.css' %}">
-    <link rel="stylesheet" href="{% static 'template/vendors/nice-select/css/nice-select.css' %}">
-    <link rel="stylesheet" href="{% static 'template/vendors/animate-css/animate.css' %}">
-    <link rel="stylesheet" href="{% static 'template/vendors/popup/magnific-popup.css' %}">
-    <link rel="stylesheet" href="{% static 'template/vendors/flaticon/flaticon.css' %}">
-    <!-- main css -->
-    <link rel="stylesheet" href="{% static 'template/css/style.css' %}">
-    <link rel="stylesheet" href="{% static 'template/css/responsive.css' %}">
+{% extends 'layout.html' %}
 
-</head>
-<body>
-
-<!--================Header Menu Area =================-->
-<header class="header_area">
-    <div class="main_menu">
-        <nav class="navbar navbar-expand-lg navbar-light">
-            <div class="container box_1620">
-                <!-- Brand and toggle get grouped for better mobile display -->
-                <a class="navbar-brand logo_h" href="index.html"><img src="{% static 'template/img/logo.png' %}" alt=""></a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse"
-                        data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <!-- Collect the nav links, forms, and other content for toggling -->
-                {#                <div class="collapse navbar-collapse offset" id="navbarSupportedContent">#}
-                {#                    <ul class="nav navbar-nav menu_nav ml-auto">#}
-                {#                        <li class="nav-item"><a class="nav-link" href="#skill">Skills</a></li>#}
-                {#                        <li class="nav-item"><a class="nav-link" href="#contact_area">Contact</a></li>#}
-                {#                    </ul>#}
-                {#                </div>#}
-            </div>
-        </nav>
-    </div>
-</header>
-<!--================Header Menu Area =================-->
-
-<!--================Home Banner Area =================-->
-<section class="home_banner_area">
-    <div class="container box_1620" style="bottom: -150px; ">
-        <div class="banner_inner d-flex align-items-center">
-            <div class="banner_content">
-                <div class="media">
-                    <div class="d-flex">
-                        <img src="{{ person_image }}" alt="Berkay Mizrak Photo" style="width: 100%; max-width: 500px">
-                    </div>
-                    <div class="media-body">
-                        <div class="personal_text">
-                            <h6>Hello Everybody, i am</h6>
-                            <h3>{{ person_name }}</h3>
-                            <h4>{{ person_position }}</h4>
-                            <p>
-                                {{ person_description }}
-                            </p>
-                            <ul class="list basic_info">
-                                <li>
-                                    <a href="mailto:info@berkaymizrak.com"><i class="lnr lnr-envelope"></i>
-                                        info@berkaymizrak.com
-                                    </a>
-                                </li>
-                                <li><a href="javascript:void(0);"><i class="lnr lnr-home"></i> Sisli, Turkey</a></li>
-                            </ul>
-                            <ul class="list personal_social">
-                                {% for social_media in social_medias %}
+{% block content %}
+    <!--================Home Banner Area =================-->
+    <section class="home_banner_area">
+        <div class="container box_1620" style="bottom: -150px; ">
+            <div class="banner_inner d-flex align-items-center">
+                <div class="banner_content">
+                    <div class="media">
+                        <div class="d-flex">
+                            <img src="{{ person_image }}" alt="Berkay Mizrak Photo"
+                                 style="width: 100%; max-width: 500px">
+                        </div>
+                        <div class="media-body">
+                            <div class="personal_text">
+                                <h6>Hello Everybody, i am</h6>
+                                <h3>{{ person_name }}</h3>
+                                <h4>{{ person_position }}</h4>
+                                <p>
+                                    {{ person_description }}
+                                </p>
+                                <ul class="list basic_info">
                                     <li>
-                                        <a href="{{ social_media.url }}" target="_blank">
-                                            {{ social_media.icon|safe }}
+                                        <a href="mailto:info@berkaymizrak.com"><i class="lnr lnr-envelope"></i>
+                                            info@berkaymizrak.com
                                         </a>
                                     </li>
-                                {% endfor %}
-                            </ul>
+                                    <li><a href="javascript:void(0);"><i class="lnr lnr-home"></i> Sisli, Turkey</a>
+                                    </li>
+                                </ul>
+                                <ul class="list personal_social">
+                                    {% for social_media in social_medias %}
+                                        <li>
+                                            <a href="{{ social_media.url }}" target="_blank">
+                                                {{ social_media.icon|safe }}
+                                            </a>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
 
-                            <div class="row">
-                                {% for document in documents %}
-                                    <div class="col-md-6">
+                                <div class="row">
+                                    {% for document in documents %}
+                                        <div class="col-md-6">
 
-                                        <div class="more_btn">
-                                            <a class="main_btn" href="{{ document.file.url }}"
-                                               target="_blank">{{ document.button_text }}</a>
+                                            <div class="more_btn">
+                                                <a class="main_btn" href="{{ document.file.url }}"
+                                                   target="_blank">{{ document.button_text }}</a>
+                                            </div>
                                         </div>
-                                    </div>
-                                {% endfor %}
+                                    {% endfor %}
 
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-<!--================End Home Banner Area =================-->
-
-<!--================Welcome Area =================-->
-<section class="welcome_area p_120" style="padding-bottom: 60px; ">
-    <div class="container">
-        <div class="row welcome_inner">
-            {% for skill in skills %}
-                <div class="col-md-6">
-                    <div class="tools_expert">
-                        <div class="skill_main">
-                            <div class="skill_item">
-                                <h4>
-                                    {{ skill.name }} <span class="counter">{{ skill.percent }}</span>%
-                                </h4>
-                                <div class="progress_br">
-                                    <div class="progress">
-                                        <div class="progress-bar" role="progressbar" aria-valuenow="{{ skill.percent }}"
-                                             aria-valuemin="0"
-                                             aria-valuemax="100"></div>
-                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            {% endfor %}
+            </div>
         </div>
-    </div>
-</section>
-<!--================End Welcome Area =================-->
+    </section>
+    <!--================End Home Banner Area =================-->
 
-<!--================Contact Area =================-->
-<section id="contact_area" class="contact_area testimonials_area p_120" style="padding-top: 60px; ">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-3">
-                <div class="contact_info">
-                    <div class="info_item">
-                        <i class="lnr lnr-home"></i>
-                        <h6><a href="javascript:void(0);">Sisli, Turkey</a></h6>
-                        <p></p>
+    <!--================Welcome Area =================-->
+    <section class="welcome_area p_120" style="padding-bottom: 60px; ">
+        <div class="container">
+            <div class="row welcome_inner">
+                {% for skill in skills %}
+                    <div class="col-md-6">
+                        <div class="tools_expert">
+                            <div class="skill_main">
+                                <div class="skill_item">
+                                    <h4>
+                                        {{ skill.name }} <span class="counter">{{ skill.percent }}</span>%
+                                    </h4>
+                                    <div class="progress_br">
+                                        <div class="progress">
+                                            <div class="progress-bar" role="progressbar"
+                                                 aria-valuenow="{{ skill.percent }}"
+                                                 aria-valuemin="0"
+                                                 aria-valuemax="100"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="info_item">
-                        <i class="lnr lnr-envelope"></i>
-                        <h6><a href="mailto:info@berkaymizrak.com">info@berkaymizrak.com</a></h6>
-                        <p>Mail me anytime!</p>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+    <!--================End Welcome Area =================-->
+
+    <!--================Contact Area =================-->
+    <section id="contact_area" class="contact_area testimonials_area p_120" style="padding-top: 60px; ">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3">
+                    <div class="contact_info">
+                        <div class="info_item">
+                            <i class="lnr lnr-home"></i>
+                            <h6><a href="javascript:void(0);">Sisli, Turkey</a></h6>
+                            <p></p>
+                        </div>
+                        <div class="info_item">
+                            <i class="lnr lnr-envelope"></i>
+                            <h6><a href="mailto:info@berkaymizrak.com">info@berkaymizrak.com</a></h6>
+                            <p>Mail me anytime!</p>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-lg-9">
-                <form class="row contact_form" method="post" id="contactForm" novalidate="novalidate">
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <input type="text" class="form-control" id="name" name="name" placeholder="Enter your name">
+                <div class="col-lg-9">
+                    <form class="row contact_form" method="post" id="contactForm" novalidate="novalidate">
+                        {% csrf_token %}
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <input type="text" class="form-control" id="name" name="name"
+                                       placeholder="Enter your name">
+                            </div>
+                            <div class="form-group">
+                                <input type="email" class="form-control" id="email" name="email"
+                                       placeholder="Enter email address">
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" id="subject" name="subject"
+                                       placeholder="Enter Subject">
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <input type="email" class="form-control" id="email" name="email"
-                                   placeholder="Enter email address">
-                        </div>
-                        <div class="form-group">
-                            <input type="text" class="form-control" id="subject" name="subject"
-                                   placeholder="Enter Subject">
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
+                        <div class="col-md-6">
+                            <div class="form-group">
                             <textarea class="form-control" name="message" id="message" rows="1"
                                       placeholder="Enter Message"></textarea>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-md-12 text-right">
-                        <button type="button" value="submit" class="btn submit_btn">Send Message</button>
-                    </div>
-                </form>
+                        <div class="col-md-12 text-right">
+                            <button type="button" value="submit" class="btn submit_btn">Send Message</button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
-    </div>
-</section>
-<!--================Contact Area =================-->
+    </section>
+    <!--================Contact Area =================-->
 
-<!--================Footer Area =================-->
-<footer class="footer_area p-3">
-    <div class="container">
-        <div class="footer_inner">
-            <aside class="f_widget ab_widget">
-                <p>
-                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                    Copyright &copy;2021
-                    All rights reserved
-                    | This website designed by
-                    <a href="https://colorlib.com" target="_blank">Colorlib</a>
-                    | This website developed by
-                    <a href="https://berkaymizrak.com">BerkayMizrak</a>
-                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                </p>
-            </aside>
-        </div>
-    </div>
-</footer>
-<!--================End Footer Area =================-->
+{% endblock %}
 
-<!-- Optional JavaScript -->
-<!-- jQuery first, then Popper.js, then Bootstrap JS -->
-<script src="{% static 'template/js/jquery-3.3.1.min.js' %}"></script>
-<script src="{% static 'template/js/popper.js' %}"></script>
-<script src="{% static 'template/js/bootstrap.min.js' %}"></script>
-<script src="{% static 'template/js/stellar.js' %}"></script>
-<script src="{% static 'template/vendors/lightbox/simpleLightbox.min.js' %}"></script>
-<script src="{% static 'template/vendors/nice-select/js/jquery.nice-select.min.js' %}"></script>
-<script src="{% static 'template/vendors/isotope/imagesloaded.pkgd.min.js' %}"></script>
-<script src="{% static 'template/vendors/isotope/isotope.pkgd.min.js' %}"></script>
-<script src="{% static 'template/vendors/owl-carousel/owl.carousel.min.js' %}"></script>
-<script src="{% static 'template/vendors/popup/jquery.magnific-popup.min.js' %}"></script>
-<script src="{% static 'template/js/jquery.ajaxchimp.min.js' %}"></script>
-<script src="{% static 'template/vendors/counter-up/jquery.waypoints.min.js' %}"></script>
-<script src="{% static 'template/vendors/counter-up/jquery.counterup.min.js' %}"></script>
-<script src="{% static 'template/js/mail-script.js' %}"></script>
-<script src="{% static 'template/js/theme.js' %}"></script>
-</body>
-</html>

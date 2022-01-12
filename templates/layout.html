@@ -1,0 +1,120 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="icon" href="{% static 'favicon.png' %}" type="image/png">
+    <title>{{ site_title }}{% block title %}{% if home_detail_title %} | {{ home_detail_title }}{% endif %}{% endblock %}</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{% static 'template/css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'template/vendors/linericon/style.css' %}">
+    {#    <link rel="stylesheet" href="{% static 'template/css/font-awesome.min.css' %}">#}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+          integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <link rel="stylesheet" href="{% static 'template/vendors/owl-carousel/owl.carousel.min.css' %}">
+    <link rel="stylesheet" href="{% static 'template/vendors/lightbox/simpleLightbox.css' %}">
+    <link rel="stylesheet" href="{% static 'template/vendors/nice-select/css/nice-select.css' %}">
+    <link rel="stylesheet" href="{% static 'template/vendors/animate-css/animate.css' %}">
+    <link rel="stylesheet" href="{% static 'template/vendors/popup/magnific-popup.css' %}">
+    <link rel="stylesheet" href="{% static 'template/vendors/flaticon/flaticon.css' %}">
+    <!-- main css -->
+    <link rel="stylesheet" href="{% static 'template/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'template/css/responsive.css' %}">
+
+        <script src='https://www.google.com/recaptcha/api.js?render={{ GOOGLE_RECAPTCHA_SITE_KEY }}'></script>
+
+{#            <style>#}
+{#                .grecaptcha-badge {#}
+{#                     opacity:0; !important;#}
+{#                }#}
+{#            </style>#}
+
+            <script>
+                //global grecaptcha
+                grecaptcha.ready(function () {
+                    grecaptcha.execute('{{ GOOGLE_RECAPTCHA_SITE_KEY }}', {action: "{% url 'index' %}"}).then(function (token) {
+                        document.getElementById('g-recaptcha-response').value = token;
+                    });
+                });
+            </script>
+</head>
+<body>
+
+{% block body %}
+
+    <!--================Header Menu Area =================-->
+    <header class="header_area">
+        <div class="main_menu">
+            <nav class="navbar navbar-expand-lg navbar-light">
+                <div class="container box_1620">
+                    <!-- Brand and toggle get grouped for better mobile display -->
+                    <a class="navbar-brand logo_h" href="index.html"><img src="{% static 'template/img/logo.png' %}"
+                                                                          alt=""></a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse"
+                            data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                            aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <!-- Collect the nav links, forms, and other content for toggling -->
+                    {#                <div class="collapse navbar-collapse offset" id="navbarSupportedContent">#}
+                    {#                    <ul class="nav navbar-nav menu_nav ml-auto">#}
+                    {#                        <li class="nav-item"><a class="nav-link" href="#skill">Skills</a></li>#}
+                    {#                        <li class="nav-item"><a class="nav-link" href="#contact_area">Contact</a></li>#}
+                    {#                    </ul>#}
+                    {#                </div>#}
+                </div>
+            </nav>
+        </div>
+    </header>
+    <!--================Header Menu Area =================-->
+
+    {% block content %}
+
+    {% endblock %}
+    <!--================Footer Area =================-->
+    <footer class="footer_area p-3">
+        <div class="container">
+            <div class="footer_inner">
+                <aside class="f_widget ab_widget">
+                    <p>
+                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                        Copyright &copy;2021
+                        All rights reserved
+                        | This website designed by
+                        <a href="https://colorlib.com" target="_blank">Colorlib</a>
+                        | This website developed by
+                        <a href="https://berkaymizrak.com">BerkayMizrak</a>
+                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                    </p>
+                </aside>
+            </div>
+        </div>
+    </footer>
+    <!--================End Footer Area =================-->
+
+{% endblock %}
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="{% static 'template/js/jquery-3.3.1.min.js' %}"></script>
+<script src="{% static 'template/js/popper.js' %}"></script>
+<script src="{% static 'template/js/bootstrap.min.js' %}"></script>
+<script src="{% static 'template/js/stellar.js' %}"></script>
+<script src="{% static 'template/vendors/lightbox/simpleLightbox.min.js' %}"></script>
+<script src="{% static 'template/vendors/nice-select/js/jquery.nice-select.min.js' %}"></script>
+<script src="{% static 'template/vendors/isotope/imagesloaded.pkgd.min.js' %}"></script>
+<script src="{% static 'template/vendors/isotope/isotope.pkgd.min.js' %}"></script>
+<script src="{% static 'template/vendors/owl-carousel/owl.carousel.min.js' %}"></script>
+<script src="{% static 'template/vendors/popup/jquery.magnific-popup.min.js' %}"></script>
+<script src="{% static 'template/js/jquery.ajaxchimp.min.js' %}"></script>
+<script src="{% static 'template/vendors/counter-up/jquery.waypoints.min.js' %}"></script>
+<script src="{% static 'template/vendors/counter-up/jquery.counterup.min.js' %}"></script>
+<script src="{% static 'template/js/mail-script.js' %}"></script>
+<script src="{% static 'template/js/theme.js' %}"></script>
+</body>
+</html>

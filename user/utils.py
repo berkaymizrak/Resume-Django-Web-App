@@ -1,4 +1,30 @@
 from user.models import *
+from django.core.mail import EmailMessage
+
+
+def send_mail_check(request, name, subject, message, to, reply_to=settings.DEFAULT_FROM_EMAIL):
+    success = True
+    error_message = None
+
+    try:
+        email = EmailMessage(
+            subject,
+            message,
+            to=[to],
+            reply_to=[reply_to]
+        )
+        email.send()
+    except Exception as e:
+        success = False
+        error_message = str(e)
+
+    Message.objects.create(
+        name=name,
+        email=to,
+        message=message,
+        error_message=error_message,
+        success=success,
+    )
 
 
 def get_val_in_type(value, val_type):

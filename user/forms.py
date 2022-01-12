@@ -24,6 +24,16 @@ class ContactForm(forms.Form):
             'type': 'text',
         }),
     )
+    subject = forms.CharField(
+        required=True,
+        max_length=models.Message._meta.get_field('subject').max_length,
+        label=models.Message._meta.get_field('subject').verbose_name,
+        help_text=models.Message._meta.get_field('subject').help_text,
+        widget=forms.TextInput(attrs={
+            'placeholder': '',
+            'type': 'text',
+        }),
+    )
     message = forms.CharField(
         required=True,
         max_length=models.Message._meta.get_field('message').max_length,

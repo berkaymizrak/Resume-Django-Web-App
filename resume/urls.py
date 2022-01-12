@@ -25,10 +25,6 @@ urlpatterns = [
 
     path('', index, name='index'),
 
-    path('ajax_upload_image', ajax_upload_image, name='ajax_upload_image'),
-    path('ajax_delete_image', ajax_delete_image, name='ajax_delete_image'),
-    path('ajax_create_image_name', ajax_create_image_name, name='ajax_create_image_name'),
-
     path('<slug>/', special_links, name='special_links'),
 ]
 
