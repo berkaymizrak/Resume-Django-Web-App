@@ -15,10 +15,6 @@ theme.
 @Developer URL: http://rocky.wethemez.com
 Author E-mail: rockybd1995@gmail.com
 
-
-
-
-
 @Default Styles
 
 Table of Content:
@@ -334,17 +330,29 @@ button:focus {
         vertical-align: middle;
         align-self: center; }
 
-      .profilePicture {
-        border-color: #f8bf03;
-        border-left-style: solid;
-        border-width: 15px;
-      }
 
-
-
-
-
-
+.profilePicture {
+  border-color: #f8bf03;
+  border-left-style: solid;
+  border-width: 15px;
+}
+.loadingStatusButton {
+    width: auto;
+    display: inline-block;
+    background: black;
+    padding: 0px 50px;
+    color: #fff;
+    font-family: "Roboto", sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 50px;
+    border-radius: 5px;
+    outline: none !important;
+    box-shadow: none !important;
+    text-align: center;
+    border: 1px solid #f8bf02;
+    transition: all 300ms linear 0s;
+}
 
 
 .blog_banner {
@@ -2783,12 +2791,11 @@ h6 {
       background-image: -webkit-linear-gradient(0deg, #f1ca06 0%, #f6a404 100%);
       background-image: -ms-linear-gradient(0deg, #f1ca06 0%, #f6a404 100%); }
 
-/* End Personal Profile Area cssF8E78FFFF8E78FFF
+/* End Personal Profile Area css
 ============================================================================================ */
 /*---------------------------------------------------- */
 /*----------------------------------------------------*/
 /* Gallery Area css
-
 ============================================================================================ */
 .isotope_fillter {
   margin-bottom: 50px; }
@@ -2933,7 +2940,7 @@ h6 {
   font-size: 14px;
   line-height: 24px;
   font-family: "Roboto", sans-serif;
-  color: #777777;
+  color: rgba(255, 255, 255, 0.89);
   margin-bottom: 30px; }
   .ab_widget p a {
     color: #f6bd04; }

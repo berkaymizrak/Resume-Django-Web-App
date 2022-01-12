@@ -1,3 +1,19 @@
+(function ($) {
+    $.fn.loading_status = function (activate) {
+        if (activate) {
+            this.text('Sending, please wait...');
+            this.prop('disabled', true);
+            this.removeClass('submit_btn');
+            this.addClass('loadingStatusButton');
+        } else {
+            this.prop('disabled', false);
+            this.text('Send Message');
+            this.addClass('submit_btn');
+            this.removeClass('loadingStatusButton');
+        }
+    };
+})(jQuery);
+
 $(document).ready(function () {
 
     (function ($) {
@@ -57,17 +73,12 @@ $(document).ready(function () {
                 submitHandler: function (form) {
                     $('#error_message').text(' Something went wrong ');
                     $('#success_message').text('Your message is successfully sent...');
-                    $('#submit_btn').text('Sending, please wait...');
-                    $('#submit_btn').prop('disabled', true);
-                    $('#submit_btn').removeClass('submit_btn');
+                    $('#submit_btn').loading_status(true);
                     $(form).ajaxSubmit({
                         type: "POST",
                         data: $(form).serialize(),
                         url: "/",
                         success: function (response) {
-                            $('#submit_btn').prop('disabled', false);
-                            $('#submit_btn').text('Send Message');
-                            $('#submit_btn').addClass('submit_btn');
                             if (response.success == true) {
                                 $('#success_message').text(response.message);
                                 $('#contactForm :input').attr('disabled', 'disabled');
@@ -77,6 +88,7 @@ $(document).ready(function () {
                                     $('#success').fadeIn()
                                     $('.modal').modal('hide');
                                     $('#success').modal('show');
+                                    $('#submit_btn').loading_status(false);
                                 })
                             } else {
                                 $('#error_message').text(response.message);
@@ -84,13 +96,11 @@ $(document).ready(function () {
                                     $('#error').fadeIn();
                                     $('.modal').modal('hide');
                                     $('#error').modal('show');
+                                    $('#submit_btn').loading_status(false);
                                 })
                             }
                         },
                         error: function (response) {
-                            $('#submit_btn').prop('disabled', false);
-                            $('#submit_btn').text('Send Message');
-                            $('#submit_btn').addClass('submit_btn');
                             if (response.message != null) {
                                 $('#error_message').text(response.message);
                             }
@@ -98,6 +108,7 @@ $(document).ready(function () {
                                 $('#error').fadeIn();
                                 $('.modal').modal('hide');
                                 $('#error').modal('show');
+                                $('#submit_btn').loading_status(false);
                             })
                         }
                     })

@@ -10,18 +10,18 @@
                 <div class="banner_content">
                     <div class="media">
                         <div class="d-flex">
-                            <img class="profilePicture" src=".././media/IMG_8937-3.jpg" alt="Berkay Mizrak Photo"
-                                 style=" width: 100%; max-width: 500px">
+                            <img class="profilePicture" src="{{ person_image }}" alt="Berkay Mizrak Photo"
+                                 style="width: 100%; max-width: 500px">
                         </div>
                         <div class="media-body">
                             <div class="personal_text">
                                 <h6>I am</h6>
-                                <h3 style="font-family: Poppins, 'sans-serif'">Zeynep Unal</h3>
+                                <h3 style="font-family: Poppins, 'sans-serif'">{{ person_name }}</h3>
                                 <h4>{{ person_position }}</h4>
                                 <p>
 
                                     <i style="font-size: 25px; color: #f8bf03" class="mr-4 fas fa-quote-left"></i>
-                                      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad aliquid animi aperiam molestias quia? A accusamus accusantium, aliquam amet aperiam, architecto aspernatur consequatur corporis doloremque dolores ea earum error fugiat inventore labore libero magnam maiores molestiae nihil officia, provident quam quod repellat saepe soluta tempore totam ullam velit vero voluptas!
+                                      {{ person_description }}
                                     <i style="font-size: 25px; color: #f8bf03" class="ml-4 fas fa-quote-right"></i>
 
                                 </p>
