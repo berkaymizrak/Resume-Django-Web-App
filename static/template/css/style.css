@@ -2448,12 +2448,12 @@ h6 {
   outline: none !important;
   box-shadow: none !important;
   text-align: center;
-  border: 1px solid #766dff;
+    border: 1px solid #f8bf02;
   cursor: pointer;
   transition: all 300ms linear 0s; }
   .submit_btn:hover {
     background: transparent;
-    color: #766dff; }
+    color: #000000; }
 
 .white_bg_btn {
   display: inline-block;
