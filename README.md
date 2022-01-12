@@ -2,7 +2,7 @@
 
 ## About
 
-The project is set in Docker for development server and set configurations for Heroku for production server.
+The project is set on Docker for development server and set configurations for Heroku for production server.
 
 Django is used for backend, Postgres is used for database. Also Celery can be implemented easily.
 
@@ -22,4 +22,13 @@ To start project,
 
    `docker-compose up --build app_resume`
 
+## Django Command
+
+A Django management command is created as colorful with user-friendly progressbar and the functionality is just for example.
+
+To run:
+
+   `docker-compose exec app_resume python manage.py clear_models`
+
+![Django Command Screenshot](https://github.com/berkaymizrak/Resume-Django-Web-App/blob/main/screenshot_command.png?raw=true)
 
