@@ -12,8 +12,7 @@ class GeneralSettingAdmin(ImportExportModelAdmin):
 
     list_display = ['id', 'name', 'description', 'parameter', 'date']
     search_fields = ['name', 'description', 'parameter', ]
-    list_editable = ['parameter', ]
-    # list_filter = ['sebep', 'user']
+    list_editable = ['description', 'parameter', ]
 
     class Meta:
         model = GeneralSetting
@@ -24,8 +23,7 @@ class ImageSettingAdmin(ImportExportModelAdmin):
 
     list_display = ['id', 'name', 'description', 'file', 'date']
     search_fields = ['name', 'description', 'file', ]
-    list_editable = ['file', ]
-    # list_filter = ['sebep', 'user']
+    list_editable = ['description', 'file', ]
 
     class Meta:
         model = ImageSetting
@@ -35,13 +33,22 @@ class ImageSettingAdmin(ImportExportModelAdmin):
 class SkillAdmin(ImportExportModelAdmin):
     form = forms.SkillAdminForm
 
-    list_display = ['id', 'order', 'name', 'percent', 'date']
+    list_display = ['id', 'order', 'name', 'percent', 'skill_type', 'date']
     search_fields = ['name', ]
-    list_editable = ['order', 'name', 'percent', ]
-    # list_filter = ['name', ]
+    list_editable = ['order', 'name', 'percent', 'skill_type', ]
 
     class Meta:
         model = Skill
+
+
+@admin.register(SkillTypes)
+class SkillTypesAdmin(ImportExportModelAdmin):
+    list_display = ['id', 'name', 'date', ]
+    search_fields = ['name', ]
+    list_editable = ['name', ]
+
+    class Meta:
+        model = SkillTypes
 
 
 @admin.register(SocialMedia)
@@ -50,7 +57,6 @@ class SocialMediaAdmin(ImportExportModelAdmin):
     list_display = ['id', 'order', 'url', 'icon', 'date']
     search_fields = ['url', ]
     list_editable = ['order', 'url', 'icon', ]
-    # list_filter = ['name', ]
 
     class Meta:
         model = SocialMedia
@@ -59,9 +65,8 @@ class SocialMediaAdmin(ImportExportModelAdmin):
 @admin.register(Message)
 class MessageAdmin(ImportExportModelAdmin):
 
-    list_display = ['name', 'email', 'message', 'success', 'error_message', 'date']
-    search_fields = ['name', 'email', 'message', ]
-    # list_editable = ['success', 'error_message', 'icon', ]
+    list_display = ['name', 'email', 'subject', 'message', 'success', 'error_message', 'date']
+    search_fields = ['name', 'email', 'subject', 'message', ]
     list_filter = ['success', 'error_message', ]
 
     class Meta:
@@ -71,10 +76,9 @@ class MessageAdmin(ImportExportModelAdmin):
 @admin.register(Document)
 class DocumentAdmin(ImportExportModelAdmin):
     list_display = ['id', 'button_text', 'file', 'show_on_page', 'date']
-    search_fields = ['button_text', 'file', ]
+    search_fields = ['button_text', ]
     list_editable = ['button_text', 'file', 'show_on_page', ]
-
-    list_filter = ['button_text', 'show_on_page', ]
+    list_filter = ['show_on_page', ]
 
     class Meta:
         model = Document

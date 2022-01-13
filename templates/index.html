@@ -10,7 +10,7 @@
                 <div class="banner_content">
                     <div class="media">
                         <div class="d-flex">
-                            <img class="profilePicture" src=".././media/IMG_8937-3.jpg" alt="Berkay Mizrak Photo"
+                            <img class="profilePicture" src="{{ person_image }}" alt="Berkay Mizrak Photo"
                                  style="width: 100%; max-width: 500px">
                         </div>
                         <div class="media-body">
@@ -20,18 +20,20 @@
                                 <h4>{{ person_position }}</h4>
                                 <p>
 
-                                    <i style="font-size: 25px; color: #f8bf03" class="mr-4 fas fa-quote-left"></i>
-                                      {{ person_description }}
-                                    <i style="font-size: 25px; color: #f8bf03" class="ml-4 fas fa-quote-right"></i>
+                                    <i style="font-size: 25px; color: #C548E0" class="mr-4 fas fa-quote-left"></i>
+                                    {{ person_description }}
+                                    <i style="font-size: 25px; color: #C548E0" class="ml-4 fas fa-quote-right"></i>
 
                                 </p>
                                 <ul class="list basic_info">
                                     <li>
-                                        <a href="mailto:info@berkaymizrak.com"><i style="color: black" class="lnr lnr-envelope"></i>
+                                        <a href="mailto:info@berkaymizrak.com"><i style="color: black"
+                                                                                  class="lnr lnr-envelope"></i>
                                             info@berkaymizrak.com
                                         </a>
                                     </li>
-                                    <li><a href="javascript:void(0);"><i style="color: black" class="lnr lnr-home"></i> Sisli, Turkey</a>
+                                    <li><a href="javascript:void(0);"><i style="color: black" class="lnr lnr-home"></i>
+                                        Sisli, Turkey</a>
                                     </li>
                                 </ul>
                                 <ul class="list personal_social">
@@ -44,18 +46,33 @@
                                     {% endfor %}
                                 </ul>
 
-                                <div class="row">
-                                    {% for document in documents %}
-                                        <div class="col-md-6">
-
-                                            <div class="more_btn">
-                                                <a class="main_btn" href="{{ document.file.url }}"
-                                                   target="_blank">{{ document.button_text|get_object_value_or_none }}</a>
-                                            </div>
-                                        </div>
-                                    {% endfor %}
-
-                                </div>
+                                {#                                <div class="row">#}
+                                {#                                    <div class="float-right">#}
+                                {##}
+                                {#                                        <button class="resume_download btn btn-outline-dark">#}
+                                {#                                            <a style="color: black;" href="">Resume-EN#}
+                                {#                                                <i class="ml-2 fas fa-long-arrow-alt-down"></i>#}
+                                {#                                            </a>#}
+                                {#                                        </button>#}
+                                {##}
+                                {#                                        <button class="resume_download ml-2 btn btn-outline-dark">#}
+                                {#                                            <a style="color: black;" href="">Resume-TR#}
+                                {#                                                <i class="ml-2 fas fa-long-arrow-alt-down"></i>#}
+                                {#                                            </a>#}
+                                {#                                        </button>#}
+                                {#                                    </div>#}
+                                {#                                </div>#}
+                                {#           <div class="row">#}
+                                {#               {% for document in documents %}#}
+                                {#                   <div class="col-md-6">#}
+                                {##}
+                                {#                       <div class="more_btn">#}
+                                {#                           <a class="main_btn" href="{{ document.file.url }}"#}
+                                {#                              target="_blank">{{ document.button_text|get_object_value_or_none }}</a>#}
+                                {#                       </div>#}
+                                {#                   </div>#}
+                                {#               {% endfor %}#}
+                                {#           </div>#}
                             </div>
                         </div>
                     </div>
@@ -68,30 +85,36 @@
     <!--================Welcome Area =================-->
     <section class="welcome_area p_120" style="padding-bottom: 60px; ">
         <div class="container">
-            <div class="row welcome_inner">
-                {% for skill in skills %}
-                    <div class="col-md-6">
-                        <div class="tools_expert">
-                            <div class="skill_main">
-                                <div class="skill_item">
-                                    <h4>
-                                        {{ skill.name|get_object_value_or_none }} <span
-                                            class="counter">{{ skill.percent }}</span>%
-                                    </h4>
-                                    <div class="progress_br">
-                                        <div class="progress">
-                                            <div class="progress-bar" role="progressbar"
-                                                 aria-valuenow="{{ skill.percent }}"
-                                                 aria-valuemin="0"
-                                                 aria-valuemax="100"></div>
+            {% for skill_type, skills in skills_mapped.items %}
+                <span>{{ skill_type }}</span>
+                <div class="row welcome_inner" style="margin-bottom: 1em; ">
+                    {% for skill in skills %}
+                        <div class="col-md-3">
+                            <div class="tools_expert">
+                                <div class="skill_main">
+                                    <div class="skill_item">
+                                        <h4>
+                                            {{ skill.name|get_object_value_or_none }} <span
+                                                class="counter">{{ skill.percent }}</span>%
+                                        </h4>
+                                        <div class="progress_br">
+                                            <div class="progress">
+                                                <div class="progress-bar" role="progressbar"
+                                                     aria-valuenow="{{ skill.percent }}"
+                                                     aria-valuemin="0"
+                                                     aria-valuemax="100"></div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                {% endfor %}
-            </div>
+                    {% endfor %}
+                </div>
+                {% if not forloop.last %}
+                    <hr>
+                {% endif %} 
+            {% endfor %}
         </div>
     </section>
     <!--================End Welcome Area =================-->

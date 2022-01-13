@@ -95,6 +95,27 @@ class Document(models.Model):
         return 'Document: %s' % self.button_text
 
 
+class SkillTypes(models.Model):
+    name = models.CharField(
+        default='',
+        max_length=254,
+        verbose_name='Name',
+        help_text='',
+        blank=True,
+        null=True,
+        unique=True,
+    )
+    date = models.DateTimeField(verbose_name='Created Date', blank=True, auto_now_add=True)
+
+    class Meta:
+        verbose_name_plural = 'Skill Types'
+        verbose_name = 'Skill Type'
+        ordering = ('name',)
+
+    def __str__(self):
+        return 'Skill Type: %s' % self.name
+
+
 class Skill(models.Model):
     order = models.IntegerField(default=1, verbose_name='Order', blank=True)
     name = models.CharField(
@@ -109,6 +130,14 @@ class Skill(models.Model):
         default=50,
         verbose_name='Percent',
         validators=[MinValueValidator(0), MaxValueValidator(100)],
+    )
+    skill_type = models.ForeignKey(
+        SkillTypes,
+        default=None,
+        on_delete=models.CASCADE,
+        verbose_name="Skill Type",
+        blank=True,
+        null=True,
     )
 
     date = models.DateTimeField(verbose_name='Created Date', blank=True, auto_now_add=True)

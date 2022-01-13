@@ -37,14 +37,14 @@ To start project,
 1. First create a docker.env file from env.txt. Change&enter required parameters.
 
 
-2. Start postgres at background:
+2. Start services at background:
 
-    `docker-compose up -d --build postgres_resume`
+    `docker-compose up -d --build`
 
 
-3. Start app on terminal and track errors, to make continuous development:
+3. Follow outputs alive and track errors, to make continuous development:
 
-   `docker-compose up --build app_resume`
+   `docker logs --follow app_resume`
 
 Default admin account will be:
 

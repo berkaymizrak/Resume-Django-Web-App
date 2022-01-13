@@ -131,11 +131,12 @@ button:focus {
 /*---------------------------------------------------- */
 /*----------------------------------------------------*/
 
-.resume_download a:hover {
+/*
+.resume_download:hover {
   background: white;
   color: black!important;
 }
-
+*/
 
 .header_area {
   position: absolute;
@@ -338,11 +339,11 @@ button:focus {
         align-self: center; }
 
 
-/*.profilePicture {*/
-/*  border-color: #f8bf03;*/
-/*  border-left-style: solid;*/
-/*  border-width: 15px;*/
-/*}*/
+.profilePicture {
+  border-color: #C548E0;
+  border-left-style: solid;
+  border-width: 15px;
+}
 .loadingStatusButton {
     width: auto;
     display: inline-block;
@@ -2409,7 +2410,6 @@ h6 {
   font-size: 13px;
   font-weight: 500;
   line-height: 48px;
-  border-radius: 0px;
   outline: none !important;
   box-shadow: none !important;
   text-align: center;
@@ -2576,9 +2576,9 @@ h6 {
         border-radius: 5px;
         vertical-align: middle;
         align-self: center;
-        F6A404FFF6A404FF        background-image: -moz-linear-gradient(0deg, #f8e78f 0%, #f6a404 100%);
-        background-image: -webkit-linear-gradient(0deg, #f8e78f 0%, #f6a404 100%);
-        background-image: -ms-linear-gradient(0deg, #f8e78f 0%, #f6a404 100%); }
+        background-image: -moz-linear-gradient(0deg, #D16CDF 0%, #C548E0 100%);
+        background-image: -webkit-linear-gradient(0deg, #D16CDF 0%, #C548E0 100%);
+        background-image: -ms-linear-gradient(0deg, #D16CDF 0%, #C548E0 100%); }
 
 /* End Welcome Area css
 ============================================================================================ */
@@ -2795,9 +2795,9 @@ h6 {
       color: #fff;
       font-size: 16px; }
     .personal_text .personal_social li:hover a {
-      background-image: -moz-linear-gradient(0deg, #f8e78f 0%, #f6a404 100%);
-      background-image: -webkit-linear-gradient(0deg, #f1ca06 0%, #f6a404 100%);
-      background-image: -ms-linear-gradient(0deg, #f1ca06 0%, #f6a404 100%); }
+      background-image: -moz-linear-gradient(0deg, #D16CDF 0%, #C548E0 100%);
+      background-image: -webkit-linear-gradient(0deg, #f1ca06 0%, #C548E0 100%);
+      background-image: -ms-linear-gradient(0deg, #f1ca06 0%, #C548E0 100%); }
 
 /* End Personal Profile Area css
 ============================================================================================ */
@@ -2951,7 +2951,7 @@ h6 {
   color: rgba(255, 255, 255, 0.89);
   margin-bottom: 30px; }
   .ab_widget p a {
-    color: #f6bd04; }
+    color: #C548E0; }
   .ab_widget p + p {
     margin-bottom: 0px; }
 

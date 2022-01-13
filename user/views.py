@@ -114,13 +114,22 @@ def index(request):
     person_position = utils.get_parameter('person_position')
     person_description = utils.get_parameter('person_description')
     person_image = utils.get_image('person_image')
+    header_logo = utils.get_image('header_logo')
 
     skills = Skill.objects.all()
+    skills_mapped = {}
+    for elem in skills:
+        if elem.skill_type and elem.skill_type.name not in skills_mapped.keys():
+            skills_mapped[elem.skill_type.name] = [elem]
+        else:
+            skills_mapped[elem.skill_type.name].append(elem)
+
+    print(skills_mapped)
     social_medias = SocialMedia.objects.all()
     documents = Document.objects.filter(show_on_page=True)
 
     context = {
-        'skills': skills,
+        'skills_mapped': skills_mapped,
         'social_medias': social_medias,
         'documents': documents,
 
@@ -130,6 +139,7 @@ def index(request):
         'person_position': person_position,
         'person_description': person_description,
         'person_image': person_image,
+        'header_logo': header_logo,
 
         'form': form,
         'GOOGLE_RECAPTCHA_SITE_KEY': settings.GOOGLE_RECAPTCHA_SITE_KEY,
