@@ -10,9 +10,10 @@ services:
       - main_resume
 #    restart: unless-stopped
     ports:
-      - "0.0.0.0:5433:5433"
+      - "5433:5432"
     volumes:
       - "postgresql-data:/var/lib/postgresql/data"
+    command: -p 5433
 
   app_resume:
     container_name: app_resume
@@ -31,7 +32,7 @@ services:
 #      - socket-data:/srv/socket-data
       - .:/srv/app_resume
     ports:
-      - "0.0.0.0:8000:8000"
+      - "0.0.0.0:8001:8001"
 #    restart: unless-stopped
     depends_on:
       - postgres_resume
