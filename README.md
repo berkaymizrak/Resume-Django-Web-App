@@ -2,7 +2,7 @@
 
 ## About
 
-The project is set on Docker for development server and set configurations for Heroku for production server.
+The project is set on Docker for development server and set configurations for Heroku and AWS S3 for production server.
 
 Django is used for backend, Postgres is used for database. Also Celery can be implemented easily.
 
@@ -30,6 +30,9 @@ Some features:
 
 * **template_filters:** has several functions to manage parameters in html templates.
 
+
+* Heroku and Amazon S3 integrations are ready.
+
 ## Installation
 
 To start project,
@@ -51,6 +54,21 @@ Default admin account will be:
 username: admin
 
 password: 123456@@
+
+## Production
+
+Usage on Heroku:
+
+1. Make integrations with 
+
+2. After login to Heroku with help of Heroku CLI, push code to Heroku.
+
+3. *"Reveal Config Vars"* on Heroku dashboard, check env.txt for parameters.
+
+4. Run:
+
+       heroku run python manage.py migrate
+       heroku run python manage.py collectstatic
 
 ## Django Management Command
 

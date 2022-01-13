@@ -125,7 +125,6 @@ def index(request):
             else:
                 skills_mapped[elem.skill_type.name].append(elem)
 
-    print(skills_mapped)
     social_medias = SocialMedia.objects.all()
     documents = Document.objects.filter(show_on_page=True)
 
