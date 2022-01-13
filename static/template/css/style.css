@@ -130,6 +130,13 @@ button:focus {
 ============================================================================================ */
 /*---------------------------------------------------- */
 /*----------------------------------------------------*/
+
+.resume_download a:hover {
+  background: white;
+  color: black!important;
+}
+
+
 .header_area {
   position: absolute;
   width: 100%;
@@ -331,11 +338,11 @@ button:focus {
         align-self: center; }
 
 
-.profilePicture {
-  border-color: #f8bf03;
-  border-left-style: solid;
-  border-width: 15px;
-}
+/*.profilePicture {*/
+/*  border-color: #f8bf03;*/
+/*  border-left-style: solid;*/
+/*  border-width: 15px;*/
+/*}*/
 .loadingStatusButton {
     width: auto;
     display: inline-block;
@@ -2449,7 +2456,7 @@ h6 {
   outline: none !important;
   box-shadow: none !important;
   text-align: center;
-    border: 1px solid #f8bf02;
+    border: 1px solid black;
   cursor: pointer;
   transition: all 300ms linear 0s; }
   .submit_btn:hover {

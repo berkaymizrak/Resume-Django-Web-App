@@ -66,34 +66,51 @@
             <nav class="navbar navbar-expand-lg navbar-light">
                 <div class="container box_1620">
                     <!-- Brand and toggle get grouped for better mobile display -->
-                    <a class="navbar-brand logo_h" href="{% url 'index' %}"><img
-                            src="{% static 'template/img/logo.png' %}"
+                    <a class="navbar-brand logo_h" href="{% url 'index' %}"><img style="width: 60px;"
+                            src=".././media/Logo-4.png"
                             alt=""></a>
-                    <button class="navbar-toggler" type="button" data-toggle="collapse"
-                            data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                            aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
+<div class="float-right">
+
+                    <button class="resume_download btn btn-outline-light">
+                        <a style="color: white;" href="">Resume-EN
+                            <i class="ml-2 fas fa-long-arrow-alt-down"></i>
+                        </a>
                     </button>
-                    <!-- Collect the nav links, forms, and other content for toggling -->
-                    <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
-                        <ul class="nav navbar-nav menu_nav ml-auto">
-                            {% for document in documents %}
-                                <li class="nav-item">
-                                    <a class="nav-link"
-                                       href="{{ document.file.url }}"
-                                       target="_blank">
-                                        {{ document.button_text|get_object_value_or_none }} <i class="fas fa-download" style="margin-left: 10px"></i>
-                                    </a>
-                                </li>
-                            {% endfor %}
-                            {#                            <li class="nav-item"><a class="nav-link" href="#skill">Download My CV -TR</a></li>#}
-                            {#                            <li class="nav-item"><a class="nav-link" href="#skill">Download My CV -EN</a></li>#}
-                            {#                                            <li class="nav-item"><a class="nav-link" href="#skill">Skills</a></li>#}
-                            {#                                            <li class="nav-item"><a class="nav-link" href="#contact_area">Contact</a></li>#}
-                        </ul>
-                    </div>
+
+                    <button class="resume_download ml-2 btn btn-outline-light">
+                        <a style="color: white;" href="">Resume-TR
+                            <i class="ml-2 fas fa-long-arrow-alt-down"></i>
+                        </a>
+                    </button>
+</div>
+
+
+
+<!--                    <button class="navbar-toggler" type="button" data-toggle="collapse"-->
+<!--                            data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"-->
+<!--                            aria-expanded="false" aria-label="Toggle navigation">-->
+<!--                        <span class="icon-bar"></span>-->
+<!--                        <span class="icon-bar"></span>-->
+<!--                        <span class="icon-bar"></span>-->
+<!--                    </button>-->
+<!--                    &lt;!&ndash; Collect the nav links, forms, and other content for toggling &ndash;&gt;-->
+<!--                    <div class="collapse navbar-collapse offset" id="navbarSupportedContent">-->
+<!--                        <ul class="nav navbar-nav menu_nav ml-auto">-->
+<!--                            {% for document in documents %}-->
+<!--                                <li class="nav-item">-->
+<!--                                    <a class="nav-link"-->
+<!--                                       href="{{ document.file.url }}"-->
+<!--                                       target="_blank">-->
+<!--                                        {{ document.button_text|get_object_value_or_none }} <i class="fas fa-download" style="margin-left: 10px"></i>-->
+<!--                                    </a>-->
+<!--                                </li>-->
+<!--                            {% endfor %}-->
+<!--                            {#                            <li class="nav-item"><a class="nav-link" href="#skill">Download My CV -TR</a></li>#}-->
+<!--                            {#                            <li class="nav-item"><a class="nav-link" href="#skill">Download My CV -EN</a></li>#}-->
+<!--                            {#                                            <li class="nav-item"><a class="nav-link" href="#skill">Skills</a></li>#}-->
+<!--                            {#                                            <li class="nav-item"><a class="nav-link" href="#contact_area">Contact</a></li>#}-->
+<!--                        </ul>-->
+<!--                    </div>-->
                 </div>
             </nav>
         </div>
