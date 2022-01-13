@@ -119,10 +119,11 @@ def index(request):
     skills = Skill.objects.all()
     skills_mapped = {}
     for elem in skills:
-        if elem.skill_type and elem.skill_type.name not in skills_mapped.keys():
-            skills_mapped[elem.skill_type.name] = [elem]
-        else:
-            skills_mapped[elem.skill_type.name].append(elem)
+        if elem.skill_type:
+            if elem.skill_type.name not in skills_mapped.keys():
+                skills_mapped[elem.skill_type.name] = [elem]
+            else:
+                skills_mapped[elem.skill_type.name].append(elem)
 
     print(skills_mapped)
     social_medias = SocialMedia.objects.all()
