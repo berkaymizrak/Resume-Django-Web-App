@@ -14,6 +14,9 @@ Some features:
 * **Docker** for continuous development server
 
 
+* Dump data comes with *"migrate"*. RunPython command is set for dump data.
+
+
 * **/\<slug>/** : (_views.special_links_) When entered name of images that are added to 'ImageSettings' to url, image returns in max screen size(javascript makes it) to user with layout of page(all meta and head).
 
 

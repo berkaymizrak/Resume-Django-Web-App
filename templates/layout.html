@@ -5,8 +5,8 @@
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="icon" href="{% static 'favicon.png' %}" type="image/png">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta name="description" content="{% block meta_description %}{{ meta_description }}{% endblock %}">
     <title>
         {% block title %}
             {{ site_title|get_object_value_or_default }}
@@ -17,6 +17,21 @@
             {% endblock %}
         {% endblock %}
     </title>
+
+    <meta property="og:title"
+          content="{% block og_title %}{{ site_title|get_object_value_or_default }}{% if home_detail_title %} | {{ home_detail_title }}{% endif %}{% endblock %}"/>
+    <meta property="og:url" content="https://berkaymizrak.com/"/>
+    <meta property="og:description" content="{% block og_description %}{{ meta_description }}{% endblock %}">
+    <meta property="og:image" content="{{ og_image }}">
+    <meta property="og:locale" content="en_US"/>
+    <meta property="og:type" content="website"/>
+    <meta name="keywords" content="{{ site_keywords }}">
+    <meta name="author" content="berkaymizrak">
+    <meta http-equiv="Content-Language" content="en">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="shortcut icon" type="image/png" href="{{ site_favicon }}"/>
+
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="{% static 'template/css/bootstrap.css' %}">
     <link rel="stylesheet" href="{% static 'template/vendors/linericon/style.css' %}">

@@ -27,28 +27,21 @@ from user import utils
 
 
 def layout(request):
-    show_intro = request.session.get('show_intro', None)
-
     site_title = utils.get_parameter('site_title')
     home_detail_title = utils.get_parameter('home_detail_title')
-    site_description = utils.get_parameter('site_description')
+    meta_description = utils.get_parameter('meta_description')
+    site_keywords = utils.get_parameter('site_keywords')
 
     site_favicon = utils.get_image('site_favicon')
-    site_logo = utils.get_image('site_logo')
-    site_logo_height = utils.get_parameter('site_logo_height', 'int')
-    site_overlay_logo = utils.get_image('site_overlay_logo')
-    site_overlay_logo_width = utils.get_parameter('site_overlay_logo_width', 'int')
+    header_logo = utils.get_image('header_logo')
 
     context = {
-        'show_intro': show_intro,
+        'header_logo': header_logo,
         'site_title': site_title,
         'home_detail_title': home_detail_title,
-        'site_description': site_description,
+        'site_keywords': site_keywords,
+        'meta_description': meta_description,
         'site_favicon': site_favicon,
-        'site_logo': site_logo,
-        'site_overlay_logo': site_overlay_logo,
-        'site_logo_height': site_logo_height,
-        'site_overlay_logo_width': site_overlay_logo_width,
         'DEFAULT_PNG': settings.DEFAULT_PNG,
     }
     return context
@@ -83,16 +76,7 @@ def index(request):
                                   'Email: %s\n' \
                                   'Message: %s' % (name, subject, email, message)
 
-                utils.send_mail_check(
-                    request=request,
-                    name=name,
-                    subject='Message Received',
-                    message=message_context,
-                    to=settings.DEFAULT_FROM_EMAIL,
-                    reply_to=email,
-                )
-                utils.send_mail_check(
-                    request=request,
+                utils.send_mail_both(
                     name=name,
                     subject='Message Received',
                     message=message_context,
@@ -109,12 +93,10 @@ def index(request):
         return JsonResponse(context)
 
     site_title = utils.get_parameter('site_title')
-    site_description = utils.get_parameter('site_description')
     person_name = utils.get_parameter('person_name')
     person_position = utils.get_parameter('person_position')
     person_description = utils.get_parameter('person_description')
     person_image = utils.get_image('person_image')
-    header_logo = utils.get_image('header_logo')
 
     skills = Skill.objects.all()
     skills_mapped = {}
@@ -134,12 +116,10 @@ def index(request):
         'documents': documents,
 
         'site_title': site_title,
-        'site_description': site_description,
         'person_name': person_name,
         'person_position': person_position,
         'person_description': person_description,
         'person_image': person_image,
-        'header_logo': header_logo,
 
         'form': form,
         'GOOGLE_RECAPTCHA_SITE_KEY': settings.GOOGLE_RECAPTCHA_SITE_KEY,

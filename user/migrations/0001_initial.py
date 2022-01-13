@@ -19,7 +19,7 @@ class Migration(migrations.Migration):
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('button_text', models.CharField(blank=True, default='Download', max_length=254, null=True, verbose_name='Button Text')),
                 ('file', models.FileField(default='', storage=resume.custom_storages.DocumentStorage(), upload_to='', verbose_name='Document')),
-                ('show_on_page', models.BooleanField(default=True, verbose_name='Show on Page')),
+                ('show_on_page', models.BooleanField(default=True, verbose_name='Show on menu')),
                 ('date', models.DateTimeField(auto_now_add=True, verbose_name='Created Date')),
             ],
             options={

@@ -2,7 +2,7 @@ from user.models import *
 from django.core.mail import EmailMessage
 
 
-def send_mail_check(request, name, subject, message, to, reply_to=settings.DEFAULT_FROM_EMAIL):
+def send_mail_check(name, subject, message, to, reply_to=settings.DEFAULT_FROM_EMAIL):
     success = True
     error_message = None
 
@@ -24,6 +24,26 @@ def send_mail_check(request, name, subject, message, to, reply_to=settings.DEFAU
         message=message,
         error_message=error_message,
         success=success,
+    )
+
+
+def send_mail_both(name, subject, message, to, reply_to=settings.DEFAULT_FROM_EMAIL):
+    # Mail to ADMIN
+    send_mail_check(
+        name=name,
+        subject=subject,
+        message=message,
+        to=settings.DEFAULT_FROM_EMAIL,
+        reply_to=to,
+    )
+
+    # Mail to USER
+    send_mail_check(
+        name=name,
+        subject=subject,
+        message=message,
+        to=to,
+        reply_to=reply_to,
     )
 
 
