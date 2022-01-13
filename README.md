@@ -46,6 +46,12 @@ To start project,
 
    `docker-compose up --build app_resume`
 
+Default admin account will be:
+
+username: admin
+
+password: 123456@@
+
 ## Django Management Command
 
 A Django management command is created as colorful with user-friendly progressbar and the functionality is just for example.
