@@ -188,10 +188,6 @@ def create_default_values(apps, scheme_editor):
             'name': 'og_image',
             'description': 'og image for sharing image of Facebook, Twitter, Whatsapp etc. Watch out of image size.',
         },
-        {
-            'name': 'site_keywords',
-            'description': 'Site keywords in meta tags.',
-        },
     ]
     general_setting_dump = [
         {
@@ -223,6 +219,10 @@ def create_default_values(apps, scheme_editor):
             'name': 'site_title',
             'description': 'General site title of whole website.',
             'parameter': 'Berkay MIZRAK',
+        },
+        {
+            'name': 'site_keywords',
+            'description': 'Site keywords in meta tags.',
         },
     ]
     models = {

@@ -1,26 +1,10 @@
 from django.shortcuts import render
 from user.models import *
 from user.forms import *
-from django.conf import settings
-
-from django.shortcuts import render, redirect
-from django.utils.safestring import mark_safe
-
+from django.shortcuts import render
 import requests
-from django.http import JsonResponse
-
-# from django.core.files.storage import FileSystemStorage
-# from django.core.files.storage import default_storage
-import os
-from resume.custom_storages import MediaStorage, ImageSettingStorage, DocumentStorage
-
+from django.http import JsonResponse, Http404
 from .decorators import *
-from django.contrib.auth.decorators import user_passes_test
-from django.views.decorators.csrf import csrf_exempt
-
-from django.http import Http404
-from django.db.models import Q
-
 from user import utils
 
 # Create your views here.
@@ -33,12 +17,14 @@ def layout(request):
     site_keywords = utils.get_parameter('site_keywords')
 
     site_favicon = utils.get_image('site_favicon')
+    og_image = utils.get_image('og_image')
     header_logo = utils.get_image('header_logo')
 
     context = {
         'header_logo': header_logo,
         'site_title': site_title,
         'home_detail_title': home_detail_title,
+        'og_image': og_image,
         'site_keywords': site_keywords,
         'meta_description': meta_description,
         'site_favicon': site_favicon,
@@ -92,7 +78,6 @@ def index(request):
             context['message'] = 'Please fill all required fields.'
         return JsonResponse(context)
 
-    site_title = utils.get_parameter('site_title')
     person_name = utils.get_parameter('person_name')
     person_position = utils.get_parameter('person_position')
     person_description = utils.get_parameter('person_description')
@@ -115,7 +100,6 @@ def index(request):
         'social_medias': social_medias,
         'documents': documents,
 
-        'site_title': site_title,
         'person_name': person_name,
         'person_position': person_position,
         'person_description': person_description,
