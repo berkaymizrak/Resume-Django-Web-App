@@ -62,7 +62,7 @@ password: 123456@@
 
 Usage on Heroku:
 
-1. Make integrations with 
+1. Make integrations with Heroku and AWS S3.
 
 2. After login to Heroku with help of Heroku CLI, push code to Heroku.
 
