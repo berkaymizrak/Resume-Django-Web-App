@@ -71,7 +71,7 @@ Usage on Heroku:
 4. Run:
 
        heroku run python manage.py migrate
-       heroku run python manage.py collectstatic
+       heroku run python manage.py collectstatic --noinput
        heroku run python manage.py createsuperuser
 
 ## Django Management Command

@@ -6,6 +6,6 @@ if [ "$COMMANDS" = "1" ]; then
 fi
 python manage.py runserver 0.0.0.0:8001
 
-# To make migrations in continues development, RUN:
+# To make migrations in continuous development, RUN:
 # docker-compose exec app_resume python manage.py makemigrations
 # docker-compose exec app_resume python manage.py migrate

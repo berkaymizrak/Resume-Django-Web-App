@@ -340,7 +340,7 @@ button:focus {
 
 
 .profilePicture {
-  border-color: #C548E0;
+  border-color: #794cdf;
   border-left-style: solid;
   border-width: 15px;
 }
@@ -2568,7 +2568,7 @@ h6 {
     .tools_expert .skill_main .skill_item .progress {
       height: 10px;
       border-radius: 10px;
-      background: #737373; }
+      background: #c7c7c7; }
       .tools_expert .skill_main .skill_item .progress .progress-bar {
         width: 0%;
         transition: width .6s ease;
@@ -2576,9 +2576,9 @@ h6 {
         border-radius: 5px;
         vertical-align: middle;
         align-self: center;
-        background-image: -moz-linear-gradient(0deg, #D16CDF 0%, #C548E0 100%);
-        background-image: -webkit-linear-gradient(0deg, #D16CDF 0%, #C548E0 100%);
-        background-image: -ms-linear-gradient(0deg, #D16CDF 0%, #C548E0 100%); }
+        background-image: -moz-linear-gradient(0deg, #ca7dcf 0%, #794cdf 100%);
+        background-image: -webkit-linear-gradient(0deg, #ca7dcf 0%, #794cdf 100%);
+        background-image: -ms-linear-gradient(0deg, #ca7dcf 0%, #794cdf 100%); }
 
 /* End Welcome Area css
 ============================================================================================ */
@@ -2795,9 +2795,9 @@ h6 {
       color: #fff;
       font-size: 16px; }
     .personal_text .personal_social li:hover a {
-      background-image: -moz-linear-gradient(0deg, #D16CDF 0%, #C548E0 100%);
-      background-image: -webkit-linear-gradient(0deg, #f1ca06 0%, #C548E0 100%);
-      background-image: -ms-linear-gradient(0deg, #f1ca06 0%, #C548E0 100%); }
+      background-image: -moz-linear-gradient(0deg, #ca7dcf 0%, #794cdf 100%);
+      background-image: -webkit-linear-gradient(0deg, #ca7dcf 0%, #794cdf 100%);
+      background-image: -ms-linear-gradient(0deg, #ca7dcf 0%, #794cdf 100%); }
 
 /* End Personal Profile Area css
 ============================================================================================ */
@@ -2951,7 +2951,7 @@ h6 {
   color: rgba(255, 255, 255, 0.89);
   margin-bottom: 30px; }
   .ab_widget p a {
-    color: #C548E0; }
+    color: #ca7dcf; }
   .ab_widget p + p {
     margin-bottom: 0px; }
 

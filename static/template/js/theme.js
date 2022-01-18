@@ -361,7 +361,7 @@
                             "visibility": "on"
                         },
                         {
-                            "color": "#737373"
+                            "color": "#c7c7c7"
                         }
                     ]
                 },

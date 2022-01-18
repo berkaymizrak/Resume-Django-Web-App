@@ -9,7 +9,7 @@ dj-database-url==0.5.0
 Django==4.0.1
 django-crispy-forms==1.13.0
 django-environ==0.8.1
-django-heroku==0.0.0
+django-heroku
 django-import-export==2.7.1
 django-redirect-to-non-www==0.1.1
 django-smtp-ssl==1.0
