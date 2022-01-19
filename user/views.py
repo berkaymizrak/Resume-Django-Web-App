@@ -15,6 +15,7 @@ def layout(request):
     home_detail_title = utils.get_parameter('home_detail_title')
     meta_description = utils.get_parameter('meta_description')
     site_keywords = utils.get_parameter('site_keywords')
+    google_analytics_tracking_id = utils.get_parameter('google_analytics_tracking_id')
 
     site_favicon = utils.get_image('site_favicon')
     og_image = utils.get_image('og_image')
@@ -28,7 +29,9 @@ def layout(request):
         'site_keywords': site_keywords,
         'meta_description': meta_description,
         'site_favicon': site_favicon,
+        'google_analytics_tracking_id': google_analytics_tracking_id,
         'DEFAULT_PNG': settings.DEFAULT_PNG,
+        'GOOGLE_RECAPTCHA_SITE_KEY': settings.GOOGLE_RECAPTCHA_SITE_KEY,
     }
     return context
 
@@ -106,7 +109,6 @@ def index(request):
         'person_image': person_image,
 
         'form': form,
-        'GOOGLE_RECAPTCHA_SITE_KEY': settings.GOOGLE_RECAPTCHA_SITE_KEY,
     }
     return render(request, 'index.html', context=context)
 

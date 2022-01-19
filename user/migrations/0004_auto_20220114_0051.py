@@ -224,6 +224,10 @@ def create_default_values(apps, scheme_editor):
             'name': 'site_keywords',
             'description': 'Site keywords in meta tags.',
         },
+        {
+            'name': 'google_analytics_tracking_id',
+            'description': 'With just adding Google Analytics tracking id, your website will be added to your account.',
+        },
     ]
     models = {
         'SocialMedia': social_media_dump,
