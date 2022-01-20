@@ -55,7 +55,7 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',  # White Noise for Heroku
 
-    'redirect_to_non_www.middleware.RedirectToNonWww',  # Extra
+    # 'redirect_to_non_www.middleware.RedirectToNonWww',  # Extra
 
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -213,16 +213,16 @@ if not DEBUG:
 
     django_heroku.settings(locals(), staticfiles=False)
 
-    SECURE_SSL_REDIRECT = env('SECURE_SSL_REDIRECT')
-    SESSION_COOKIE_SECURE = env('SESSION_COOKIE_SECURE')
-    CSRF_COOKIE_SECURE = env('CSRF_COOKIE_SECURE')
+    # SECURE_SSL_REDIRECT = env('SECURE_SSL_REDIRECT')
+    # SESSION_COOKIE_SECURE = env('SESSION_COOKIE_SECURE')
+    # CSRF_COOKIE_SECURE = env('CSRF_COOKIE_SECURE')
     # PREPEND_WWW = False
 
-    SET_SSL_MODE = env('SET_SSL_MODE', default=False)
-    if SET_SSL_MODE:
-        SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-        os.environ['HTTPS'] = "on"
-        os.environ['wsgi.url_scheme'] = 'https'
+    # SET_SSL_MODE = env('SET_SSL_MODE', default=False)
+    # if SET_SSL_MODE:
+    #     SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+    #     os.environ['HTTPS'] = "on"
+    #     os.environ['wsgi.url_scheme'] = 'https'
 
 # ---------------------------- HEROKU AND SSL SERVER SETTINGS ----------------------------
 
