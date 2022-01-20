@@ -1,11 +1,11 @@
-from django.shortcuts import render
-from user.models import *
-from user.forms import *
-from django.shortcuts import render
-import requests
+from django.conf import settings
 from django.http import JsonResponse, Http404
-from .decorators import *
+from django.shortcuts import render
+from user.decorators import *
+from user.forms import *
+from user.models import *
 from user import utils
+import requests
 
 # Create your views here.
 
@@ -114,19 +114,37 @@ def index(request):
 
 
 def special_links(request, slug):
-    try:
-        object = ImageSetting.objects.get(name=slug)
-    except:
-        object = None
+    """
+    Checks first if slug is in Document objects. If not then checks in images.
+    Returns the file of object.
+    """
 
-    if object:
-        if object.file:
-            context = {
-                'object': object,
-            }
-            return render(request, 'image.html', context=context)
-        else:
-            return redirect('index')
+    obj = None
+    obj_type = None
+    try:
+        obj = Document.objects.get(name=slug)
+        obj_type = 'doc'
+    except Document.DoesNotExist:
+        pass
+
+    if not obj:
+        try:
+            obj = ImageSetting.objects.get(name=slug)
+            obj_type = 'image'
+        except ImageSetting.DoesNotExist:
+            pass
+
+    if obj:
+        if obj_type == 'doc':
+            if obj.file:
+                return redirect(obj.file.url)
+        elif obj_type == 'image':
+            if obj.file:
+                context = {
+                    'object': obj,
+                }
+                return render(request, 'image.html', context=context)
+        return redirect('index')
     else:
         raise Http404
 

@@ -1,8 +1,7 @@
 from django.contrib import admin
-
+from import_export.admin import ImportExportModelAdmin
 from user.models import *
 from user import forms
-from import_export.admin import ImportExportModelAdmin
 
 # Register your models here.
 
@@ -75,9 +74,9 @@ class MessageAdmin(ImportExportModelAdmin):
 
 @admin.register(Document)
 class DocumentAdmin(ImportExportModelAdmin):
-    list_display = ['id', 'button_text', 'file', 'show_on_page', 'date']
-    search_fields = ['button_text', ]
-    list_editable = ['button_text', 'file', 'show_on_page', ]
+    list_display = ['id', 'name', 'button_text', 'file', 'show_on_page', 'date']
+    search_fields = ['name', 'button_text', ]
+    list_editable = ['name', 'button_text', 'file', 'show_on_page', ]
     list_filter = ['show_on_page', ]
 
     class Meta:

@@ -1,5 +1,6 @@
-from user.models import *
+from django.conf import settings
 from django.core.mail import EmailMessage
+from user.models import *
 
 
 def send_mail_check(name, subject, message, to, reply_to=settings.DEFAULT_FROM_EMAIL):

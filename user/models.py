@@ -1,15 +1,9 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.core.validators import MinValueValidator, MaxValueValidator
-
-from django.utils.text import slugify
-
 from django.dispatch import receiver
-# import os
-# from django.core.files.storage import FileSystemStorage
-from django.conf import settings
-from django.core.files.storage import default_storage
-from resume.custom_storages import MediaStorage, ImageSettingStorage, DocumentStorage
+from django.utils.text import slugify
+from resume.custom_storages import ImageSettingStorage, DocumentStorage
 
 
 # Create your models here.
@@ -39,7 +33,15 @@ class GeneralSetting(models.Model):
 
 
 class ImageSetting(models.Model):
-    name = models.CharField(default='', max_length=254, verbose_name='Name', help_text='', blank=True, null=True)
+    name = models.CharField(
+        default='',
+        max_length=254,
+        verbose_name='Name',
+        help_text='This works as slug end of the url after domain. (https://berkaymizrak.com/xxxx)',
+        blank=True,
+        null=True,
+        unique=True,
+    )
     description = models.CharField(
         default='',
         max_length=254,
@@ -67,8 +69,21 @@ class ImageSetting(models.Model):
     def __str__(self):
         return 'Image Setting: %s' % self.name
 
+    def save(self, *args, **kwargs):
+        self.name = slugify(self.name)
+        super(ImageSetting, self).save(*args, **kwargs)
+
 
 class Document(models.Model):
+    name = models.CharField(
+        default='',
+        max_length=254,
+        verbose_name='Name',
+        help_text='This works as slug end of the url after domain. (https://berkaymizrak.com/xxxx)',
+        blank=True,
+        null=True,
+        unique=True,
+    )
     button_text = models.CharField(
         default='Download',
         max_length=254,
@@ -93,6 +108,10 @@ class Document(models.Model):
 
     def __str__(self):
         return 'Document: %s' % self.button_text
+
+    def save(self, *args, **kwargs):
+        self.name = slugify(self.name)
+        return super(Document, self).save(*args, **kwargs)
 
 
 class SkillTypes(models.Model):
