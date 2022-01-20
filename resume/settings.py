@@ -55,7 +55,7 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',  # White Noise for Heroku
 
-    # 'redirect_to_non_www.middleware.RedirectToNonWww',  # Extra
+    'redirect_to_non_www.middleware.RedirectToNonWww',  # Extra
 
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
