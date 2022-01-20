@@ -38,6 +38,8 @@ ALLOWED_HOSTS = env("ALLOWED_HOSTS", cast=list)
 # Must be defined for Django 4+
 CSRF_TRUSTED_ORIGINS = env("CSRF_TRUSTED_ORIGINS", cast=list)
 
+SITE_DOMAIN = "berkaymizrak.com"
+
 # Application definition
 
 INSTALLED_APPS = [

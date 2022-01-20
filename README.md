@@ -23,6 +23,9 @@ Some features:
 * 404, 403, 500 pages are set.
 
 
+* **CanonicalMiddleware:** if you use Heroku, this middleware redirects requests from herokuapp.com to your domain.
+
+
 * **ParameterMiddleware:** receive people who come with reference of other users with get parameter of 'ref'
     and saves it into the session. Thus, if user visit other pages of website, all get parameters and 'ref' will stay
     end of the url all the time, on all different links.
