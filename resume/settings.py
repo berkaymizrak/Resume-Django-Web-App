@@ -213,9 +213,9 @@ if not DEBUG:
 
     django_heroku.settings(locals(), staticfiles=False)
 
-    # SECURE_SSL_REDIRECT = env('SECURE_SSL_REDIRECT')
-    # SESSION_COOKIE_SECURE = env('SESSION_COOKIE_SECURE')
-    # CSRF_COOKIE_SECURE = env('CSRF_COOKIE_SECURE')
+    SECURE_SSL_REDIRECT = env('SECURE_SSL_REDIRECT')
+    SESSION_COOKIE_SECURE = env('SESSION_COOKIE_SECURE')
+    CSRF_COOKIE_SECURE = env('CSRF_COOKIE_SECURE')
     # PREPEND_WWW = False
 
     # SET_SSL_MODE = env('SET_SSL_MODE', default=False)
