@@ -35,6 +35,9 @@ DEBUG = env("DEBUG")
 
 ALLOWED_HOSTS = env("ALLOWED_HOSTS", cast=list)
 
+# Must be defined for Django 4+
+CSRF_TRUSTED_ORIGINS = env("CSRF_TRUSTED_ORIGINS", cast=list)
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -55,6 +58,7 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',  # White Noise for Heroku
 
+    'resume.CanonicalDomainMiddleware.CanonicalDomainMiddleware',  # Extra
     'redirect_to_non_www.middleware.RedirectToNonWww',  # Extra
 
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -213,6 +217,7 @@ if not DEBUG:
 
     django_heroku.settings(locals(), staticfiles=False)
 
+    # Since Cloudflare have automatic redirect to https, this setting causes infinite loop.
     # SECURE_SSL_REDIRECT = env('SECURE_SSL_REDIRECT')
     SESSION_COOKIE_SECURE = env('SESSION_COOKIE_SECURE')
     CSRF_COOKIE_SECURE = env('CSRF_COOKIE_SECURE')
