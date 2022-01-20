@@ -1,7 +1,8 @@
-from django.db import models
+from django.db import models, IntegrityError
 from django.contrib.auth.models import User
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.dispatch import receiver
+from django.utils.crypto import get_random_string
 from django.utils.text import slugify
 from resume.custom_storages import ImageSettingStorage, DocumentStorage
 
@@ -71,7 +72,11 @@ class ImageSetting(models.Model):
 
     def save(self, *args, **kwargs):
         self.name = slugify(self.name)
-        super(ImageSetting, self).save(*args, **kwargs)
+        while True:
+            try:
+                super(ImageSetting, self).save(*args, **kwargs)
+            except IntegrityError:
+                self.name += get_random_string(allowed_chars="0123456789", length=2)
 
 
 class Document(models.Model):
@@ -111,7 +116,11 @@ class Document(models.Model):
 
     def save(self, *args, **kwargs):
         self.name = slugify(self.name)
-        return super(Document, self).save(*args, **kwargs)
+        while True:
+            try:
+                return super(Document, self).save(*args, **kwargs)
+            except IntegrityError:
+                self.name += get_random_string(allowed_chars="0123456789", length=2)
 
 
 class SkillTypes(models.Model):
