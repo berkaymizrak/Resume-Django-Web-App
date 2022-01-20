@@ -218,11 +218,11 @@ if not DEBUG:
     CSRF_COOKIE_SECURE = env('CSRF_COOKIE_SECURE')
     # PREPEND_WWW = False
 
-    # SET_SSL_MODE = env('SET_SSL_MODE', default=False)
-    # if SET_SSL_MODE:
-    #     SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-    #     os.environ['HTTPS'] = "on"
-    #     os.environ['wsgi.url_scheme'] = 'https'
+    SET_SSL_MODE = env('SET_SSL_MODE', default=False)
+    if SET_SSL_MODE:
+        SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+        os.environ['HTTPS'] = "on"
+        os.environ['wsgi.url_scheme'] = 'https'
 
 # ---------------------------- HEROKU AND SSL SERVER SETTINGS ----------------------------
 

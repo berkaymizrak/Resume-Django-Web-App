@@ -344,6 +344,11 @@ button:focus {
   border-left-style: solid;
   border-width: 15px;
 }
+.error_page_main {
+  margin: 0!important;
+  background-color: whitesmoke!important;
+}
+
 .loadingStatusButton {
     width: auto;
     display: inline-block;
