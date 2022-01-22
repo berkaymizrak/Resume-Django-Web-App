@@ -3,13 +3,13 @@ from django.core.mail import EmailMessage
 from user.models import *
 
 
-def send_mail_check(name, subject, message, to, reply_to=settings.DEFAULT_FROM_EMAIL):
+def send_mail_check(name, subject_mail, subject_user, message, to, reply_to=settings.DEFAULT_FROM_EMAIL):
     success = True
     error_message = None
 
     try:
         email = EmailMessage(
-            subject,
+            subject_mail,
             message,
             to=[to],
             reply_to=[reply_to]
@@ -21,6 +21,7 @@ def send_mail_check(name, subject, message, to, reply_to=settings.DEFAULT_FROM_E
 
     Message.objects.create(
         name=name,
+        subject=subject_user,
         email=to,
         message=message,
         error_message=error_message,
@@ -28,11 +29,12 @@ def send_mail_check(name, subject, message, to, reply_to=settings.DEFAULT_FROM_E
     )
 
 
-def send_mail_both(name, subject, message, to, reply_to=settings.DEFAULT_FROM_EMAIL):
+def send_mail_both(name, subject_mail, subject_user, message, to, reply_to=settings.DEFAULT_FROM_EMAIL):
     # Mail to ADMIN
     send_mail_check(
         name=name,
-        subject=subject,
+        subject_mail=subject_mail,
+        subject_user=subject_user,
         message=message,
         to=settings.DEFAULT_FROM_EMAIL,
         reply_to=to,
@@ -41,7 +43,8 @@ def send_mail_both(name, subject, message, to, reply_to=settings.DEFAULT_FROM_EM
     # Mail to USER
     send_mail_check(
         name=name,
-        subject=subject,
+        subject_mail=subject_mail,
+        subject_user=subject_user,
         message=message,
         to=to,
         reply_to=reply_to,

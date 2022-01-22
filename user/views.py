@@ -56,18 +56,19 @@ def index(request):
             if result['success']:
                 name = form.cleaned_data['name']
                 email = form.cleaned_data['email']
-                subject = form.cleaned_data['subject']
+                subject_user = form.cleaned_data['subject']
                 message = form.cleaned_data['message']
 
                 message_context = 'Message received.\n\n' \
                                   'Name: %s\n' \
                                   'Subject: %s\n' \
                                   'Email: %s\n' \
-                                  'Message: %s' % (name, subject, email, message)
+                                  'Message: %s' % (name, subject_user, email, message)
 
                 utils.send_mail_both(
                     name=name,
-                    subject='Message Received',
+                    subject_mail='Message Received',
+                    subject_user=subject_user,
                     message=message_context,
                     to=email,
                 )
