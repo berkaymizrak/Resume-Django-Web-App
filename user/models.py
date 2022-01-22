@@ -73,6 +73,7 @@ class ImageSetting(models.Model):
     def save(self, *args, **kwargs):
         self.name = slugify(self.name)
         while True:
+            print(self.name)
             try:
                 super(ImageSetting, self).save(*args, **kwargs)
             except IntegrityError:

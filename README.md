@@ -17,7 +17,7 @@ Some features:
 * Dump data comes with *"migrate"*. RunPython command is set for dump data.
 
 
-* **/\<slug>/** : (_views.special_links_) When entered name of images that are added to 'ImageSettings' to url, image returns in max screen size(javascript makes it) to user with layout of page(all meta and head).
+* **/\<slug>/** : (_views.special_links_) Any first level of path in the url are checked first in 'Document' and then 'ImageSettings'. If path matches with 'name' field, it redirects to document(media) url or if it is an ImageSettings object returns the image page within max screen size image(javascript makes it) with layout of page(all meta and head).
 
 
 * 404, 403, 500 pages are set.
