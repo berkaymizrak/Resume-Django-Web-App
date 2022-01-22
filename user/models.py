@@ -75,7 +75,7 @@ class ImageSetting(models.Model):
         while True:
             print(self.name)
             try:
-                super(ImageSetting, self).save(*args, **kwargs)
+                return super(ImageSetting, self).save(*args, **kwargs)
             except IntegrityError:
                 self.name += get_random_string(allowed_chars="0123456789", length=2)
 
