@@ -277,7 +277,8 @@ def delete_old_file(model, media_storage=None, instance=None, delete_older=False
 
 
 @receiver(models.signals.post_delete, sender=ImageSetting)
-def auto_delete_file_on_delete_ImageSetting(sender, instance, **kwargs):
+@receiver(models.signals.post_delete, sender=Document)
+def auto_delete_file_on_delete(sender, instance, **kwargs):
     """
     Deletes file from filesystem
     when corresponding `MediaFile` object is deleted.
@@ -286,29 +287,12 @@ def auto_delete_file_on_delete_ImageSetting(sender, instance, **kwargs):
 
 
 @receiver(models.signals.pre_save, sender=ImageSetting)
-def auto_delete_file_on_change_ImageSetting(sender, instance, **kwargs):
-    """
-    Deletes old file from filesystem
-    when corresponding `MediaFile` object is updated
-    with new file.
-    """
-    delete_old_file(sender, instance=instance, delete_older=True)
-
-
-@receiver(models.signals.post_delete, sender=Document)
-def auto_delete_file_on_delete_Document(sender, instance, **kwargs):
-    """
-    Deletes file from filesystem
-    when corresponding `MediaFile` object is deleted.
-    """
-    delete_old_file(sender, instance=instance, delete_older=False)
-
-
 @receiver(models.signals.pre_save, sender=Document)
-def auto_delete_file_on_change_Document(sender, instance, **kwargs):
+def auto_delete_file_on_change(sender, instance, **kwargs):
     """
     Deletes old file from filesystem
     when corresponding `MediaFile` object is updated
     with new file.
     """
     delete_old_file(sender, instance=instance, delete_older=True)
+
