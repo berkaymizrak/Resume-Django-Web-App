@@ -1,0 +1,57 @@
+{% extends 'layout.html' %}
+{% load template_filters %}
+{% load static %}
+
+
+{% block detailed_title %}
+    | Error 503
+{% endblock %}
+
+
+{% block content %}
+
+    <!--================Home Banner Area =================-->
+    <section class="home_banner_area error_page_main">
+        <div class="container" style="bottom: -150px; ">
+            <div class="banner_inner d-flex align-items-center">
+                <div class="banner_content">
+                    <div class="media">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="d-flex">
+                                    <img src="{% static 'error.png' %}" alt="Error Warning"
+                                         style="width: 100%; max-width: 500px">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+
+                                <div class="media-body">
+                                    <div class="personal_text"
+                                         style="font-size: large; font-weight: bold; color: black; ">
+                                        <h3>Service Unavailable For Now</h3>
+
+                                        <p style="color: black; ">
+                                            Sorry, we are under maintenance!
+                                        </p>
+                                        <p>
+                                            <a href="{% url 'index' %}" style="color: purple; ">Go back to main page.</a>
+                                        </p>
+                                        <p>
+                                            <a href="mailto:info@berkaymizrak.com" style="color: purple; ">info@berkaymizrak.com</a>
+                                        </p>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--================End Home Banner Area =================-->
+
+{% endblock %}
+
+
+

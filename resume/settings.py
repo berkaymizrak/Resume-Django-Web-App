@@ -37,6 +37,8 @@ ALLOWED_HOSTS = env("ALLOWED_HOSTS", cast=list)
 # Must be defined for Django 4+
 CSRF_TRUSTED_ORIGINS = env("CSRF_TRUSTED_ORIGINS", cast=list)
 
+UNDER_MAINTENANCE = False
+
 SITE_DOMAIN = "berkaymizrak.com"
 
 # Application definition
@@ -69,6 +71,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 
+    'resume.MaintenanceMiddleware.MaintenanceMiddleware',  # Extra
     # 'resume.ParameterMiddleware.ParameterMiddleware',  # Extra
 ]
 
@@ -133,7 +136,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
 
-LANGUAGE_CODE = 'en'
+LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'Europe/Istanbul'
 
