@@ -32,7 +32,7 @@ services:
 #      - socket-data:/srv/socket-data
       - .:/srv/app_resume
     ports:
-      - "0.0.0.0:8001:8001"
+      - "0.0.0.0:8003:8003"
 #    restart: unless-stopped
     depends_on:
       - postgres_resume

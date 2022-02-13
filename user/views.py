@@ -117,7 +117,7 @@ def index(request):
 def special_links(request, slug):
     """
     Checks first if slug is in Document objects. If not then checks in images.
-    Returns the file of object.
+    Returns the file of object from slug field.
     """
 
     obj = None

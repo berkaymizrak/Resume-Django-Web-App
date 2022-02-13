@@ -3,7 +3,6 @@ ARG REPO_PATH
 ENV PYTHONUNBUFFERED 1
 ENV VIRTUAL_ENV=/opt/venv
 
-# Main packs  &&  PDF creater
 RUN apt-get update
 # Install Postgres
 RUN #apt-get install libpq-dev -y
