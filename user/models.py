@@ -10,19 +10,47 @@ from resume.custom_storages import ImageSettingStorage, DocumentStorage
 # Create your models here.
 
 
-class GeneralSetting(models.Model):
-    name = models.CharField(default='', max_length=254, verbose_name='Name', help_text='', blank=True, null=True)
+class AbstractModel(models.Model):
+    updated_date = models.DateTimeField(
+        verbose_name='Updated Date',
+        blank=True,
+        auto_now=True,
+    )
+    created_date = models.DateTimeField(
+        verbose_name='Created Date',
+        blank=True,
+        auto_now_add=True,
+    )
+
+    class Meta:
+        abstract = True
+
+    # def save(self, *args, **kwargs):
+    #     self.clean()
+    #     return super().save(*args, **kwargs)
+
+
+class GeneralSetting(AbstractModel):
+    name = models.CharField(
+        default='',
+        max_length=254,
+        verbose_name='Name',
+        help_text='',
+        blank=True,
+    )
     description = models.CharField(
         default='',
         max_length=254,
         verbose_name='Description',
         help_text='',
         blank=True,
-        null=True,
     )
-    parameter = models.TextField(default='', verbose_name='Parameter', help_text='', blank=True, null=True)
-
-    date = models.DateTimeField(verbose_name='Created Date', blank=True, auto_now_add=True)
+    parameter = models.TextField(
+        default='',
+        verbose_name='Parameter',
+        help_text='',
+        blank=True,
+    )
 
     class Meta:
         verbose_name_plural = 'General Settings'
@@ -33,7 +61,7 @@ class GeneralSetting(models.Model):
         return 'General Setting: %s' % self.name
 
 
-class ImageSetting(models.Model):
+class ImageSetting(AbstractModel):
     name = models.CharField(
         default='',
         max_length=254,
@@ -49,7 +77,6 @@ class ImageSetting(models.Model):
         verbose_name='Description',
         help_text='',
         blank=True,
-        null=True,
     )
     file = models.ImageField(
         default='',
@@ -59,8 +86,6 @@ class ImageSetting(models.Model):
         blank=True,
         null=True,
     )
-
-    date = models.DateTimeField(verbose_name='Created Date', blank=True, auto_now_add=True)
 
     class Meta:
         verbose_name_plural = 'Image Settings'
@@ -79,7 +104,7 @@ class ImageSetting(models.Model):
                 self.name += get_random_string(allowed_chars="0123456789", length=2)
 
 
-class Document(models.Model):
+class Document(AbstractModel):
     name = models.CharField(
         default='',
         max_length=254,
@@ -95,7 +120,6 @@ class Document(models.Model):
         verbose_name='Button Text',
         help_text='',
         blank=True,
-        null=True,
     )
     file = models.FileField(
         default='',
@@ -103,13 +127,15 @@ class Document(models.Model):
         verbose_name='Document',
         help_text='',
     )
-    show_on_page = models.BooleanField(default=True, verbose_name='Show on menu')
-    date = models.DateTimeField(verbose_name='Created Date', blank=True, auto_now_add=True)
+    show_on_page = models.BooleanField(
+        default=True,
+        verbose_name='Show on menu',
+    )
 
     class Meta:
         verbose_name_plural = 'Documents'
         verbose_name = 'Document'
-        ordering = ('date',)
+        ordering = ('-created_date',)
 
     def __str__(self):
         return 'Document: %s' % self.button_text
@@ -123,7 +149,7 @@ class Document(models.Model):
                 self.name += get_random_string(allowed_chars="0123456789", length=2)
 
 
-class SkillTypes(models.Model):
+class SkillTypes(AbstractModel):
     name = models.CharField(
         default='',
         max_length=254,
@@ -133,7 +159,6 @@ class SkillTypes(models.Model):
         null=True,
         unique=True,
     )
-    date = models.DateTimeField(verbose_name='Created Date', blank=True, auto_now_add=True)
 
     class Meta:
         verbose_name_plural = 'Skill Types'
@@ -144,15 +169,18 @@ class SkillTypes(models.Model):
         return 'Skill Type: %s' % self.name
 
 
-class Skill(models.Model):
-    order = models.IntegerField(default=1, verbose_name='Order', blank=True)
+class Skill(AbstractModel):
+    order = models.IntegerField(
+        default=1,
+        verbose_name='Order',
+        blank=True,
+    )
     name = models.CharField(
         default='',
         max_length=254,
         verbose_name='Name',
         help_text='',
         blank=True,
-        null=True,
     )
     percent = models.IntegerField(
         default=50,
@@ -168,8 +196,6 @@ class Skill(models.Model):
         null=True,
     )
 
-    date = models.DateTimeField(verbose_name='Created Date', blank=True, auto_now_add=True)
-
     class Meta:
         verbose_name_plural = 'Skills'
         verbose_name = 'Skill'
@@ -179,19 +205,26 @@ class Skill(models.Model):
         return 'Skill: %s' % self.name
 
 
-class SocialMedia(models.Model):
-    order = models.IntegerField(default=1, verbose_name='Order', blank=True)
-    url = models.URLField(default='', max_length=254, verbose_name='URL', help_text='', blank=True, null=True)
+class SocialMedia(AbstractModel):
+    order = models.IntegerField(
+        default=1,
+        verbose_name='Order',
+        blank=True,
+    )
+    url = models.URLField(
+        default='',
+        max_length=254,
+        verbose_name='URL',
+        help_text='',
+        blank=True,
+    )
     icon = models.CharField(
         default='',
         max_length=254,
         verbose_name='Icon (Font Awesome)',
         help_text='https://fontawesome.com/v5.15/icons?d=gallery&p=2&m=free',
         blank=True,
-        null=True,
     )
-
-    date = models.DateTimeField(verbose_name='Created Date', blank=True, auto_now_add=True)
 
     class Meta:
         verbose_name_plural = 'Social Medias'
@@ -211,20 +244,51 @@ class SocialMedia(models.Model):
         super().save(*args, **kwargs)
 
 
-class Message(models.Model):
-    name = models.CharField(default='', max_length=254, verbose_name='Enter Your Name', help_text='', blank=True)
-    email = models.CharField(default='', max_length=254, verbose_name='Enter Email Address', help_text='', blank=True)
-    subject = models.CharField(default='', max_length=254, verbose_name='Enter Subject', help_text='', blank=True)
-    message = models.CharField(default='', max_length=999, verbose_name='Enter Message', help_text='', blank=True)
-    error_message = models.TextField(default='', verbose_name='Error Message', help_text='', blank=True, null=True)
-    success = models.BooleanField(default=True, verbose_name='Success')
-
-    date = models.DateTimeField(blank=True, auto_now_add=True)
+class Message(AbstractModel):
+    name = models.CharField(
+        default='',
+        max_length=254,
+        verbose_name='Enter Your Name',
+        help_text='',
+        blank=True,
+    )
+    email = models.CharField(
+        default='',
+        max_length=254,
+        verbose_name='Enter Email Address',
+        help_text='',
+        blank=True,
+    )
+    subject = models.CharField(
+        default='',
+        max_length=254,
+        verbose_name='Enter Subject',
+        help_text='',
+        blank=True,
+    )
+    message = models.CharField(
+        default='',
+        max_length=999,
+        verbose_name='Enter Message',
+        help_text='',
+        blank=True,
+    )
+    error_message = models.TextField(
+        default='',
+        verbose_name='Error Message',
+        help_text='',
+        blank=True,
+        null=True,
+    )
+    success = models.BooleanField(
+        default=True,
+        verbose_name='Success',
+    )
 
     class Meta:
         verbose_name_plural = 'Messages'
         verbose_name = 'Message'
-        ordering = ('-date',)
+        ordering = ('-created_date',)
 
     def __str__(self):
         return 'Message: %s' % self.name
@@ -295,4 +359,3 @@ def auto_delete_file_on_change(sender, instance, **kwargs):
     with new file.
     """
     delete_old_file(sender, instance=instance, delete_older=True)
-
