@@ -25,10 +25,6 @@ class AbstractModel(models.Model):
     class Meta:
         abstract = True
 
-    # def save(self, *args, **kwargs):
-    #     self.clean()
-    #     return super().save(*args, **kwargs)
-
 
 class GeneralSetting(AbstractModel):
     name = models.CharField(
