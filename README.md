@@ -14,7 +14,7 @@ Some features:
 * **Docker** for continuous development server
 
 
-* Dump data comes with *"migrate"*. RunPython command is set for dump data.
+* Demo data comes with *"migrate"*. RunPython command is set for demo data.
 
 
 * **/\<slug>/** : (_views.special_links_) Any first level of path in the url are checked first in 'Document' and then 'ImageSettings'. If path matches with 'name' field, it redirects to document(media) url or if it is an ImageSettings object returns the image page within max screen size image(javascript makes it) with layout of page(all meta and head).
