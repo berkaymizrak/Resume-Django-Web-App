@@ -181,10 +181,6 @@ def create_default_values(apps, scheme_editor):
             'description': 'Picture in home page.',
         },
         {
-            'name': 'site_favicon',
-            'description': 'Favicon for whole website.',
-        },
-        {
             'name': 'og_image',
             'description': 'og image for sharing image of Facebook, Twitter, Whatsapp etc. Watch out of image size.',
         },
