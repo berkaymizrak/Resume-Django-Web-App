@@ -1,6 +1,6 @@
 from django import forms
-
 from user import models
+from user import utils
 
 
 class ContactForm(forms.Form):
@@ -46,6 +46,36 @@ class ContactForm(forms.Form):
             # 'cols': 80,
         }),
     )
+
+    def send_mail(self):
+        if self.is_valid():
+            name = self.cleaned_data['name']
+            email = self.cleaned_data['email']
+            subject = self.cleaned_data['subject']
+            message = self.cleaned_data['message']
+            message_context = 'Message received.\n\n' \
+                              'Name: %s\n' \
+                              'Subject: %s\n' \
+                              'Email: %s\n' \
+                              'Message: %s' % (name, subject, email, message)
+
+            utils.send_mail_both(
+                name=name,
+                subject_mail='Message Received',
+                subject_user=subject,
+                message=message_context,
+                to=email,
+            )
+            context = {
+                'success': True,
+                'message': '',
+            }
+        else:
+            context = {
+                'success': False,
+                'message': 'Please fill all required fields.',
+            }
+        return context
 
 
 class SkillAdminForm(forms.ModelForm):

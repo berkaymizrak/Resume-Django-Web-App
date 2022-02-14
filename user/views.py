@@ -2,10 +2,11 @@ from django.conf import settings
 from django.http import JsonResponse, Http404
 from django.shortcuts import render
 from user.decorators import *
-from user.forms import *
-from user.models import *
+from user import forms
+from user import models
 from user import utils
 import requests
+
 
 # Create your views here.
 
@@ -17,7 +18,6 @@ def layout(request):
     site_keywords = utils.get_parameter('site_keywords')
     google_analytics_tracking_id = utils.get_parameter('google_analytics_tracking_id')
 
-    site_favicon = utils.get_image('site_favicon')
     og_image = utils.get_image('og_image')
     header_logo = utils.get_image('header_logo')
 
@@ -28,7 +28,6 @@ def layout(request):
         'og_image': og_image,
         'site_keywords': site_keywords,
         'meta_description': meta_description,
-        'site_favicon': site_favicon,
         'google_analytics_tracking_id': google_analytics_tracking_id,
         'DEFAULT_PNG': settings.DEFAULT_PNG,
         'GOOGLE_RECAPTCHA_SITE_KEY': settings.GOOGLE_RECAPTCHA_SITE_KEY,
@@ -37,49 +36,26 @@ def layout(request):
 
 
 def index(request):
-    form = ContactForm(request.POST or None)
+    form = forms.ContactForm(request.POST or None)
     if request.method == 'POST':
         context = {
             'success': False,
             'message': '',
         }
-        if form.is_valid():
-            ''' reCAPTCHA validation '''
-            recaptcha_response = request.POST.get('g-recaptcha-response')
-            data = {
-                'secret': settings.GOOGLE_RECAPTCHA_SECRET_KEY,
-                'response': recaptcha_response
-            }
-            r = requests.post('https://www.google.com/recaptcha/api/siteverify', data=data)
-            result = r.json()
+        ''' reCAPTCHA validation '''
+        recaptcha_response = request.POST.get('g-recaptcha-response')
+        data = {
+            'secret': settings.GOOGLE_RECAPTCHA_SECRET_KEY,
+            'response': recaptcha_response
+        }
+        r = requests.post('https://www.google.com/recaptcha/api/siteverify', data=data)
+        result = r.json()
 
-            if result['success']:
-                name = form.cleaned_data['name']
-                email = form.cleaned_data['email']
-                subject_user = form.cleaned_data['subject']
-                message = form.cleaned_data['message']
-
-                message_context = 'Message received.\n\n' \
-                                  'Name: %s\n' \
-                                  'Subject: %s\n' \
-                                  'Email: %s\n' \
-                                  'Message: %s' % (name, subject_user, email, message)
-
-                utils.send_mail_both(
-                    name=name,
-                    subject_mail='Message Received',
-                    subject_user=subject_user,
-                    message=message_context,
-                    to=email,
-                )
-                context['success'] = True
-                context['message'] = 'Your message is successfully sent...'
-            else:
-                context['success'] = False
-                context['message'] = 'Invalid reCAPTCHA. Please try again.'
+        if result['success']:
+            context = form.send_mail()
         else:
             context['success'] = False
-            context['message'] = 'Please fill all required fields.'
+            context['message'] = 'Invalid reCAPTCHA. Please try again.'
         return JsonResponse(context)
 
     person_name = utils.get_parameter('person_name')
@@ -87,7 +63,7 @@ def index(request):
     person_description = utils.get_parameter('person_description')
     person_image = utils.get_image('person_image')
 
-    skills = Skill.objects.all()
+    skills = models.Skill.objects.all()
     skills_mapped = {}
     for elem in skills:
         if elem.skill_type:
@@ -96,8 +72,8 @@ def index(request):
             else:
                 skills_mapped[elem.skill_type.name].append(elem)
 
-    social_medias = SocialMedia.objects.all()
-    documents = Document.objects.filter(show_on_page=True)
+    social_medias = models.SocialMedia.objects.all()
+    documents = models.Document.objects.filter(show_on_page=True)
 
     context = {
         'skills_mapped': skills_mapped,
@@ -123,16 +99,16 @@ def special_links(request, slug):
     obj = None
     obj_type = None
     try:
-        obj = Document.objects.get(name=slug)
+        obj = models.Document.objects.get(name=slug)
         obj_type = 'doc'
-    except Document.DoesNotExist:
+    except models.Document.DoesNotExist:
         pass
 
     if not obj:
         try:
-            obj = ImageSetting.objects.get(name=slug)
+            obj = models.ImageSetting.objects.get(name=slug)
             obj_type = 'image'
-        except ImageSetting.DoesNotExist:
+        except models.ImageSetting.DoesNotExist:
             pass
 
     if obj:
@@ -155,5 +131,3 @@ def csrf_failure(request, reason=""):
         'reason': reason,
     }
     return render(request, '403.html', context=context)
-
-
