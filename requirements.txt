@@ -22,7 +22,7 @@ MarkupPy==1.14
 odfpy==1.4.1
 openpyxl==3.0.9
 Pillow==9.0.1
-psycopg2-binary==2.9.3
+psycopg2==2.9.3
 python-dateutil==2.8.2
 PyYAML==6.0
 requests==2.27.1
