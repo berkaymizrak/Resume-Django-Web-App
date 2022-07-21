@@ -4,8 +4,10 @@ ENV PYTHONUNBUFFERED 1
 ENV VIRTUAL_ENV=/opt/venv
 
 RUN apt-get update
-# Install Postgres
-RUN #apt-get install libpq-dev -y
+# Install Postgres required packages
+RUN apt-get install libpq-dev python3-dev -y
+RUN apt-get install build-essential -y
+
 # Update pip
 RUN pip install --upgrade pip
 # Create venv
