@@ -77,11 +77,20 @@ Usage on Heroku:
        heroku run python manage.py collectstatic --noinput
        heroku run python manage.py createsuperuser
 
-## Django Management Command
+## Django Management Commands
 
-A Django management command is created as colorful with user-friendly progressbar and the functionality is just for example.
+* Just to remind, session flushing command can be run periodically if the django_session table became huge.
 
-To run:
+* * Locally:
+
+   `docker-compose exec app_resume python manage.py clearsessions`
+
+* * In Heroku Production:
+
+   `heroku run python manage.py clearsessions`
+
+
+* Additionally, a Django management command is created as colorful with user-friendly progressbar and the functionality is just to be an example. Running:
 
    `docker-compose exec app_resume python manage.py clear_models`
 
