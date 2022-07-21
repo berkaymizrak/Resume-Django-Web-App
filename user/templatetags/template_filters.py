@@ -18,6 +18,19 @@ def get_image_url(image):
         return settings.DEFAULT_PNG
 
 @register.filter
+def get_document_url(file):
+    if file:
+        try:
+            if file.url:
+                return file.url
+            else:
+                raise Exception
+        except:
+            return ''
+    else:
+        return ''
+
+@register.filter
 def get_object_value_or_none(value):
     if value:
         return value

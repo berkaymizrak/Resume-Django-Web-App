@@ -147,7 +147,7 @@
                             {% for document in documents %}
                                 <li class="nav-item">
                                     <a class="nav-link"
-                                       href="{{ document.file.url }}"
+                                       href="{{ document.file|get_document_url }}"
                                        target="_blank">
                                         {{ document.button_text|get_object_value_or_none }}
                                         <i class="fas fa-download" style="margin-left: 6px"></i>

@@ -225,12 +225,19 @@ def create_default_values(apps, scheme_editor):
             'description': 'With just adding Google Analytics tracking id, your website will be added to your account.',
         },
     ]
+    document_dump = [
+        {
+            'button_text': 'CV EN',
+            'show_on_page': True,
+        },
+    ]
     models = {
         'SocialMedia': social_media_dump,
         'SkillTypes': skill_type_dump,
         'Skill': skill_dump,
         'ImageSetting': image_setting_dump,
         'GeneralSetting': general_setting_dump,
+        'Document': document_dump,
     }
 
     for model_name, dump_data in models.items():
