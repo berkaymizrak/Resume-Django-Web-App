@@ -86,6 +86,13 @@
         .grecaptcha-badge {
             opacity: 0 !important;
         }
+
+        .toast-container {
+            position: fixed;
+            left: 25px;
+            bottom: 25px;
+            z-index: 9999;
+        }
     </style>
 
     <script>
@@ -103,6 +110,21 @@
 
 </head>
 <body>
+
+    <div class="toast-container">
+        <div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-autohide="false">
+            <div class="toast-header">
+                <strong class="mr-auto">Is Working Abroad Interesting??</strong>
+                <small class="text-muted"></small>
+                <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="toast-body">
+                Are you planning to <b style="color: black!important;">work abroad from Turkey?</b> Contact me to get professional help with <b style="color: black!important;">legal</b> and <b style="color: black!important;">payment</b> stuff, I'll make it so easy for you!
+            </div>
+        </div>
+    </div>
 
 {% block body %}
 
@@ -212,6 +234,9 @@
 <script src="{% static 'template/vendors/counter-up/jquery.counterup.min.js' %}"></script>
 <script src="{% static 'template/js/mail-script.js' %}"></script>
 <script src="{% static 'template/js/theme.js' %}"></script>
+<script>
+    $('.toast').toast('show')
+</script>
 {% block extra_scripts %}
 
 {% endblock %}
