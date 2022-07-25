@@ -290,9 +290,18 @@ class Message(AbstractModel):
         return 'Message: %s' % self.name
 
 
-def delete_old_file(model, media_storage=None, instance=None, delete_older=False, path=None):
-    # path OTHERWISE instance
-    # media_storage OTHERWISE instance
+def delete_media_file(model, instance=None, delete_older=False, path=None):
+    """
+    Delete old file from media storage when new file is uploaded.
+    If path is not None, delete file from path. If path is None, delete file from media storage and instance must be given.
+    :param model: Django Model to connect related database row.
+    :param instance: Instance of model that is currently uploaded.
+    :param delete_older: If True, delete old file from media storage; if False, delete current object's file.
+    :param path: Path of file. Optional.
+    :return True if file is deleted, False if file is not deleted.:
+    """
+
+    # This setting can be added:
     # if settings.DEBUG:
     #     return False
 
@@ -302,20 +311,28 @@ def delete_old_file(model, media_storage=None, instance=None, delete_older=False
         if not instance:
             return False
         if delete_older:
+            # This is for updating instance process.
+            # Delete older file that is on the instance.
             if not instance.pk:
+                # Given instance is not saved yet. So there is no older file.
                 return False
 
             try:
-                old_file = model.objects.get(pk=instance.pk).file
+                old_file = model.objects.get(pk=instance.pk)
             except model.DoesNotExist:
+                # Given instance could not be found in database.
                 return False
-
             new_file = instance.file
-            if old_file != new_file:
-                pass  # WILL DELETE
-            else:
+            if new_file._committed:
+                # New file is already uploaded.
+                # That case only possible when updating instance without changing file, which means old_file=new_file.
+                # Since they are equal, it must not be deleted. There is no actually new file.
                 old_file = None
+            else:
+                # New file is not uploaded yet which means there is old file.
+                old_file = old_file.file
         else:
+            # Delete current file
             old_file = instance.file
 
         if old_file:
@@ -324,13 +341,8 @@ def delete_old_file(model, media_storage=None, instance=None, delete_older=False
             old_file_path = None
 
     if old_file_path:
-        if not media_storage and instance:
-            media_storage = instance.file.storage
-        else:
-            if not media_storage:
-                return False
-        if media_storage.exists(old_file_path):
-            media_storage.delete(old_file_path)
+        if instance.file.storage.exists(old_file_path):
+            instance.file.storage.delete(old_file_path)
             return True
 
     return False
@@ -343,7 +355,7 @@ def auto_delete_file_on_delete(sender, instance, **kwargs):
     Deletes file from filesystem
     when corresponding `MediaFile` object is deleted.
     """
-    delete_old_file(sender, instance=instance, delete_older=False)
+    delete_media_file(sender, instance=instance, delete_older=False)
 
 
 @receiver(models.signals.pre_save, sender=ImageSetting)
@@ -354,4 +366,4 @@ def auto_delete_file_on_change(sender, instance, **kwargs):
     when corresponding `MediaFile` object is updated
     with new file.
     """
-    delete_old_file(sender, instance=instance, delete_older=True)
+    delete_media_file(sender, instance=instance, delete_older=True)
