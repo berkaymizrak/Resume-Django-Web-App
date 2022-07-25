@@ -318,19 +318,23 @@ def delete_media_file(model, instance=None, delete_older=False, path=None):
                 return False
 
             try:
-                old_file = model.objects.get(pk=instance.pk)
+                instance_object = model.objects.get(pk=instance.pk)
             except model.DoesNotExist:
                 # Given instance could not be found in database.
                 return False
             new_file = instance.file
-            if new_file._committed:
-                # New file is already uploaded.
-                # That case only possible when updating instance without changing file, which means old_file=new_file.
-                # Since they are equal, it must not be deleted. There is no actually new file.
-                old_file = None
-            else:
-                # New file is not uploaded yet which means there is old file.
-                old_file = old_file.file
+            try:
+                new_file.file  # This will raise FileDoesNotExist if file is cleared from instance, which is file deletion request.
+                if new_file._committed:
+                    # New file is already uploaded.
+                    # That case only possible when updating instance without changing file, which means old_file=new_file.
+                    # Since they are equal, it must not be deleted. There is no actually new file.
+                    old_file = None
+                else:
+                    # New file is not uploaded yet which means there is old file.
+                    old_file = instance_object.file
+            except:
+                old_file = instance_object.file
         else:
             # Delete current file
             old_file = instance.file
@@ -349,6 +353,7 @@ def delete_media_file(model, instance=None, delete_older=False, path=None):
 
 
 @receiver(models.signals.post_delete, sender=ImageSetting)
+# @receiver(models.signals.m2m_changed, sender=ImageSetting)
 @receiver(models.signals.post_delete, sender=Document)
 def auto_delete_file_on_delete(sender, instance, **kwargs):
     """
