@@ -353,7 +353,6 @@ def delete_media_file(model, instance=None, delete_older=False, path=None):
 
 
 @receiver(models.signals.post_delete, sender=ImageSetting)
-# @receiver(models.signals.m2m_changed, sender=ImageSetting)
 @receiver(models.signals.post_delete, sender=Document)
 def auto_delete_file_on_delete(sender, instance, **kwargs):
     """
