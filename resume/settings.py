@@ -244,3 +244,42 @@ CSRF_FAILURE_VIEW = 'user.views.csrf_failure'
 # ---------------------------- ERROR 403 HANDLER ----------------------------
 
 
+"""
+# ---------------------------- CELERY ----------------------------
+BROKER_URL = os.environ.get('REDIS_URL')
+
+CELERY_ACCEPT_CONTENT = ['json']
+CELERY_RESULT_ACCEPT_CONTENT = ['json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TIMEZONE = 'Europe/Istanbul'
+CELERY_ENABLE_UTC = False  # DEFAULT True
+CELERYBEAT_SCHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'
+
+CELERY_TASK_RESULT_EXPIRES = 60 * 60 * 24 * 2  # Seconds (2 days)
+BROKER_POOL_LIMIT = 1
+BROKER_HEARTBEAT = None
+USER_AGENTS_CACHE = None
+# ---------------------------- CELERY ----------------------------
+
+
+# ---------------------------- MAILQUEUE ----------------------------
+# pip install django-mail-queue
+# The settings for the mail queue package.
+
+# If you're using Celery, set this to True
+MAILQUEUE_CELERY = True  # DEFAULT False
+
+# Enable the mail queue. If this is set to False, the mail queue will be disabled and emails will be
+# sent immediately instead.
+MAILQUEUE_QUEUE_UP = True
+
+# Maximum amount of emails to send during each queue run
+MAILQUEUE_LIMIT = 2
+
+# If MAILQUEUE_STORAGE is set to True, will ignore your default storage settings
+# and use Django's filesystem storage instead (stores them in MAILQUEUE_ATTACHMENT_DIR)
+# MAILQUEUE_STORAGE = True
+# MAILQUEUE_ATTACHMENT_DIR = 'mailqueue-attachments'
+# ---------------------------- MAILQUEUE ----------------------------
+"""
