@@ -22,7 +22,7 @@ services:
       context: .
       args:
         REPO_PATH: ./
-      dockerfile: dev.Dockerfile
+      dockerfile: prod.Dockerfile
     env_file:
       - resume/docker.env
     environment:
@@ -30,8 +30,8 @@ services:
     volumes:
       - static-data:/srv/public
       - .:/srv/app_resume
-    ports:
-      - "0.0.0.0:8003:8003"
+    expose:
+      - 8003
     # restart: unless-stopped
     depends_on:
       - postgres_resume
@@ -39,9 +39,13 @@ services:
     working_dir: /srv/app_resume
     networks:
       - main_resume
+      - bridge_network
 
 networks:
   main_resume:
+  bridge_network:
+    name: nginx_network
+    driver: bridge
 
 volumes:
   postgresql-data:
