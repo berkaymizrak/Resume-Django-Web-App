@@ -59,7 +59,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',  # White Noise for Heroku
+    # 'whitenoise.middleware.WhiteNoiseMiddleware',  # White Noise for Heroku
 
     'resume.CanonicalDomainMiddleware.CanonicalDomainMiddleware',  # Extra
     'redirect_to_non_www.middleware.RedirectToNonWww',  # Extra
@@ -101,15 +101,9 @@ WSGI_APPLICATION = 'resume.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
-if DEBUG:
-    DATABASES = {
-        "default": env.db(),
-    }
-else:
-    import dj_database_url
-
-    DATABASES = dict()
-    DATABASES['default'] = dj_database_url.config(conn_max_age=600)
+DATABASES = {
+    "default": env.db(),
+}
 
 
 # Password validation
@@ -216,12 +210,8 @@ EMAIL_BACKEND = env('EMAIL_BACKEND')
 # ---------------------------- EMAIL SETTINGS ----------------------------
 
 
-# ---------------------------- HEROKU AND SSL SERVER SETTINGS ----------------------------
+# ---------------------------- SSL SERVER SETTINGS ----------------------------
 if not DEBUG:
-    import django_heroku
-
-    django_heroku.settings(locals(), staticfiles=False)
-
     # Since Cloudflare have automatic redirect to https, this setting causes infinite loop.
     # SECURE_SSL_REDIRECT = env('SECURE_SSL_REDIRECT')
     SESSION_COOKIE_SECURE = env('SESSION_COOKIE_SECURE')
@@ -233,8 +223,7 @@ if not DEBUG:
         SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
         os.environ['HTTPS'] = "on"
         os.environ['wsgi.url_scheme'] = 'https'
-
-# ---------------------------- HEROKU AND SSL SERVER SETTINGS ----------------------------
+# ---------------------------- SSL SERVER SETTINGS ----------------------------
 
 
 # ---------------------------- ERROR 403 HANDLER ----------------------------
