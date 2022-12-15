@@ -5,7 +5,7 @@ services:
     hostname: postgres_resume
     image: postgres:latest
     env_file:
-      - resume/docker.prod.env
+      - resume/docker.env
     networks:
       - main_resume
     # restart: unless-stopped
@@ -24,7 +24,7 @@ services:
         REPO_PATH: ./
       dockerfile: prod.Dockerfile
     env_file:
-      - resume/docker.prod.env
+      - resume/docker.env
     environment:
       - "DATABASE=postgres"
     volumes:
