@@ -17,10 +17,10 @@ Some features:
 * Demo data comes with *"migrate"*. RunPython command is set for demo data.
 
 
-* **/\<slug>/** : (_views.special_links_) Any first level of path in the url are checked first in 'Document' 
-and then 'ImageSettings'. If path matches with 'name' field, it redirects to document(media) url or 
-if it is an ImageSettings object returns the image page within max screen size image(javascript makes it) 
-with layout of page(all meta and head).
+* **/\<slug>/** : (_views.special_links_) Any first level of path in the url are checked first in 'Document'
+  and then 'ImageSettings'. If path matches with 'name' field, it redirects to document(media) url or
+  if it is an ImageSettings object returns the image page within max screen size image(javascript makes it)
+  with layout of page(all meta and head).
 
 
 * 404, 403, 500 pages are set.
@@ -88,12 +88,12 @@ heroku run python manage.py createsuperuser
 
 ### Overview
 
-This is going to be a quickstart for the new users for cron job. 
-I am not using cron job actively in this project, 
+This is going to be a quickstart for the new users for cron job.
+I am not using cron job actively in this project,
 but you can still find a few files for cron job in the project, and I am explaining them here.
 This doc also contains some examples of cron job and mailqueue package which is scheduling sending mails to not be spam.
 
-At the end of this doc, you will find `PERIODIC TASKS` section in admin panel. 
+At the end of this doc, you will find `PERIODIC TASKS` section in admin panel.
 In the panel you will be able to set cron job for each task.
 A useful link to set correct frequency for each job: [https://crontab.guru/](https://crontab.guru/)
 
@@ -101,19 +101,19 @@ A useful link to set correct frequency for each job: [https://crontab.guru/](htt
 
 This part will explain how to set up cron jobs on celery for especially Heroku integration.
 This can be still used for any other production integration too.
-Since the cron job is not installed on this project, 
+Since the cron job is not installed on this project,
 you will not get the requirements for cron job from requirements.txt.
-Therefore, you will need to install some requirements as below but the rest settings are done in the code files, 
-so you can grab and use everything. 
+Therefore, you will need to install some requirements as below but the rest settings are done in the code files,
+so you can grab and use everything.
 (Below installation will install redis, celery and django-celery-beat packages.)
 
 ``` bash
  pip install -r requirements_celery.txt
  ```
 
-* To use cron jobs we need first celery. 
-Celery beat is a scheduler; It kicks off tasks at regular intervals, that are then executed by available worker nodes 
-in the cluster. [[Celery Doc](https://docs.celeryq.dev/en/master/userguide/periodic-tasks.html)]
+* To use cron jobs we need first celery.
+  Celery beat is a scheduler; It kicks off tasks at regular intervals, that are then executed by available worker nodes
+  in the cluster. [[Celery Doc](https://docs.celeryq.dev/en/master/userguide/periodic-tasks.html)]
 
 * And we need redis to store the cron jobs on Heroku.
 
@@ -155,7 +155,7 @@ __all__ = ('celery_app',)
 
 3. **celery.py**
 
-There is a `celery.py` file has been already created in this project in the same directory as `settings.py` file. 
+There is a `celery.py` file has been already created in this project in the same directory as `settings.py` file.
 This is needed to set up the celery app.
 
 4. **tasks.py**
@@ -198,24 +198,23 @@ def contact_page(request):
 
 `.delay()` is an API for celery. It is used to schedule the task.
 
-
 ## Django Management Commands
 
 * Just to remind, session flushing command can be run periodically if the django_session table became huge.
 
 * * Locally:
 
-   `docker-compose exec app_resume python manage.py clearsessions`
+  `docker-compose exec app_resume python manage.py clearsessions`
 
 * * In Heroku Production:
 
-   `heroku run python manage.py clearsessions`
+  `heroku run python manage.py clearsessions`
 
 
 * Additionally, a Django management command is created as colorful with user-friendly progressbar and the functionality
   is just to be an example. Running:
 
-   `docker-compose exec app_resume python manage.py clear_models`
+  `docker-compose exec app_resume python manage.py clear_models`
 
 ![Django Command Screenshot](https://github.com/berkaymizrak/Resume-Django-Web-App/blob/main/screenshot_command.png?raw=true)
 

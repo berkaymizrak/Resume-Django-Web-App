@@ -44,14 +44,14 @@ class ParameterMiddleware(MiddlewareMixin):
             parameters = '&' + str(parameters)
         # __All parameters optional until here.__
 
-
         get_ref = self.save_ref_to_session(request)
 
         # Checks;
         #   get_ref: if 'ref' exist in url, save it to session and return None; if 'ref' exist in session but not in url,
         #   then redirect to url with parameter.
         #   not request.user.is_authenticated: runs only for not authenticated users.
-        return get_ref and not request.user.is_authenticated and redirect(reverse(view_func) + '?ref=' + get_ref + parameters)
+        return get_ref and not request.user.is_authenticated and redirect(
+            reverse(view_func) + '?ref=' + get_ref + parameters
+        )
         # if you want to make without all parameters, only for selected parameters:
         # return get_ref and not request.user.is_authenticated and redirect(reverse(view_func) + '?ref=' + get_ref)
-

@@ -4,7 +4,6 @@ from django.conf import settings
 
 
 class CanonicalDomainMiddleware(object):
-
     """Middleware that redirects to a canonical domain."""
 
     def __init__(self, get_response):

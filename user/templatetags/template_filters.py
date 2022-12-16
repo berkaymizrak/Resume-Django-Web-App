@@ -4,6 +4,7 @@ from django.conf import settings
 
 register = template.Library()
 
+
 @register.filter
 def get_image_url(image):
     if image:
@@ -17,6 +18,7 @@ def get_image_url(image):
     else:
         return settings.DEFAULT_PNG
 
+
 @register.filter
 def get_document_url(file):
     if file:
@@ -29,6 +31,7 @@ def get_document_url(file):
             return ''
     else:
         return ''
+
 
 @register.filter
 def get_object_value_or_none(value):
@@ -45,4 +48,3 @@ def get_object_value_or_default(value):
     else:
         site_title = get_parameter('site_title')
         return site_title
-

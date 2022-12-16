@@ -6,5 +6,3 @@ urlpatterns = [
 
     path('<slug>/', views.special_links, name='special_links'),
 ]
-
-

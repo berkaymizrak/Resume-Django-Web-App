@@ -87,4 +87,3 @@ class SkillAdminForm(forms.ModelForm):
     class Meta:
         model = models.Skill
         fields = "__all__"
-

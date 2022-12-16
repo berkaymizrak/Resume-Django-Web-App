@@ -111,4 +111,3 @@ def get_skill_table():
             count = 0
 
     return skills_1, skills_2
-

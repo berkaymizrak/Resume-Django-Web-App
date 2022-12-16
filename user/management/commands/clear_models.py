@@ -3,7 +3,6 @@ from django.core.management.base import BaseCommand, CommandError
 from .utils import Progress
 from user import models
 
-
 clear_models = [
     models.GeneralSetting,
     models.ImageSetting,

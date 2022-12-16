@@ -3,12 +3,12 @@ from import_export.admin import ImportExportModelAdmin
 from user.models import *
 from user import forms
 
+
 # Register your models here.
 
 
 @admin.register(GeneralSetting)
 class GeneralSettingAdmin(ImportExportModelAdmin):
-
     list_display = ['id', 'name', 'description', 'parameter', 'updated_date', 'created_date', ]
     search_fields = ['name', 'description', 'parameter', ]
     list_editable = ['description', 'parameter', ]
@@ -19,7 +19,6 @@ class GeneralSettingAdmin(ImportExportModelAdmin):
 
 @admin.register(ImageSetting)
 class ImageSettingAdmin(ImportExportModelAdmin):
-
     list_display = ['id', 'name', 'description', 'file', 'updated_date', 'created_date', ]
     search_fields = ['name', 'description', 'file', ]
     list_editable = ['description', 'file', ]
@@ -52,7 +51,6 @@ class SkillTypesAdmin(ImportExportModelAdmin):
 
 @admin.register(SocialMedia)
 class SocialMediaAdmin(ImportExportModelAdmin):
-
     list_display = ['id', 'order', 'url', 'icon', 'updated_date', 'created_date', ]
     search_fields = ['url', ]
     list_editable = ['order', 'url', 'icon', ]
@@ -63,7 +61,6 @@ class SocialMediaAdmin(ImportExportModelAdmin):
 
 @admin.register(Message)
 class MessageAdmin(ImportExportModelAdmin):
-
     list_display = ['name', 'email', 'subject', 'message', 'success', 'error_message', 'updated_date', 'created_date', ]
     search_fields = ['name', 'email', 'subject', 'message', ]
     list_filter = ['success', 'error_message', ]
@@ -81,4 +78,3 @@ class DocumentAdmin(ImportExportModelAdmin):
 
     class Meta:
         model = Document
-
