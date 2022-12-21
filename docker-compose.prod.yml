@@ -41,6 +41,32 @@ services:
       - main_resume
       - bridge_network
 
+  celery:
+    restart: unless-stopped
+    build:
+      context: .
+      dockerfile: prod.Dockerfile
+    command: celery -A resume worker -B -l info
+    env_file:
+      - resume/docker.env
+    volumes:
+      - static-data:/srv/public
+    depends_on:
+      - app_resume
+      - redis
+    networks:
+      - main_resume
+
+  redis:
+    container_name: redis
+    hostname: redis
+    restart: unless-stopped
+    image: redis:7-alpine
+    expose:
+      - 6379
+    networks:
+      - main_resume
+
 networks:
   main_resume:
   bridge_network:
