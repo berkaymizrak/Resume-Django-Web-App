@@ -4,7 +4,6 @@ FROM python:3.9.1-slim
 # set environment variables
 ARG REPO_PATH
 ENV PYTHONDONTWRITEBYTECODE 1
-ENV PYTHONUNBUFFERED 1
 ENV VIRTUAL_ENV=/opt/venv
 
 RUN apt-get update
