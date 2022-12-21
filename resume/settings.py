@@ -228,8 +228,8 @@ CSRF_FAILURE_VIEW = 'user.views.csrf_failure'
 
 
 # ---------------------------- CELERY ----------------------------
-CELERY_BROKER_URL = os.environ.get("BROKER_URL", "redis://redis:6379/0")
-CELERY_RESULT_BACKEND = os.environ.get("RESULT_BACKEND", "redis://redis:6379/0")
+CELERY_BROKER_URL = os.environ.get("BROKER_URL", "redis://redis_resume:6379/0")
+CELERY_RESULT_BACKEND = os.environ.get("RESULT_BACKEND", "redis://redis_resume:6379/0")
 
 CELERY_ACCEPT_CONTENT = ['json']
 CELERY_RESULT_ACCEPT_CONTENT = ['json']
