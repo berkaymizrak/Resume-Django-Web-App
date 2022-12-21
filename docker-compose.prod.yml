@@ -35,6 +35,7 @@ services:
     # restart: unless-stopped
     depends_on:
       - postgres_resume
+      - redis
     command: gunicorn resume.wsgi:application --bind 0.0.0.0:8003
     working_dir: /srv/app_resume
     networks:
