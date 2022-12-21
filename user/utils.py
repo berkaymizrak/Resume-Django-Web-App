@@ -30,22 +30,36 @@ def send_mail_check(name, subject_mail, subject_user, message, to, reply_to=sett
 
 
 def send_mail_both(name, subject_mail, subject_user, message, to, reply_to=settings.DEFAULT_FROM_EMAIL):
+    from user.tasks import send_mail_queued
+
     # Mail to ADMIN
-    send_mail_check(
-        name=name,
-        subject_mail=subject_mail,
-        subject_user=subject_user,
-        message=message,
+    # send_mail_check(
+    #     name=name,
+    #     subject_mail=subject_mail,
+    #     subject_user=subject_user,
+    #     message=message,
+    #     to=settings.DEFAULT_FROM_EMAIL,
+    #     reply_to=to,
+    # )
+    send_mail_queued.delay(
+        mail_subject=subject_mail,
+        message_context=message,
         to=settings.DEFAULT_FROM_EMAIL,
         reply_to=to,
     )
 
     # Mail to USER
-    send_mail_check(
-        name=name,
-        subject_mail=subject_mail,
-        subject_user=subject_user,
-        message=message,
+    # send_mail_check(
+    #     name=name,
+    #     subject_mail=subject_mail,
+    #     subject_user=subject_user,
+    #     message=message,
+    #     to=to,
+    #     reply_to=reply_to,
+    # )
+    send_mail_queued.delay(
+        mail_subject=subject_mail,
+        message_context=message,
         to=to,
         reply_to=reply_to,
     )

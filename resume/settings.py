@@ -55,6 +55,8 @@ INSTALLED_APPS = [
     'crispy_forms',
     'storages',
     'import_export',
+    'mailqueue',
+    'django_celery_beat',
 ]
 
 MIDDLEWARE = [
@@ -200,7 +202,6 @@ GOOGLE_RECAPTCHA_SECRET_KEY = env('GOOGLE_RECAPTCHA_SECRET_KEY')
 
 vars().update(env.email_url())
 DEFAULT_FROM_EMAIL = env("DEFAULT_FROM_EMAIL")
-DEFAULT_TO_EMAIL = env("DEFAULT_TO_EMAIL")
 EMAIL_BACKEND = env('EMAIL_BACKEND')
 # ---------------------------- EMAIL SETTINGS ----------------------------
 
@@ -226,9 +227,9 @@ CSRF_FAILURE_VIEW = 'user.views.csrf_failure'
 # ---------------------------- ERROR 403 HANDLER ----------------------------
 
 
-"""
 # ---------------------------- CELERY ----------------------------
-BROKER_URL = os.environ.get('REDIS_URL')
+CELERY_BROKER_URL = os.environ.get("BROKER_URL", "redis://redis:6379/0")
+CELERY_RESULT_BACKEND = os.environ.get("RESULT_BACKEND", "redis://redis:6379/0")
 
 CELERY_ACCEPT_CONTENT = ['json']
 CELERY_RESULT_ACCEPT_CONTENT = ['json']
@@ -257,11 +258,10 @@ MAILQUEUE_CELERY = True  # DEFAULT False
 MAILQUEUE_QUEUE_UP = True
 
 # Maximum amount of emails to send during each queue run
-MAILQUEUE_LIMIT = 2
+MAILQUEUE_LIMIT = 1
 
 # If MAILQUEUE_STORAGE is set to True, will ignore your default storage settings
 # and use Django's filesystem storage instead (stores them in MAILQUEUE_ATTACHMENT_DIR)
 # MAILQUEUE_STORAGE = True
 # MAILQUEUE_ATTACHMENT_DIR = 'mailqueue-attachments'
 # ---------------------------- MAILQUEUE ----------------------------
-"""

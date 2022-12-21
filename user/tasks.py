@@ -1,9 +1,13 @@
 # user/tasks.py
 from celery import shared_task
-from user.celery import app
-
+from datetime import datetime
 from django.conf import settings
+from django.core.management import call_command
+from django.contrib.admin.models import LogEntry
 from mailqueue.models import MailerMessage
+from resume.celery import app
+import requests
+from user.models import Message
 
 
 @shared_task
@@ -32,26 +36,9 @@ def send_mail_queued(mail_subject, message_context, to, from_mail=settings.DEFAU
         msg.reply_to = reply_to
 
     # Name of your App that is sending the email.
-    msg.app = "Berkay MIZRAK Resume Web Project"
+    msg.app = "Berkay MIZRAK"
 
     msg.save()
-
-
-from django.core.management import call_command
-
-
-@shared_task
-def command_send_queued_messages():
-    # The management command for sending queued messages.
-    # Command comes with mailqueue package.
-    call_command('send_queued_messages')
-
-
-@shared_task
-def command_clear_sent_messages():
-    # The management command for clearing sent messages from MailerMessage model of mailqueue package.
-    # Command comes with mailqueue package.
-    call_command('clear_sent_messages')
 
 
 @shared_task
@@ -62,12 +49,17 @@ def command_clear_expired_sessions():
     call_command('clearsessions')
 
 
-import requests
+@shared_task
+def command_send_queued_messages():
+    # The management command for sending queued messages.
+    # Command comes with mailqueue package.
+    call_command('send_queued_messages')
 
 
 @shared_task
 def requests_send_queued_messages():
-    # mailqueue package suggest to create an endpoint for triggering sending queued messages if you don't want to use it in regular way.
+    # mailqueue package suggest to create an endpoint for triggering sending queued messages
+    # if you don't want to use it in regular way. (regular way: command_send_queued_messages)
     url = 'https://berkaymizrak.com/mail-queue/'
     user_agent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.108 Safari/537.36'
     headers = {
@@ -76,32 +68,42 @@ def requests_send_queued_messages():
     response = requests.get(url, headers=headers)
 
 
-from django.contrib.admin.models import LogEntry
+@shared_task
+def command_clear_sent_messages():
+    # The management command for clearing sent messages from MailerMessage model of mailqueue package.
+    # Command comes with mailqueue package.
+    call_command('clear_sent_messages')
 
 
 @shared_task
 def clear_admin_logs(leave_last=100):
     # The management command for clearing admin logs from LogEntry model of django.contrib.admin package.
     # leave_last is the number of the latest logs to keep.
+    """
+        # Set Arguments as:
+        {
+        'leave_last' : 100
+        }
+    """
     model_say = LogEntry.objects.count()
     if model_say > leave_last:
         rows = LogEntry.objects.all()[:leave_last].values_list("id", flat=True)  # only retrieve ids.
         LogEntry.objects.exclude(pk__in=list(rows)).delete()
 
 
-from user.models import ExpenseLog, PaymentLog, ActivityLog
-
-
 @shared_task
 def clear_model_logs(model='', leave_last=100):
     # The management command for clearing entries from a model that is given as a parameter.
     # leave_last is the number of the latest entries to keep.
-    if model == 'Expense':
-        Model = ExpenseLog
-    elif model == 'Payment':
-        Model = PaymentLog
-    elif model == 'Activity':
-        Model = ActivityLog
+    """
+        # Set Arguments as:
+        {
+        'model' : 'Message',
+        'leave_last' : 100
+        }
+    """
+    if model == 'Message':
+        Model = Message
     else:
         return
     if Model.objects.count() > leave_last:
@@ -109,13 +111,10 @@ def clear_model_logs(model='', leave_last=100):
         Model.objects.exclude(pk__in=list(rows)).delete()
 
 
-from datetime import datetime
-from user.models import Payment
-
-
 @shared_task
 def clear_expired_payments():
-    # This is a logic to clear expired payments.
+    # This is an example task to clear expired payments.
+    # Not applicable for this project.
     now = datetime.now()
     query = Payment.objects.filter(valid_to__lt=now, payment_success=None, confirmation_success=None)
     query.delete()

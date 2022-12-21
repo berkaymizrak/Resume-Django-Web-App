@@ -35,8 +35,36 @@ services:
     # restart: unless-stopped
     depends_on:
       - postgres_resume
+      - redis
     command: gunicorn resume.wsgi:application --bind 0.0.0.0:8003
+#    command: gunicorn resume.wsgi:application --bind 0.0.0.0:8003 --workers 2 --threads 2
     working_dir: /srv/app_resume
+    networks:
+      - main_resume
+
+  celery:
+    restart: unless-stopped
+    build:
+      context: .
+      dockerfile: dev.Dockerfile
+    command: celery -A resume worker -B -l info
+    env_file:
+      - resume/docker.env
+    volumes:
+      - static-data:/srv/public
+    depends_on:
+      - app_resume
+      - redis
+    networks:
+      - main_resume
+
+  redis:
+    container_name: redis
+    hostname: redis
+    restart: unless-stopped
+    image: redis:7-alpine
+    expose:
+      - 6379
     networks:
       - main_resume
 
