@@ -27,19 +27,19 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = env("SECRET_KEY")
+SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = env("DEBUG")
+DEBUG = env('DEBUG')
 
-ALLOWED_HOSTS = env("ALLOWED_HOSTS", cast=list)
+ALLOWED_HOSTS = env('ALLOWED_HOSTS', cast=list)
 
 # Must be defined for Django 4+
-CSRF_TRUSTED_ORIGINS = env("CSRF_TRUSTED_ORIGINS", cast=list)
+CSRF_TRUSTED_ORIGINS = env('CSRF_TRUSTED_ORIGINS', cast=list)
 
 UNDER_MAINTENANCE = False
 
-SITE_DOMAIN = "berkaymizrak.com"
+SITE_DOMAINS = ['berkaymizrak.com', 'berkaymizrak.com.tr']
 
 # Application definition
 
@@ -103,7 +103,7 @@ WSGI_APPLICATION = 'resume.wsgi.application'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
 DATABASES = {
-    "default": env.db(),
+    'default': env.db(),
 }
 
 # Password validation
@@ -201,7 +201,7 @@ GOOGLE_RECAPTCHA_SECRET_KEY = env('GOOGLE_RECAPTCHA_SECRET_KEY')
 # EMAIL_USE_TLS = False
 
 vars().update(env.email_url())
-DEFAULT_FROM_EMAIL = env("DEFAULT_FROM_EMAIL")
+DEFAULT_FROM_EMAIL = env('DEFAULT_FROM_EMAIL')
 EMAIL_BACKEND = env('EMAIL_BACKEND')
 # ---------------------------- EMAIL SETTINGS ----------------------------
 
@@ -217,7 +217,7 @@ if not DEBUG:
     SET_SSL_MODE = env('SET_SSL_MODE', default=False)
     if SET_SSL_MODE:
         SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-        os.environ['HTTPS'] = "on"
+        os.environ['HTTPS'] = 'on'
         os.environ['wsgi.url_scheme'] = 'https'
 # ---------------------------- SSL SERVER SETTINGS ----------------------------
 
@@ -228,8 +228,8 @@ CSRF_FAILURE_VIEW = 'user.views.csrf_failure'
 
 
 # ---------------------------- CELERY ----------------------------
-CELERY_BROKER_URL = os.environ.get("CELERY_BROKER_URL", "redis://redis_resume:6379/0")
-CELERY_RESULT_BACKEND = os.environ.get("CELERY_RESULT_BACKEND", "redis://redis_resume:6379/0")
+CELERY_BROKER_URL = os.environ.get('CELERY_BROKER_URL', 'redis://redis_resume:6379/0')
+CELERY_RESULT_BACKEND = os.environ.get('CELERY_RESULT_BACKEND', 'redis://redis_resume:6379/0')
 
 CELERY_ACCEPT_CONTENT = ['json']
 CELERY_RESULT_ACCEPT_CONTENT = ['json']
