@@ -1,0 +1,34 @@
+# This workflow will deploy code to server on push to main or releases branches
+
+name: Deploy to Server
+
+on:
+  push:
+    branches:
+      - main
+      - 'releases/**'
+
+env:
+  SSH_HOST: ${{ secrets.SSH_HOST }}
+  SSH_PORT: 22
+  SSH_USERNAME: ${{ secrets.SSH_USERNAME }}
+  SSH_PASSWORD: ${{ secrets.SSH_PASSWORD }}
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Deploy to Server
+        uses: appleboy/ssh-action@master
+        with:
+          host: $SSH_HOST
+          port: $SSH_PORT
+          username: $SSH_USERNAME
+          password: $SSH_PASSWORD
+          script: |
+            cd /home/berkay/Resume-Django-Web-App
+            git pull
+            docker compose -f docker-compose.prod.yml up --build -d
