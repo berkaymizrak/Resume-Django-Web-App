@@ -63,8 +63,6 @@ services:
     hostname: redis_resume
     restart: unless-stopped
     image: redis:7-alpine
-    expose:
-      - 6379
     networks:
       - main_resume
 
