@@ -99,6 +99,12 @@ def special_links(request, slug):
     obj = None
     obj_type = None
     try:
+        obj = models.RedirectSlug.objects.get(slug=slug)
+        return redirect(obj.new_url)
+    except models.RedirectSlug.DoesNotExist:
+        pass
+
+    try:
         obj = models.Document.objects.get(name=slug)
         obj_type = 'doc'
     except models.Document.DoesNotExist:

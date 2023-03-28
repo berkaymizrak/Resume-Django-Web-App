@@ -78,3 +78,14 @@ class DocumentAdmin(ImportExportModelAdmin):
 
     class Meta:
         model = Document
+
+
+@admin.register(RedirectSlug)
+class DocumentAdmin(ImportExportModelAdmin):
+    list_display = ['id', 'slug', 'new_url', 'updated_date', 'created_date', ]
+    search_fields = ['slug', 'new_url', ]
+    list_editable = ['slug', 'new_url', ]
+    list_filter = []
+
+    class Meta:
+        model = RedirectSlug

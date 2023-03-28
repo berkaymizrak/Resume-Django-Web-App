@@ -290,6 +290,28 @@ class Message(AbstractModel):
         return 'Message: %s' % self.name
 
 
+class RedirectSlug(AbstractModel):
+    slug = models.SlugField(
+        max_length=255,
+        verbose_name='Slug',
+        help_text='',
+        unique=True,
+    )
+    new_url = models.URLField(
+        max_length=255,
+        verbose_name='New URL',
+        help_text='',
+    )
+
+    class Meta:
+        verbose_name_plural = 'Redirect Slugs'
+        verbose_name = 'Redirect Slug'
+        ordering = ('-created_date',)
+
+    def __str__(self):
+        return 'Redirect Slug: %s' % self.slug
+
+
 def delete_media_file(model, instance=None, delete_older=False, path=None):
     """
     Delete old file from media storage when new file is uploaded.
