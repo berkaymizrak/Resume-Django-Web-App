@@ -57,6 +57,7 @@ def send_mail_both(name, subject_mail, subject_user, message, to, reply_to=setti
     #     to=to,
     #     reply_to=reply_to,
     # )
+    # REMOVE FOR TEMPORARY
     send_mail_queued.delay(
         mail_subject=subject_mail,
         message_context=message,

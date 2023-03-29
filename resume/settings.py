@@ -51,7 +51,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'user.apps.UserConfig',
+    'user',
     'crispy_forms',
     'storages',
     'import_export',
@@ -238,6 +238,8 @@ CELERY_RESULT_SERIALIZER = 'json'
 CELERY_TIMEZONE = 'Europe/Istanbul'
 CELERY_ENABLE_UTC = False  # DEFAULT True
 CELERYBEAT_SCHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'
+
+# CELERY_IMPORTS = ("user.tasks",)
 
 CELERY_TASK_RESULT_EXPIRES = 60 * 60 * 24 * 2  # Seconds (2 days)
 BROKER_POOL_LIMIT = 1
