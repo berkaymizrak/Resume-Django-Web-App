@@ -51,6 +51,10 @@
             writing-mode: tb-rl;
             transform: rotate(-180deg);
         }
+
+        .tr_mobile {
+            white-space: nowrap;
+        }
     </style>
 {% endblock %}
 
@@ -232,17 +236,18 @@
     {% if coupons %}
         <div class="sticky-container">
             <div class="button-container">
-                <a href="#" class="rotated" data-toggle="modal" data-target="#promotion_codes">
+                <a href="#" class="rotated" onclick="showCoupons();">
                     Udemy Coupons
                 </a>
             </div>
         </div>
 
-        <div class="modal fade" id="promotion_codes" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal fade" id="promotion_codes_web" tabindex="-1" aria-labelledby="myModalLabelWeb"
+             aria-hidden="true">
             <div class="modal-dialog modal-xl">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="myModalLabel">Udemy Courses</h5>
+                        <h5 class="modal-title" id="myModalLabelWeb">Udemy Courses</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <i class="fas fa-times"></i>
                         </button>
@@ -281,6 +286,78 @@
                                 </tr>
                             {% endfor %}
 
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="promotion_codes_mobile" tabindex="-1" aria-labelledby="myModalLabelMobile"
+             aria-hidden="true">
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="myModalLabelMobile">Udemy Courses</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                    <div class="modal-body" style="overflow-x: auto;">
+                        <table class="table">
+                            <tbody>
+                            <tr class="tr_mobile">
+                                <th>Course</th>
+                                {% for coupon in coupons %}
+                                    <td>
+                                        <b>
+                                            <a href="{{ coupon.course_url }}" target="_blank" class="course_name">
+                                                {{ coupon.course_name }}
+                                            </a>
+                                        </b>
+                                    </td>
+                                {% endfor %}
+                            <tr class="tr_mobile">
+                            <tr>
+                                <th>Original Price</th>
+                                {% for coupon in coupons %}
+                                    <td>
+                                        <del style="color: gray">{{ coupon.original_price }}₺</del>
+                                    </td>
+                                {% endfor %}
+                            </tr>
+                            <tr class="tr_mobile">
+                                <th>Discount Price</th>
+                                {% for coupon in coupons %}
+                                    <td>{{ coupon.discount_price }}₺</td>
+                                {% endfor %}
+                            </tr>
+                            <tr class="tr_mobile">
+                                <th>Coupon Code</th>
+                                {% for coupon in coupons %}
+                                    <td>{{ coupon.coupon_code }}₺</td>
+                                {% endfor %}
+                            </tr>
+                            <tr class="tr_mobile">
+                                <th>Expire Date</th>
+                                {% for coupon in coupons %}
+                                    <td>{{ coupon.expiration_date|date:"d-m-Y H:i" }}</td>
+                                {% endfor %}
+                            </tr>
+                            <tr class="tr_mobile">
+                                <th></th>
+                                {% for coupon in coupons %}
+                                    <td>
+                                        <button class="btn btn-sm btn-primary"
+                                                onclick="window.open('{{ coupon.course_url }}');">
+                                            Sign Up
+                                        </button>
+                                    </td>
+                                {% endfor %}
+                            </tr>
                             </tbody>
                         </table>
                     </div>
@@ -334,8 +411,17 @@
         var urlParams = new URLSearchParams(queryString);
         var coupons = urlParams.get('coupons')
         if (coupons) {
-            $('#promotion_codes').fadeIn()
-            $('#promotion_codes').modal('show');
+            showCoupons();
+        }
+
+        function showCoupons() {
+            if ($(window).width() < 768) {
+                $('#promotion_codes_mobile').fadeIn()
+                $('#promotion_codes_mobile').modal('show');
+            } else {
+                $('#promotion_codes_web').fadeIn()
+                $('#promotion_codes_web').modal('show');
+            }
         }
     </script>
 
