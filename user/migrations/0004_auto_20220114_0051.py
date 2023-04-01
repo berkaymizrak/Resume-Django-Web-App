@@ -12,21 +12,26 @@ def create_default_values(apps, scheme_editor):
         },
         {
             'order': 2,
+            'url': 'https://www.udemy.com/course/sifirdan-django-docker-nginx-aws-s3-server-deploy/?referralCode=55F9B273BB610C2A60E6',
+            'icon': '<i class="ot-circle fa fa-graduation-cap"></i>',
+        },
+        {
+            'order': 3,
             'url': 'https://github.com/berkaymizrak',
             'icon': '<i class="ot-circle fab fa-github"></i>',
         },
         {
-            'order': 3,
+            'order': 4,
             'url': 'https://www.instagram.com/BrkyMzrk/',
             'icon': '<i class="ot-circle fab fa-instagram"></i>',
         },
         {
-            'order': 4,
+            'order': 5,
             'url': 'https://www.facebook.com/brky.mzrk/',
             'icon': '<i class="ot-circle fab fa-facebook-f"></i>',
         },
         {
-            'order': 5,
+            'order': 6,
             'url': 'https://usispro.com/',
             'icon': '<i class="ot-circle fas fa-link"></i>',
         },

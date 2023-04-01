@@ -89,3 +89,16 @@ class DocumentAdmin(ImportExportModelAdmin):
 
     class Meta:
         model = RedirectSlug
+
+
+@admin.register(CourseCoupons)
+class CourseCouponsAdmin(ImportExportModelAdmin):
+    list_display = ['id', 'order', 'course_name', 'course_url', 'coupon_code', 'original_price', 'discount_price',
+                    'expiration_date', 'is_active', 'updated_date', 'created_date', ]
+    search_fields = ['course_name', 'course_url', 'coupon_code', ]
+    list_editable = ['order', 'course_name', 'course_url', 'coupon_code', 'original_price', 'discount_price',
+                     'expiration_date', 'is_active', ]
+    list_filter = ['is_active', ]
+
+    class Meta:
+        model = CourseCoupons

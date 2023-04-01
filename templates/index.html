@@ -2,6 +2,58 @@
 {% load static %}
 {% load template_filters %}
 
+
+
+{% block extra_head %}
+
+    {#    Course Coupon CSS#}
+    <style>
+        .course_name {
+            color: gray;
+        }
+
+        .sticky-container {
+            background-color: #794cdf;
+            box-shadow: gray -1px 1px;
+            padding-top: 10px;
+            padding-left: 10px;
+            padding-bottom: 10px;
+            padding-right: 30px;
+            position: fixed;
+            top: 50%;
+            right: 0px;
+            width: 0px;
+            height: auto;
+            z-index: 9999;
+            margin-top: -24px;
+            text-align: center;
+        }
+
+        .sticky-container:hover {
+            width: 24px;
+        }
+
+        .sticky-container a {
+            padding: 0 !important;
+            display: block;
+            text-align: left;
+            height: 140px;
+            width: 24px;
+            padding: 8px 16px;
+            color: #fff;
+            font-family: Arial, sans-serif;
+            font-size: 17px;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .rotated {
+            writing-mode: tb-rl;
+            transform: rotate(-180deg);
+        }
+    </style>
+{% endblock %}
+
 {% block content %}
     <!--================Home Banner Area =================-->
     <section class="home_banner_area">
@@ -113,7 +165,7 @@
                 </div>
                 {% if not forloop.last %}
                     <hr>
-                {% endif %} 
+                {% endif %}
             {% endfor %}
         </div>
     </section>
@@ -176,6 +228,71 @@
     </section>
     <!--================Contact Area =================-->
 
+    <!--================Promotion Codes Modal =================-->
+    {% if coupons %}
+        <div class="sticky-container">
+            <div class="button-container">
+                <a href="#" class="rotated" data-toggle="modal" data-target="#promotion_codes">
+                    Udemy Coupons
+                </a>
+            </div>
+        </div>
+
+        <div class="modal fade" id="promotion_codes" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="myModalLabel">Udemy Courses</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th style="width: 400px;">Course</th>
+                                <th style="width: 123px;">Original Price</th>
+                                <th style="width: 147px;">Discount Price</th>
+                                <th style="width: 130px;">Coupon Code</th>
+                                <th style="width: 150px;">Expire Date</th>
+                                <th style="width: 90px;"></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+
+                            {% for coupon in coupons %}
+                                <tr>
+                                    <td><b><a href="{{ coupon.course_url }}" target="_blank" class="course_name">
+                                        {{ coupon.course_name }}
+                                    </a></b></td>
+                                    <td style="text-align: center;">
+                                        <del style="color: gray">{{ coupon.original_price }}₺</del>
+                                    </td>
+                                    <td style="text-align: center;">{{ coupon.discount_price }}₺</td>
+                                    <td style="text-align: center;">{{ coupon.coupon_code }}</td>
+                                    <td style="text-align: center;">{{ coupon.expiration_date|date:"d-m-Y H:i" }}</td>
+                                    <td>
+                                        <button class="btn btn-sm btn-primary"
+                                                onclick="window.open('{{ coupon.course_url }}');">
+                                            Sign Up
+                                        </button>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+    <!--================End Promotion Codes Modal =================-->
+
     <!--================Contact Success and Error message Area =================-->
     <div id="success" class="modal modal-message fade" role="dialog">
         <div class="modal-dialog">
@@ -211,6 +328,17 @@
 {% endblock %}
 
 {% block extra_scripts %}
+
+    <script>
+        var queryString = window.location.search;
+        var urlParams = new URLSearchParams(queryString);
+        var coupons = urlParams.get('coupons')
+        if (coupons) {
+            $('#promotion_codes').fadeIn()
+            $('#promotion_codes').modal('show');
+        }
+    </script>
+
     <!-- contact js -->
     <script src="{% static 'template/js/jquery.form.js' %}"></script>
     <script src="{% static 'template/js/jquery.validate.min.js' %}"></script>

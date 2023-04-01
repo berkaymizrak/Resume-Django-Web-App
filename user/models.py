@@ -2,6 +2,7 @@ from django.db import models, IntegrityError
 from django.contrib.auth.models import User
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.dispatch import receiver
+from django.utils import timezone
 from django.utils.crypto import get_random_string
 from django.utils.text import slugify
 from resume.custom_storages import ImageSettingStorage, DocumentStorage
@@ -310,6 +311,61 @@ class RedirectSlug(AbstractModel):
 
     def __str__(self):
         return 'Redirect Slug: %s' % self.slug
+
+
+class CourseCoupons(AbstractModel):
+    order = models.IntegerField(
+        default=10,
+        verbose_name='Order',
+    )
+    course_name = models.CharField(
+        default='',
+        max_length=255,
+        verbose_name='Course Name',
+        help_text='',
+        blank=True,
+    )
+    course_url = models.URLField(
+        default='',
+        max_length=255,
+        verbose_name='Course URL',
+        help_text='',
+        blank=True,
+    )
+    coupon_code = models.CharField(
+        default='',
+        max_length=255,
+        verbose_name='Coupon Code',
+        help_text='',
+        blank=True,
+    )
+    original_price = models.FloatField(
+        default=0,
+        verbose_name='Original Price',
+        help_text='',
+    )
+    discount_price = models.FloatField(
+        default=0,
+        verbose_name='Discount Price',
+        help_text='',
+    )
+    expiration_date = models.DateTimeField(
+        default=timezone.now,
+        verbose_name='Expiration Date',
+        help_text='',
+    )
+    is_active = models.BooleanField(
+        default=True,
+        verbose_name='Is Active',
+    )
+
+    class Meta:
+        verbose_name_plural = 'Course Coupons'
+        verbose_name = 'Course Coupon'
+        ordering = ('order',)
+
+    def __str__(self):
+        return 'Course Coupon: %s' % self.course_name
 
 
 def delete_media_file(model, instance=None, delete_older=False, path=None):

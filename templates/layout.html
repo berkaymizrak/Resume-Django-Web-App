@@ -19,8 +19,7 @@
     </title>
 
     <meta property="og:title"
-          content="
-                  {% block og_title %}{{ site_title|get_object_value_or_default }}{% if home_detail_title %} | {{ home_detail_title }}{% endif %}{% endblock %}"/>
+          content="{% block og_title %}{{ site_title|get_object_value_or_default }}{% if home_detail_title %} | {{ home_detail_title }}{% endif %}{% endblock %}"/>
     <meta property="og:url" content="https://berkaymizrak.com/"/>
     <meta property="og:description" content="{% block og_description %}{{ meta_description }}{% endblock %}">
     <meta property="og:image" content="{{ og_image }}">
@@ -111,26 +110,26 @@
 </head>
 <body>
 
-    <div class="toast-container">
-        <div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-autohide="false">
-            <div class="toast-header">
-                <strong class="mr-auto">Is Working Abroad Interesting?</strong>
-                <small class="text-muted"></small>
-                <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="toast-body">
-                Are you planning to <b style="color: black!important;">work abroad from Turkey?</b>
-                Contact me to get professional help with <b style="color: black!important;">legal</b> and
-                <b style="color: black!important;">payment</b> stuff, I'll make it so easy for you!
-                <br>
-                <a href="https://calendly.com/mizrakby/30min" target="_blank">
-                    <b style="color: black!important;">Schedule a meeting now.</b>
-                </a>
-            </div>
+<div class="toast-container">
+    <div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-autohide="false">
+        <div class="toast-header">
+            <strong class="mr-auto">Is Working Abroad Interesting?</strong>
+            <small class="text-muted"></small>
+            <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="toast-body">
+            Are you planning to <b style="color: black!important;">work abroad from Turkey?</b>
+            Contact me to get professional help with <b style="color: black!important;">legal</b> and
+            <b style="color: black!important;">payment</b> stuff, I'll make it so easy for you!
+            <br>
+            <a href="https://calendly.com/mizrakby/30min" target="_blank">
+                <b style="color: black!important;">Schedule a meeting now.</b>
+            </a>
         </div>
     </div>
+</div>
 
 {% block body %}
 

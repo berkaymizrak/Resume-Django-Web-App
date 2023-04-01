@@ -1,6 +1,7 @@
 from django.conf import settings
 from django.http import JsonResponse, Http404
 from django.shortcuts import render
+from django.utils import timezone
 from user.decorators import *
 from user import forms
 from user import models
@@ -21,6 +22,8 @@ def layout(request):
     og_image = utils.get_image('og_image')
     header_logo = utils.get_image('header_logo')
 
+    coupons = models.CourseCoupons.objects.filter(is_active=True, expiration_date__gt=timezone.now())
+
     context = {
         'header_logo': header_logo,
         'site_title': site_title,
@@ -31,6 +34,7 @@ def layout(request):
         'google_analytics_tracking_id': google_analytics_tracking_id,
         'DEFAULT_PNG': settings.DEFAULT_PNG,
         'GOOGLE_RECAPTCHA_SITE_KEY': settings.GOOGLE_RECAPTCHA_SITE_KEY,
+        'coupons': coupons,
     }
     return context
 
