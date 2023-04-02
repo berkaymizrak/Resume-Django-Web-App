@@ -1,4 +1,6 @@
 from django.conf import settings
+from django.db.models import Count, CharField
+from django.db.models.functions import Concat
 from django.http import JsonResponse, Http404
 from django.shortcuts import render
 from django.utils import timezone
@@ -153,8 +155,27 @@ def special_links(request, slug):
         raise Http404
 
 
-def csrf_failure(request, reason=""):
+def csrf_failure(request, reason=''):
     context = {
         'reason': reason,
     }
     return render(request, '403.html', context=context)
+
+
+@login_required_redirect
+def statistics(request):
+    statistics = models.Statistics.objects.all()
+    statistics_type_count = statistics.values('statistic_type').annotate(Count('statistic_type'))
+    statistics_action_count = statistics.values('action').annotate(Count('action'))
+    statistics_source_count = statistics.values('source').annotate(Count('source'))
+    statistics_action_source_count = statistics.annotate(action_source=Concat('action', 'source')) \
+        .values('statistic_type', 'action', 'source', 'action_source', ) \
+        .annotate(Count('action_source'))
+
+    context = {
+        'statistics_type_count': statistics_type_count,
+        'statistics_action_count': statistics_action_count,
+        'statistics_source_count': statistics_source_count,
+        'statistics_action_source_count': statistics_action_source_count,
+    }
+    return render(request, 'statistics.html', context=context)
