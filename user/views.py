@@ -96,6 +96,25 @@ def index(request):
     return render(request, 'index.html', context=context)
 
 
+def create_statistic(request, statistic_type, action, source):
+    try:
+        x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+        if x_forwarded_for:
+            ipaddress = x_forwarded_for.split(',')[-1].strip()
+        else:
+            ipaddress = request.META.get('REMOTE_ADDR')
+
+        models.Statistics.objects.create(
+            statistic_type=statistic_type,
+            action=action,
+            source=source,
+            ip_address=ipaddress,
+            user_agent=request.META.get('HTTP_USER_AGENT'),
+        )
+    except:
+        pass
+
+
 def special_links(request, slug):
     """
     Checks first if slug is in Document objects. If not then checks in images.
@@ -108,21 +127,7 @@ def special_links(request, slug):
         redirect_source = 'popup' if '_popup' in slug else 'direct_link'
         slug = slug.replace('_popup', '')
         obj = models.RedirectSlug.objects.get(slug=slug)
-        try:
-            x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
-            if x_forwarded_for:
-                ipaddress = x_forwarded_for.split(',')[-1].strip()
-            else:
-                ipaddress = request.META.get('REMOTE_ADDR')
-            models.Statistics.objects.create(
-                statistic_type='RedirectSlug',
-                action=f'Click slug: {slug}',
-                source=redirect_source,
-                ip_address=ipaddress,
-                user_agent=request.META.get('HTTP_USER_AGENT'),
-            )
-        except:
-            pass
+        create_statistic(request, 'RedirectSlug', f'Click slug: {slug}', redirect_source)
         return redirect(obj.new_url)
     except models.RedirectSlug.DoesNotExist:
         pass
@@ -143,12 +148,14 @@ def special_links(request, slug):
     if obj:
         if obj_type == 'doc':
             if obj.file:
+                create_statistic(request, 'Document', f'Click slug: {slug}', 'direct_link')
                 return redirect(obj.file.url)
         elif obj_type == 'image':
             if obj.file:
                 context = {
                     'object': obj,
                 }
+                create_statistic(request, 'ImageSetting', f'Click slug: {slug}', 'direct_link')
                 return render(request, 'image.html', context=context)
         return redirect('index')
     else:
