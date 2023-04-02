@@ -268,7 +268,7 @@
 
                             {% for coupon in coupons %}
                                 <tr>
-                                    <td><b><a href="{{ coupon.course_url }}" target="_blank" class="course_name">
+                                    <td><b><a href="{{ coupon.course_url }}_popup" target="_blank" class="course_name">
                                         {{ coupon.course_name }}
                                     </a></b></td>
                                     <td style="text-align: center;">
@@ -279,7 +279,7 @@
                                     <td style="text-align: center;">{{ coupon.expiration_date|date:"d-m-Y H:i" }}</td>
                                     <td>
                                         <button class="btn btn-sm btn-primary"
-                                                onclick="window.open('{{ coupon.course_url }}');">
+                                                onclick="window.open('{{ coupon.course_url }}_popup');">
                                             Sign Up
                                         </button>
                                     </td>
@@ -314,7 +314,7 @@
                                 {% for coupon in coupons %}
                                     <td>
                                         <b>
-                                            <a href="{{ coupon.course_url }}" target="_blank" class="course_name">
+                                            <a href="{{ coupon.course_url }}_popup" target="_blank" class="course_name">
                                                 {{ coupon.course_name }}
                                             </a>
                                         </b>
@@ -352,7 +352,7 @@
                                 {% for coupon in coupons %}
                                     <td>
                                         <button class="btn btn-sm btn-primary"
-                                                onclick="window.open('{{ coupon.course_url }}');">
+                                                onclick="window.open('{{ coupon.course_url }}_popup');">
                                             Sign Up
                                         </button>
                                     </td>

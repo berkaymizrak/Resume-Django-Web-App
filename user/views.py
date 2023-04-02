@@ -103,7 +103,24 @@ def special_links(request, slug):
     obj = None
     obj_type = None
     try:
+        redirect_source = 'popup' if '_popup' in slug else 'direct_link'
+        slug = slug.replace('_popup', '')
         obj = models.RedirectSlug.objects.get(slug=slug)
+        try:
+            x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+            if x_forwarded_for:
+                ipaddress = x_forwarded_for.split(',')[-1].strip()
+            else:
+                ipaddress = request.META.get('REMOTE_ADDR')
+            models.Statistics.objects.create(
+                statistic_type='RedirectSlug',
+                action=f'Click slug: {slug}',
+                source=redirect_source,
+                ip_address=ipaddress,
+                user_agent=request.META.get('HTTP_USER_AGENT'),
+            )
+        except:
+            pass
         return redirect(obj.new_url)
     except models.RedirectSlug.DoesNotExist:
         pass

@@ -368,6 +368,52 @@ class CourseCoupons(AbstractModel):
         return 'Course Coupon: %s' % self.course_name
 
 
+class Statistics(AbstractModel):
+    statistic_type = models.CharField(
+        default='',
+        max_length=255,
+        verbose_name='Statistic Type',
+        help_text='',
+        blank=True,
+    )
+    action = models.CharField(
+        default='',
+        max_length=255,
+        verbose_name='Action',
+        help_text='',
+        blank=True,
+    )
+    source = models.CharField(
+        default='',
+        max_length=255,
+        verbose_name='Source',
+        help_text='',
+        blank=True,
+    )
+    ip_address = models.GenericIPAddressField(
+        default=None,
+        verbose_name='IP Address',
+        help_text='',
+        blank=True,
+        null=True,
+    )
+    user_agent = models.CharField(
+        default='',
+        max_length=255,
+        verbose_name='User Agent',
+        help_text='',
+        blank=True,
+    )
+
+    class Meta:
+        verbose_name_plural = 'Statistics'
+        verbose_name = 'Statistic'
+        ordering = ('-created_date',)
+
+    def __str__(self):
+        return 'Statistic: %s - %s' % (self.statistic_type, self.action)
+
+
 def delete_media_file(model, instance=None, delete_older=False, path=None):
     """
     Delete old file from media storage when new file is uploaded.

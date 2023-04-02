@@ -102,3 +102,14 @@ class CourseCouponsAdmin(ImportExportModelAdmin):
 
     class Meta:
         model = CourseCoupons
+
+
+@admin.register(Statistics)
+class StatisticsAdmin(ImportExportModelAdmin):
+    list_display = ['statistic_type', 'action', 'source', 'ip_address', 'user_agent', 'updated_date', 'created_date', ]
+    search_fields = ['statistic_type', 'action', 'source', 'ip_address', 'user_agent', ]
+    list_editable = []
+    list_filter = ['statistic_type', 'action', 'source', ]
+
+    class Meta:
+        model = Statistics
