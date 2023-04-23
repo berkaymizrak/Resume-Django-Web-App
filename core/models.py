@@ -95,7 +95,7 @@ class ImageSetting(AbstractModel):
             try:
                 return super(ImageSetting, self).save(*args, **kwargs)
             except IntegrityError:
-                self.name += get_random_string(allowed_chars="0123456789", length=2)
+                self.name += get_random_string(allowed_chars='0123456789', length=2)
 
 
 class Document(AbstractModel):
@@ -140,7 +140,7 @@ class Document(AbstractModel):
             try:
                 return super(Document, self).save(*args, **kwargs)
             except IntegrityError:
-                self.name += get_random_string(allowed_chars="0123456789", length=2)
+                self.name += get_random_string(allowed_chars='0123456789', length=2)
 
 
 class Message(AbstractModel):

@@ -1,5 +1,5 @@
-# user/tasks.py
 from celery import shared_task
+from core.models import Message
 from datetime import datetime
 from django.conf import settings
 from django.core.management import call_command
@@ -7,7 +7,6 @@ from django.contrib.admin.models import LogEntry
 from mailqueue.models import MailerMessage
 from resume.celery import app
 import requests
-from user.models import Message
 
 
 @shared_task
@@ -19,7 +18,7 @@ def send_mail_queued(mail_subject, message_context, to, from_mail=settings.DEFAU
 
     # For sender names to be displayed correctly on mail clients, simply put your name first
     # and the actual email in angle brackets
-    # Example correct sender value "Dave Johnston <dave@example.com>"
+    # Example correct sender value 'Dave Johnston <dave@example.com>'
     msg.from_address = from_mail
 
     # As this is only an example, we place the text content in both the plaintext version (content)
@@ -36,7 +35,7 @@ def send_mail_queued(mail_subject, message_context, to, from_mail=settings.DEFAU
         msg.reply_to = reply_to
 
     # Name of your App that is sending the email.
-    msg.app = "Berkay MIZRAK"
+    msg.app = 'Berkay MIZRAK'
 
     msg.save()
 
@@ -82,12 +81,12 @@ def clear_admin_logs(leave_last=100):
     """
         # Set Arguments as:
         {
-        'leave_last' : 100
+        "leave_last" : 100
         }
     """
     model_say = LogEntry.objects.count()
     if model_say > leave_last:
-        rows = LogEntry.objects.all()[:leave_last].values_list("id", flat=True)  # only retrieve ids.
+        rows = LogEntry.objects.all()[:leave_last].values_list('id', flat=True)  # only retrieve ids.
         LogEntry.objects.exclude(pk__in=list(rows)).delete()
 
 
@@ -107,7 +106,7 @@ def clear_model_logs(model='', leave_last=100):
     else:
         return
     if Model.objects.count() > leave_last:
-        rows = Model.objects.all()[:leave_last].values_list("id", flat=True)  # only retrieve ids.
+        rows = Model.objects.all()[:leave_last].values_list('id', flat=True)  # only retrieve ids.
         Model.objects.exclude(pk__in=list(rows)).delete()
 
 

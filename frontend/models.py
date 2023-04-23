@@ -49,7 +49,7 @@ class Skill(AbstractModel):
         SkillTypes,
         default=None,
         on_delete=models.CASCADE,
-        verbose_name="Skill Type",
+        verbose_name='Skill Type',
         blank=True,
         null=True,
     )

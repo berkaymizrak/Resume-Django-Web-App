@@ -16,11 +16,11 @@ class Progress:
             )
             passed_time = self.time_definition(int(time.time() - now))
             command.stdout.write(command.style.MIGRATE_HEADING(
-                "\r{} |{}{}| {}% | {} | {} left."
+                '\r{} |{}{}| {}% | {} | {} left.'
                 .format(
                     message,
-                    "█" * int(25 * count / total),
-                    " " * (25 - int(25 * count / total)),
+                    '█' * int(25 * count / total),
+                    ' ' * (25 - int(25 * count / total)),
                     int(100 * count / total),
                     passed_time,
                     remaining_time

@@ -241,7 +241,7 @@ CELERY_TIMEZONE = 'Europe/Istanbul'
 CELERY_ENABLE_UTC = False  # DEFAULT True
 CELERYBEAT_SCHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'
 
-# CELERY_IMPORTS = ("core.tasks",)
+# CELERY_IMPORTS = ('core.tasks',)
 
 CELERY_TASK_RESULT_EXPIRES = 60 * 60 * 24 * 2  # Seconds (2 days)
 BROKER_POOL_LIMIT = 1
