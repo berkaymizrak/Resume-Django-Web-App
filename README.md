@@ -181,7 +181,7 @@ I would like to add an example for send_mail_queued function.
 You can use this code snippet in any `view.py` file.
 
 ``` python
-from user.tasks import send_mail_queued
+from core.tasks import send_mail_queued
 from django.conf import settings
 ...
 def contact_page(request):

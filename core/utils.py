@@ -30,7 +30,7 @@ def send_mail_check(name, subject_mail, subject_user, message, to, reply_to=sett
 
 
 def send_mail_both(name, subject_mail, subject_user, message, to, reply_to=settings.DEFAULT_FROM_EMAIL):
-    from user.tasks import send_mail_queued
+    from core.tasks import send_mail_queued
 
     # Mail to ADMIN
     # send_mail_check(
