@@ -11,11 +11,30 @@ then
     echo "PostgreSQL started"
 fi
 
-#python manage.py flush --no-input
-python manage.py migrate --noinput
-#	python manage.py collectstatic --noinput
-python manage.py createsuperuser --username="$DJANGO_SUPER_USERNAME" --email="$DJANGO_SUPER_USER_EMAIL" --no-input
+if [ "$SERVICE_NAME" = "app_resume" ]; then
 
+  echo " --- --- --- --- --- --- --- --- --- "
+  echo "Creating database migrations"
+  python manage.py makemigrations
+
+  echo " --- --- --- --- --- --- --- --- --- "
+  echo "Applying database migrations"
+  python manage.py migrate --noinput
+
+  echo " --- --- --- --- --- --- --- --- --- "
+  echo "Flushing database"
+  #python manage.py flush --no-input
+
+  #	python manage.py collectstatic --noinput
+
+  echo " --- --- --- --- --- --- --- --- --- "
+  echo "Creating default superuser"
+  python manage.py createsuperuser --username="$DJANGO_SUPER_USERNAME" --email="$DJANGO_SUPER_USER_EMAIL" --no-input
+
+fi
+
+echo " --- --- --- --- --- --- --- --- --- "
+echo "Starting server"
 exec "$@"
 
 # To make migrations in continuous development, RUN:

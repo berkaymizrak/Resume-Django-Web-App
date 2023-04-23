@@ -51,7 +51,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'core.apps.CoreConfig',
     'user.apps.UserConfig',
+    'frontend.apps.FrontendConfig',
     'crispy_forms',
     'storages',
     'import_export',
@@ -91,7 +93,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'django.template.context_processors.media',  # Extra
-                'user.views.layout',  # Extra
+                'core.views.layout',  # Extra
             ],
         },
     },
@@ -223,7 +225,7 @@ if not DEBUG:
 
 
 # ---------------------------- ERROR 403 HANDLER ----------------------------
-CSRF_FAILURE_VIEW = 'user.views.csrf_failure'
+CSRF_FAILURE_VIEW = 'core.views.csrf_failure'
 # ---------------------------- ERROR 403 HANDLER ----------------------------
 
 
@@ -239,7 +241,7 @@ CELERY_TIMEZONE = 'Europe/Istanbul'
 CELERY_ENABLE_UTC = False  # DEFAULT True
 CELERYBEAT_SCHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'
 
-# CELERY_IMPORTS = ("user.tasks",)
+# CELERY_IMPORTS = ("core.tasks",)
 
 CELERY_TASK_RESULT_EXPIRES = 60 * 60 * 24 * 2  # Seconds (2 days)
 BROKER_POOL_LIMIT = 1

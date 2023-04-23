@@ -26,6 +26,7 @@ services:
     env_file:
       - resume/docker.env
     environment:
+      - SERVICE_NAME=app_resume
       - "DATABASE=postgres"
     volumes:
       - static-data:/srv/public

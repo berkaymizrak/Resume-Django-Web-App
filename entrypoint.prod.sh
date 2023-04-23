@@ -11,6 +11,14 @@ then
     echo "PostgreSQL started"
 fi
 
-python manage.py migrate --noinput
+if [ "$SERVICE_NAME" = "app_resume" ]; then
 
+  echo " --- --- --- --- --- --- --- --- --- "
+  echo "Applying database migrations"
+  python manage.py migrate --noinput
+
+fi
+
+echo " --- --- --- --- --- --- --- --- --- "
+echo "Starting server"
 exec "$@"

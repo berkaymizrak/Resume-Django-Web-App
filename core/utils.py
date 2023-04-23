@@ -1,6 +1,6 @@
 from django.conf import settings
 from django.core.mail import EmailMessage
-from user.models import *
+from core.models import *
 
 
 def send_mail_check(name, subject_mail, subject_user, message, to, reply_to=settings.DEFAULT_FROM_EMAIL):
@@ -109,20 +109,3 @@ def get_image(setting):
         image = settings.DEFAULT_PNG
 
     return image
-
-
-def get_skill_table():
-    skills = Skill.objects.all().order_by('order')
-    skills_1 = []
-    skills_2 = []
-
-    count = 0
-    for elem in skills:
-        count += 1
-        if count == 1:
-            skills_1.append(elem)
-        elif count == 2:
-            skills_2.append(elem)
-            count = 0
-
-    return skills_1, skills_2

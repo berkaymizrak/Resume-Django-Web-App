@@ -1,5 +1,5 @@
+from core.utils import get_parameter
 from django import template
-from user.utils import get_parameter
 from django.conf import settings
 
 register = template.Library()

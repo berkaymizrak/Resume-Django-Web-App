@@ -232,6 +232,7 @@ def create_default_values(apps, scheme_editor):
     ]
     document_dump = [
         {
+            'name': 'cv',
             'button_text': 'CV EN',
             'show_on_page': True,
         },

@@ -1,15 +1,17 @@
 import time
 from django.core.management.base import BaseCommand, CommandError
 from .utils import Progress
-from user import models
+from core import models as core_models
+from frontend import models as fr_models
+from user import models as user_models
 
 clear_models = [
-    models.GeneralSetting,
-    models.ImageSetting,
-    models.Document,
-    models.Skill,
-    models.SocialMedia,
-    models.Message,
+    core_models.GeneralSetting,
+    core_models.ImageSetting,
+    core_models.Document,
+    core_models.Message,
+    fr_models.Skill,
+    fr_models.SocialMedia,
 ]
 
 
