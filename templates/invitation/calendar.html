@@ -1,0 +1,54 @@
+<div class="calendar">
+    <div class="content">
+        <h2 class="year">2023</h2>
+        <ul class="months">
+            <li><a href="javascript:void(0);" title="Ocak" data-value="1">O</a></li>
+            <li><a href="javascript:void(0);" title="Şubat" data-value="2">Ş</a></li>
+            <li><a href="javascript:void(0);" title="Mart" data-value="3">M</a></li>
+            <li><a href="javascript:void(0);" title="Nisan" data-value="4">N</a></li>
+            <li><a href="javascript:void(0);" title="Mayıs" data-value="5" class="selected">Mayıs</a></li>
+            <li><a href="javascript:void(0);" title="Haziran" data-value="6">H</a></li>
+            <li><a href="javascript:void(0);" title="Temmuz" data-value="7">T</a></li>
+            <li><a href="javascript:void(0);" title="Ağustos" data-value="8">A</a></li>
+            <li><a href="javascript:void(0);" title="Eylül" data-value="9">E</a></li>
+            <li><a href="javascript:void(0);" title="Ekim" data-value="10">E</a></li>
+            <li><a href="javascript:void(0);" title="Kasım" data-value="11">K</a></li>
+            <li><a href="javascript:void(0);" title="Aralık" data-value="12">A</a></li>
+        </ul>
+        <div class="clearfix"></div>
+        <ul class="weekday">
+            <li><a href="javascript:void(0);" title="Pazartesi" data-value="1">Pzt</a></li>
+            <li><a href="javascript:void(0);" title="Salı" data-value="2">Salı</a></li>
+            <li><a href="javascript:void(0);" title="Çarşamba" data-value="3">Çar</a></li>
+            <li><a href="javascript:void(0);" title="Perşembe" data-value="4">Per</a></li>
+            <li><a href="javascript:void(0);" title="Cuma" data-value="5">Cuma</a></li>
+            <li><a href="javascript:void(0);" title="Cumartesi" data-value="6">Cmt</a></li>
+            <li><a href="javascript:void(0);" title="Pazar" data-value="7">Pzr</a></li>
+        </ul>
+        <div class="clearfix"></div>
+        <ul class="days">
+            <script>
+                for (var _i = 1; _i <= 31; _i += 1) {
+                    var _addClass = '';
+                    if (_i === 21) {
+                        _addClass = ' class="selected"';
+                    }
+
+                    switch (_i) {
+                        case 8:
+                        case 10:
+                        case 27:
+                            _addClass = ' class="event"';
+                            break;
+                    }
+
+                    document.write('<li><a href="javascript:void(0);" title="' + _i + '" data-value="' + _i + '"' + _addClass + '>' + _i + '</a></li>');
+                }
+            </script>
+        </ul>
+        <div class="clearfix"></div>
+    </div>
+
+    <div class="clearfix"></div>
+
+</div>

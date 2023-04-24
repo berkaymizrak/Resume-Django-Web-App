@@ -64,3 +64,13 @@ def index(request):
         'form': form,
     }
     return render(request, 'index.html', context=context)
+
+
+def nikah(request):
+    context = {}
+    return render(request, 'invitation/nikah.html', context=context)
+
+
+def dugun(request):
+    context = {}
+    return render(request, 'invitation/dugun.html', context=context)
