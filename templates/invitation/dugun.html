@@ -200,7 +200,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
     <script src="{% static 'invitation/js/timeline.js' %}"></script>
 
     <script>
-        $('#clock').countdown('2023/05/21', function (event) {
+        $('#clock').countdown('2023/05/21 14:30', function (event) {
             $(this).html(event.strftime(
                 '<div class="countdown_wrap d-flex" style="border-radius: 20px;"><div  class="single_countdown"><h3>%D</h3><span>Gün</span></div><div class="single_countdown"><h3>%H</h3><span>Saat</span></div><div class="single_countdown"><h3>%M</h3><span>Dakika</span></div><div class="single_countdown"><h3>%S</h3><span>Saniye</span></div></div>'
             ));
