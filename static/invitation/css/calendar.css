@@ -42,8 +42,8 @@
     /*position: absolute;*/
     border-radius: 4px;
     overflow: hidden;
-    /*width: 800px;*/
-    /*height: 450px;*/
+    width: 465px;
+    /*height: 425px;*/
     left: 50%;
     /*margin-left: -400px;*/
     /*margin-top: -225px;*/
@@ -130,7 +130,7 @@
 .calendar h2 {
     color: #C7BEBE;
     text-align: right;
-    margin-bottom: 70px;
+    margin-bottom: 35px;
 }
 
 .calendar .months li,
@@ -215,30 +215,59 @@
     color: #ffffff;
 }
 
-/*@media (max-width: 430px) {*/
-    /*.calendar .days li {*/
-    /*    width: unset;*/
-    /*}*/
-/*}*/
-
-@media (max-width: 494px) {
-    .calendar {
-        margin-bottom: 70px;
+@media (max-width: 495px) {
+    .calendar .content {
+        padding: 0px;
     }
 
-    .calendar .content {
-        padding: 10px;
+    .calendar {
+        width: 385px;
     }
 }
 
-@media (max-width: 450px) {
-    .calendar .content {
-        padding: 5px;
-    }
+@media (max-width: 414px) {
     .calendar {
-        width: 440px;
+        width: 350px;
     }
-    .calendar h2 {
-        margin-right: 100px;
+
+    .calendar .months li a {
+        width: 29px;
+    }
+
+    .calendar .weekday li a {
+        width: 50px;
+    }
+
+    .calendar .days li {
+        width: 50px;
+    }
+}
+
+@media (max-width: 380px) {
+    .calendar {
+        width: 315px;
+    }
+
+    .calendar .months li a {
+        width: 26.25px;
+    }
+
+    .calendar .weekday li a {
+        width: 45px;
+    }
+
+    .calendar .days li {
+        width: 45px;
+    }
+}
+
+.calendar-outer {
+    overflow: scroll;
+}
+
+@media (min-width: 495px) {
+    .calendar-outer {
+        justify-content: center;
+        display: flex;
     }
 }
