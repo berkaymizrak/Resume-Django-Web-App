@@ -74,3 +74,8 @@ def nikah(request):
 def dugun(request):
     context = {}
     return render(request, 'invitation/dugun.html', context=context)
+
+
+def dugun2(request):
+    context = {}
+    return render(request, 'invitation2/dugun.html', context=context)
