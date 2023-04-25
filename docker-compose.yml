@@ -51,7 +51,7 @@ services:
     env_file:
       - resume/docker.env
     volumes:
-      - static-data:/srv/public
+      - celery-data:/srv/public
     depends_on:
       - app_resume
       - redis_resume
@@ -72,3 +72,4 @@ networks:
 volumes:
   postgresql-data:
   static-data:
+  celery-data:
