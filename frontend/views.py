@@ -67,19 +67,10 @@ def index(request):
     return render(request, 'index.html', context=context)
 
 
-def nikah(request):
-    event_date = datetime.strptime('2023-05-20 14:00:00', '%Y-%m-%d %H:%M:%S')
-
-    context = {
-        'event_date': event_date,
-    }
-    return render(request, 'invitation/nikah.html', context=context)
-
-
-def dugun(request):
+def invitation(request):
     event_date = datetime.strptime('2023-05-21 14:30:00', '%Y-%m-%d %H:%M:%S')
 
     context = {
         'event_date': event_date,
     }
-    return render(request, 'invitation2/dugun.html', context=context)
+    return render(request, 'invitation/invitation.html', context=context)
