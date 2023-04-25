@@ -26,4 +26,4 @@ jobs:
           password: $SSH_PASSWORD
           script: |
             cd /home/berkay/Resume-Django-Web-App
-            docker exec -it app_resume python manage.py migrate --noinput
+            docker exec app_resume python manage.py migrate --noinput
