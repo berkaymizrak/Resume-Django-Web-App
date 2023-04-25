@@ -2,6 +2,8 @@
 
 name: Upload Static
 
+on: workflow_dispatch
+
 env:
   SSH_HOST: ${{ secrets.SSH_HOST }}
   SSH_PORT: 22
