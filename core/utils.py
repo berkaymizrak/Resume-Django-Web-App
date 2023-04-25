@@ -103,7 +103,23 @@ def get_parameter(setting, val_type='str'):
 def get_image(setting):
     try:
         image = ImageSetting.objects.get(name=setting).file.url
+        print('DEBUG 1!!!!')
+        print('DEBUG 1!!!!')
+        print('image', image)
+        print('DEBUG 1!!!!')
+        print('DEBUG 1!!!!')
         if not image:
+            print('DEBUG 222')
+            image = ImageSetting.objects.get(name=setting)
+            print('image', image)
+            print('DEBUG 222')
+            print('DEBUG 222')
+            print('image.file', image.file)
+            print('DEBUG 333')
+            print('DEBUG 333')
+            print('image.file.url', image.file.url)
+            print('DEBUG 444')
+            print('DEBUG 444')
             raise Exception
     except:
         image = settings.DEFAULT_PNG
