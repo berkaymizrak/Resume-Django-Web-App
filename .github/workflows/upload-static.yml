@@ -2,7 +2,13 @@
 
 name: Upload Static
 
-on: workflow_dispatch
+on:
+  push:
+    branches:
+      - main
+      - 'releases/**'
+    paths:
+      - static/**
 
 env:
   SSH_HOST: ${{ secrets.SSH_HOST }}
