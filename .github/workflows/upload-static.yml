@@ -23,6 +23,7 @@ jobs:
       - uses: actions/checkout@v3
         with:
           fetch-depth: 2  # OR "2" -> To retrieve the preceding commit.
+          since_last_remote_commit: true
 
       - name: Get changed files in the static folder
         id: changed-files-specific
