@@ -121,7 +121,7 @@ a {
 }
 
 a:hover, a:active, a:focus {
-    color: #F14E95;
+    color: rgb(221 106 99);
     outline: none;
     text-decoration: none;
 }
@@ -1939,8 +1939,8 @@ form label {
 }
 
 .btn-primary:hover, .btn-primary:focus, .btn-primary:active {
-    background: #f366a3 !important;
-    border-color: #f366a3 !important;
+    background: rgb(221 106 99) !important;
+    border-color: rgb(221 106 99) !important;
 }
 
 .btn-primary.btn-outline {
@@ -1950,7 +1950,7 @@ form label {
 }
 
 .btn-primary.btn-outline:hover, .btn-primary.btn-outline:focus, .btn-primary.btn-outline:active {
-    background: #F14E95;
+    background: rgb(221 106 99);
     color: #fff;
 }
 
