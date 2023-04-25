@@ -82,7 +82,7 @@
 				<div class="col-xs-2">
 					<div id="fh5co-logo">
 						<a href="javascript:void(0);">
-							<div class="wedding_date">21.05.2023</div>
+							<div class="wedding_date">{{ event_date.date|date:"d.m.Y" }}</div>
 							<div class="new-title">Pazar</div>
 						</a>
 					</div>
@@ -350,11 +350,11 @@
 	<script>
     // default example
     simplyCountdown('.simply-countdown-one', {
-        year: 2023,
-        month: 5,
-        day: 21,
-		hours: 14,
-		minutes: 30,
+        year: {{ event_date.year }},
+        month: {{ event_date.month }},
+        day: {{ event_date.day }},
+		hours: {{ event_date.hour }},
+		minutes: {{ event_date.minute }},
 		words: {
 			days: 'GÜN',
 			hours: 'SAAT',
