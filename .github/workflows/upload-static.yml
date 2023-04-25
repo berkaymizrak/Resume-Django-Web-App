@@ -26,4 +26,4 @@ jobs:
           password: $SSH_PASSWORD
           script: |
             cd /home/berkay/Resume-Django-Web-App
-            docker compose -f docker-compose.prod.yml run app_resume python manage.py collectstatic --noinput
+            docker exec -it app_resume python manage.py collectstatic --noinput
