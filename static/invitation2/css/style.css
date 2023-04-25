@@ -10,7 +10,7 @@
 	/*New Style*/
 .wedding_date{
   display: block;
-  font-family: "Work Sans", Arial, sans-serif;
+  font-family: "Dosis", sans-serif;
 }
 
 .save_date{
@@ -26,6 +26,9 @@
   object-fit: scale-down;
   opacity: 0.7;
 }
+.new-title {
+  font-family: 'Caveat', serif !important;
+}
 
 /*======================================================= */
 
@@ -36,12 +39,13 @@
 *
 * ======================================================= */
 body {
-  font-family: "Work Sans", Arial, sans-serif;
+  font-family: "Dosis", sans-serif;
   font-weight: 400;
   font-size: 16px;
   line-height: 1.7;
   color: #828282;
   background: #fff;
+  letter-spacing: 1px!important;
 }
 
 #page {
@@ -89,9 +93,10 @@ p {
 
 h1, h2, h3, h4, h5, h6, figure {
   color: #000;
-  font-family: "Work Sans", Arial, sans-serif;
+  font-family: "Dosis", sans-serif;
   font-weight: 400;
   margin: 0 0 20px 0;
+  letter-spacing: 1px!important;
 }
 
 ::-webkit-selection {
@@ -106,7 +111,7 @@ h1, h2, h3, h4, h5, h6, figure {
 
 ::selection {
   color: #fff;
-  background: #F14E95;
+  background: rgb(192 133 236 / 80%);
 }
 
 .fh5co-nav {
@@ -1674,7 +1679,8 @@ form label {
 .btn {
   margin-right: 4px;
   margin-bottom: 4px;
-  font-family: "Work Sans", Arial, sans-serif;
+  font-family: "Dosis", sans-serif;
+  letter-spacing: 1px!important;
   font-size: 16px;
   font-weight: 400;
   -webkit-border-radius: 30px;
