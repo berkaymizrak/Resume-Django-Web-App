@@ -1,9 +1,9 @@
 from django.conf import settings
 from django.core.mail import EmailMessage
-from core.models import *
 
 
 def send_mail_check(name, subject_mail, subject_user, message, to, reply_to=settings.DEFAULT_FROM_EMAIL):
+    from core.models import Message
     success = True
     error_message = None
 
@@ -90,17 +90,18 @@ def get_val_in_type(value, val_type):
 
 
 def get_parameter(setting, val_type='str'):
+    from core.models import GeneralSetting
     try:
         parameter = GeneralSetting.objects.get(name=setting).parameter
     except:
         parameter = ''
-
     parameter = get_val_in_type(parameter, val_type)
 
     return parameter
 
 
 def get_image(setting):
+    from core.models import ImageSetting
     try:
         image = ImageSetting.objects.get(name=setting).file.url
         if not image:
