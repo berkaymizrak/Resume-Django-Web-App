@@ -47,17 +47,6 @@ class DocumentAdmin(ImportExportModelAdmin):
         model = Document
 
 
-@admin.register(RedirectSlug)
-class RedirectSlugAdmin(ImportExportModelAdmin):
-    list_display = ['id', 'slug', 'new_url', 'updated_date', 'created_date', ]
-    search_fields = ['slug', 'new_url', ]
-    list_editable = ['slug', 'new_url', ]
-    list_filter = []
-
-    class Meta:
-        model = RedirectSlug
-
-
 @admin.register(Statistics)
 class StatisticsAdmin(ImportExportModelAdmin):
     list_display = ['statistic_type', 'action', 'source', 'ip_address', 'user_agent', 'updated_date', 'created_date', ]

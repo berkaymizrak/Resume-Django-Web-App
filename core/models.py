@@ -194,6 +194,7 @@ class Message(AbstractModel):
         return 'Message: %s' % self.name
 
 
+# TODO REMOVE THIS MODEL AFTER FIRST MIGRATION
 class RedirectSlug(AbstractModel):
     slug = models.SlugField(
         max_length=255,

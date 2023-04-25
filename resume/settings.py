@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     'core.apps.CoreConfig',
     'user.apps.UserConfig',
     'frontend.apps.FrontendConfig',
+    'link_management.apps.LinkManagementConfig',
     'crispy_forms',
     'storages',
     'import_export',
