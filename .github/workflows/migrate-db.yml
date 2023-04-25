@@ -1,0 +1,29 @@
+# This workflow will migrate database on manual triggers
+
+name: Migrate DB
+
+on: workflow_dispatch
+
+env:
+  SSH_HOST: ${{ secrets.SSH_HOST }}
+  SSH_PORT: 22
+  SSH_USERNAME: ${{ secrets.SSH_USERNAME }}
+  SSH_PASSWORD: ${{ secrets.SSH_PASSWORD }}
+
+jobs:
+  collectstatic:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Migration
+        uses: appleboy/ssh-action@master
+        with:
+          host: $SSH_HOST
+          port: $SSH_PORT
+          username: $SSH_USERNAME
+          password: $SSH_PASSWORD
+          script: |
+            cd /home/berkay/Resume-Django-Web-App
+            docker exec -it app_resume python manage.py migrate --noinput
