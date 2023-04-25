@@ -5,18 +5,47 @@
   font-weight: normal;
   font-style: normal;
 }
+
+ /*=======================================================*/
+	/*New Style*/
+.wedding_date{
+  display: block;
+  font-family: "Dosis", sans-serif;
+}
+
+.save_date{
+  font-weight: 700!important;
+  color: #a473c5!important;
+}
+.website{
+  color: rgba(0, 0, 0, 0.4)!important;
+}
+.badge_image{
+  height: -webkit-fill-available;
+  width: 50%;
+  object-fit: scale-down;
+  opacity: 0.7;
+}
+.new-title {
+  font-family: 'Caveat', serif !important;
+}
+
+/*======================================================= */
+
+
 /* =======================================================
 *
 * 	Template Style 
 *
 * ======================================================= */
 body {
-  font-family: "Work Sans", Arial, sans-serif;
+  font-family: "Dosis", sans-serif;
   font-weight: 400;
   font-size: 16px;
   line-height: 1.7;
   color: #828282;
   background: #fff;
+  letter-spacing: 1px!important;
 }
 
 #page {
@@ -47,7 +76,7 @@ body {
 }
 
 a {
-  color: #F14E95;
+  color: #828282;
   -webkit-transition: 0.5s;
   -o-transition: 0.5s;
   transition: 0.5s;
@@ -64,9 +93,10 @@ p {
 
 h1, h2, h3, h4, h5, h6, figure {
   color: #000;
-  font-family: "Work Sans", Arial, sans-serif;
+  font-family: "Dosis", sans-serif;
   font-weight: 400;
   margin: 0 0 20px 0;
+  letter-spacing: 1px!important;
 }
 
 ::-webkit-selection {
@@ -81,7 +111,7 @@ h1, h2, h3, h4, h5, h6, figure {
 
 ::selection {
   color: #fff;
-  background: #F14E95;
+  background: rgb(192 133 236 / 80%);
 }
 
 .fh5co-nav {
@@ -99,7 +129,9 @@ h1, h2, h3, h4, h5, h6, figure {
   }
 }
 .fh5co-nav #fh5co-logo {
-  font-size: 40px;
+  font-size: 30px;
+  justify-content: flex-start;
+  display: flex;
   margin: 0;
   padding: 0;
   line-height: 40px;
@@ -545,8 +577,8 @@ h1, h2, h3, h4, h5, h6, figure {
   top: 16px;
   left: 50%;
   margin-left: -80px;
-  background-color: #999999;
-  z-index: 100;
+  border: 1px solid black;
+  background-color: white;  z-index: 100;
   -webkit-border-radius: 50%;
   -moz-border-radius: 50%;
   -ms-border-radius: 50%;
@@ -942,7 +974,7 @@ form label {
   display: inline-block;
   width: 100px;
   height: 100px;
-  background: rgba(241, 78, 149, 0.8);
+  background: rgb(192 133 236 / 80%);
   margin: 0 4px;
   -webkit-border-radius: 50%;
   -moz-border-radius: 50%;
@@ -1181,7 +1213,7 @@ form label {
   margin-bottom: 10px;
   line-height: 1.5;
   font-weight: bold;
-  color: #F14E95;
+  color: #a373c5;;
   font-family: "Sacramento", Arial, serif;
 }
 @media screen and (max-width: 768px) {
@@ -1647,7 +1679,8 @@ form label {
 .btn {
   margin-right: 4px;
   margin-bottom: 4px;
-  font-family: "Work Sans", Arial, sans-serif;
+  font-family: "Dosis", sans-serif;
+  letter-spacing: 1px!important;
   font-size: 16px;
   font-weight: 400;
   -webkit-border-radius: 30px;
