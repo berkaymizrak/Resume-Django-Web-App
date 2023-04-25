@@ -3,6 +3,7 @@
 name: Upload Static
 
 on:
+  workflow_dispatch:
   workflow_run:
     workflows: ["Deploy to Server"]
     types:
