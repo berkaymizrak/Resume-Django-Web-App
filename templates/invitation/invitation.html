@@ -1,223 +1,246 @@
 {% load static %}
 
 <!DOCTYPE html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
-	<head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>Zeynep & Berkay</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="description" content="Evleniyoruz!" />
+<!--[if lt IE 7]>
+<html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>
+<html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>
+<html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js"> <!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Zeynep & Berkay</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Evleniyoruz!"/>
     <meta name="robots" content="noindex">
 
-  <!-- 
-	//////////////////////////////////////////////////////
+    <!--
+      //////////////////////////////////////////////////////
 
-	FREE HTML5 TEMPLATE 
-	DESIGNED & DEVELOPED by FREEHTML5.CO
-		
-	Website: 		http://freehtml5.co/
-	Email: 			info@freehtml5.co
-	Twitter: 		http://twitter.com/fh5co
-	Facebook: 		https://www.facebook.com/fh5co
+      FREE HTML5 TEMPLATE
+      DESIGNED & DEVELOPED by FREEHTML5.CO
 
-	//////////////////////////////////////////////////////
-	 -->
+      Website: 		http://freehtml5.co/
+      Email: 			info@freehtml5.co
+      Twitter: 		http://twitter.com/fh5co
+      Facebook: 		https://www.facebook.com/fh5co
 
-  	<!-- Facebook and Twitter integration -->
-	<meta property="og:title" content="Zeynep & Berkay"/>
-	<meta property="og:image" content=""/>
-	<meta property="og:url" content=""/>
-	<meta property="og:site_name" content="Zeynep & Berkay"/>
-	<meta property="og:description" content="Evleniyoruz!"/>
-	<meta name="twitter:title" content="Zeynep & Berkay" />
-	<meta name="twitter:image" content="" />
-	<meta name="twitter:url" content="" />
-	<meta name="twitter:card" content="" />
+      //////////////////////////////////////////////////////
+       -->
 
-	<link href='https://fonts.googleapis.com/css?family=Work+Sans:400,300,600,400italic,700' rel='stylesheet' type='text/css'>
-	<link href="https://fonts.googleapis.com/css?family=Sacramento" rel="stylesheet">
-		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Caveat">
-		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Dosis">
+    <!-- Facebook and Twitter integration -->
+    <meta property="og:title" content="Zeynep & Berkay"/>
+    <meta property="og:image" content=""/>
+    <meta property="og:url" content=""/>
+    <meta property="og:site_name" content="Zeynep & Berkay"/>
+    <meta property="og:description" content="Evleniyoruz!"/>
+    <meta name="twitter:title" content="Zeynep & Berkay"/>
+    <meta name="twitter:image" content=""/>
+    <meta name="twitter:url" content=""/>
+    <meta name="twitter:card" content=""/>
+
+    <link href='https://fonts.googleapis.com/css?family=Work+Sans:400,300,600,400italic,700' rel='stylesheet'
+          type='text/css'>
+    <link href="https://fonts.googleapis.com/css?family=Sacramento" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Caveat">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Dosis">
 
 
-	<!-- Animate.css -->
-	<link rel="stylesheet" href="{% static 'invitation/css/animate.css' %}">
-	<!-- Icomoon Icon Fonts-->
-	<link rel="stylesheet" href="{% static 'invitation/css/icomoon.css' %}">
-	<!-- Bootstrap  -->
-	<link rel="stylesheet" href="{% static 'invitation/css/bootstrap.css' %}">
+    <!-- Animate.css -->
+    <link rel="stylesheet" href="{% static 'invitation/css/animate.css' %}">
+    <!-- Icomoon Icon Fonts-->
+    <link rel="stylesheet" href="{% static 'invitation/css/icomoon.css' %}">
+    <!-- Bootstrap  -->
+    <link rel="stylesheet" href="{% static 'invitation/css/bootstrap.css' %}">
 
-	<!-- Magnific Popup -->
-	<link rel="stylesheet" href="{% static 'invitation/css/magnific-popup.css' %}">
+    <!-- Magnific Popup -->
+    <link rel="stylesheet" href="{% static 'invitation/css/magnific-popup.css' %}">
 
-	<!-- Owl Carousel  -->
-	<link rel="stylesheet" href="{% static 'invitation/css/owl.carousel.min.css' %}">
-	<link rel="stylesheet" href="{% static 'invitation/css/owl.theme.default.min.css' %}">
+    <!-- Owl Carousel  -->
+    <link rel="stylesheet" href="{% static 'invitation/css/owl.carousel.min.css' %}">
+    <link rel="stylesheet" href="{% static 'invitation/css/owl.theme.default.min.css' %}">
 
-	<!-- Theme style  -->
-	<link rel="stylesheet" href="{% static 'invitation/css/style.css' %}">
+    <!-- Theme style  -->
+    <link rel="stylesheet" href="{% static 'invitation/css/style.css' %}">
 
     <link rel="stylesheet" href="{% static 'invitation/css/calendar.css' %}">
 
-	<!-- Modernizr JS -->
-	<script src="{% static 'invitation/js/modernizr-2.6.2.min.js' %}"></script>
-	<!-- FOR IE9 below -->
-	<!--[if lt IE 9]>
+    <!-- Modernizr JS -->
+    <script src="{% static 'invitation/js/modernizr-2.6.2.min.js' %}"></script>
+    <!-- FOR IE9 below -->
+    <!--[if lt IE 9]>
 	<script src="{% static 'invitation/js/respond.min.js' %}"></script>
 	<![endif]-->
 
-	</head>
-	<body>
-		
-	<div class="fh5co-loader"></div>
-	
-	<div id="page">
-	<nav class="fh5co-nav" role="navigation">
-		<div class="container">
-			<div class="row">
-				<div class="col-xs-2">
-					<div id="fh5co-logo">
-						<a href="javascript:void(0);">
-							<div class="wedding_date">{{ event_date.date|date:"d.m.Y" }}</div>
-							<div class="new-title">Pazar</div>
-						</a>
-					</div>
-				</div>
-				<div class="col-xs-10 text-right menu-1">
-					<ul>
-						<li class="active"><a href="javascript:smoothScroll('#fh5co-couple');">TAKVİM</a></li>
-						<li class="active"><a href="javascript:smoothScroll('#fh5co-couple-story');">PROGRAM</a></li>
-						<li class="active"><a href="javascript:smoothScroll('#fh5co-gallery');">MEKAN</a></li>
-					</ul>
-				</div>
-			</div>
-			
-		</div>
-	</nav>
+</head>
+<body>
 
-	<header id="fh5co-header" class="fh5co-cover" role="banner" style="background-image:url({% static 'invitation/images/img_bg_2.jpg' %});" data-stellar-background-ratio="0.5">
-		<div class="overlay"></div>
-		<div class="container">
-			<div class="row">
-				<div class="col-md-8 col-md-offset-2 text-center">
-					<div class="display-t">
-						<div class="display-tc animate-box" data-animate-effect="fadeIn">
-							<h1 class="new-title">Zeynep &amp; Berkay</h1>
-							<h2>Bu özel günümüzde sizleri de aramızda görmekten büyük mutluluk duyarız.</h2>
-							<div class="simply-countdown simply-countdown-one"></div>
-							<p><a href="javascript:void(0);" class="save_date btn btn-default btn-sm">BU TARİHİ NOT ALIN!</a></p>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</header>
+<div class="fh5co-loader"></div>
 
-	<div id="fh5co-couple" class="fh5co-section-gray">
-		<div class="container">
-			<div class="row">
-				<div class="col-md-8 col-md-offset-2 text-center fh5co-heading animate-box" style="margin-bottom: 0!important;">
-					<h2 class="new-title">Merhaba!</h2>
-					<h3>1889 Bursa Double F, Nilüfer / BURSA </h3>
-					<p>Sizleri de aramızda görmekten büyük mutluluk duyarız.</p>
-				</div>
-			</div>
-			<div class="couple-wrap animate-box calendar-outer">
+<div id="page">
+    <nav class="fh5co-nav" role="navigation">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-2">
+                    <div id="fh5co-logo">
+                        <a href="javascript:void(0);">
+                            <div class="wedding_date">{{ event_date.date|date:"d.m.Y" }}</div>
+                            <div class="new-title">Pazar</div>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-xs-10 text-right menu-1">
+                    <ul>
+                        <li class="active"><a href="javascript:smoothScroll('#fh5co-couple');">TAKVİM</a></li>
+                        <li class="active"><a href="javascript:smoothScroll('#fh5co-couple-story');">PROGRAM</a></li>
+                        <li class="active"><a href="javascript:smoothScroll('#fh5co-gallery');">MEKAN</a></li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </nav>
+
+    <header id="fh5co-header" class="fh5co-cover" role="banner"
+            style="background-image:url({% static 'invitation/images/img_bg_2.jpg' %});"
+            data-stellar-background-ratio="0.5">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2 text-center">
+                    <div class="display-t">
+                        <div class="display-tc animate-box" data-animate-effect="fadeIn">
+                            <h1 class="new-title">Zeynep &amp; Berkay</h1>
+                            <h2>Bu özel günümüzde sizleri de aramızda görmekten büyük mutluluk duyarız.</h2>
+                            <div class="simply-countdown simply-countdown-one"></div>
+                            <p><a href="javascript:smoothScroll('#fh5co-couple');" class="save_date btn btn-default btn-sm">
+                                BU TARİHİ NOT ALIN!
+                            </a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div id="fh5co-couple" class="fh5co-section-gray">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2 text-center fh5co-heading animate-box"
+                     style="margin-bottom: 0!important;">
+                    <h2 class="new-title">Merhaba!</h2>
+                    <h3>Mekan: 1889 Bursa Double F</h3>
+                </div>
+            </div>
+            <div class="couple-wrap animate-box calendar-outer">
                 {% include 'invitation/calendar.html' %}
-			</div>
-		</div>
-	</div>
+            </div>
+        </div>
+    </div>
 
-	<div id="fh5co-couple-story">
-		<div class="container">
-			<div class="row">
-				<div class="col-md-8 col-md-offset-2 text-center fh5co-heading animate-box">
-					<span>Davetlisiniz!</span>
-					<h2 class="new-title">Program</h2>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-12 col-md-offset-0">
-					<ul class="timeline animate-box">
-						<li class="animate-box">
-							<div class="timeline-badge">
-								<img class="badge_image" src="{% static 'invitation/images/icons/start.png' %}">
-							</div>
-							<div class="timeline-panel">
-								<div class="timeline-heading">
-									<h3 class="timeline-title">Davetli Girişi</h3>
-									<span class="date">Saat: 14.00</span>
-								</div>
-								<div class="timeline-body">
-									<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.</p>
-								</div>
-							</div>
-						</li>
-						<li class="timeline-inverted animate-box">
-							<div class="timeline-badge">
-								<img class="badge_image" src="{% static 'invitation/images/icons/wedding-rings.png' %}">
-							</div>
-							<div class="timeline-panel">
-								<div class="timeline-heading">
-									<h3 class="timeline-title">Nikah</h3>
-									<span class="date">Saat: 15.00</span>
-								</div>
-								<div class="timeline-body">
-									<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.</p>
-								</div>
-							</div>
-						</li>
+    <div id="fh5co-couple-story">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2 text-center fh5co-heading animate-box">
+                    <span>Davetlisiniz!</span>
+                    <h2 class="new-title">Program</h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 col-md-offset-0">
+                    <ul class="timeline animate-box">
+                        <li class="animate-box">
+                            <div class="timeline-badge">
+                                <img class="badge_image" src="{% static 'invitation/images/icons/start.png' %}">
+                            </div>
+                            <div class="timeline-panel">
+                                <div class="timeline-heading">
+                                    <h3 class="timeline-title">Davetli Girişi</h3>
+                                    <span class="date">Saat: 14.00</span>
+                                </div>
+                                <div class="timeline-body">
+                                    <p>
+                                        Bursa’da ormanın içinde ve şehir manzarasına hâkim, Uludağ'ın uçsuz bucaksız
+                                        ormanlarının ortasında, doğanın içindeki mekanımızın bahçesinde buluşuyoruz.
+                                    </p>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="timeline-inverted animate-box">
+                            <div class="timeline-badge">
+                                <img class="badge_image" src="{% static 'invitation/images/icons/wedding-rings.png' %}">
+                            </div>
+                            <div class="timeline-panel">
+                                <div class="timeline-heading">
+                                    <h3 class="timeline-title">Nikah</h3>
+                                    <span class="date">Saat: 15.00</span>
+                                </div>
+                                <div class="timeline-body">
+                                    <p>
+                                        Yeşilliklerin arasında, açık havada nikahımızı kıyıyoruz.
+                                    </p>
+                                </div>
+                            </div>
+                        </li>
 
-						<li class="animate-box">
-							<div class="timeline-badge">
-								<img class="badge_image" src="{% static 'invitation/images/icons/photo.png' %}">
-							</div>
-							<div class="timeline-panel">
-								<div class="timeline-heading">
-									<h3 class="timeline-title">Fotoğraf Çekimi</h3>
-									<span class="date">Saat: 15.30</span>
-								</div>
-								<div class="timeline-body">
-									<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.</p>
-								</div>
-							</div>
-						</li>
+                        <li class="animate-box">
+                            <div class="timeline-badge">
+                                <img class="badge_image" src="{% static 'invitation/images/icons/photo.png' %}">
+                            </div>
+                            <div class="timeline-panel">
+                                <div class="timeline-heading">
+                                    <h3 class="timeline-title">Fotoğraf Çekimi</h3>
+                                    <span class="date">Saat: 15.30</span>
+                                </div>
+                                <div class="timeline-body">
+                                    <p>
+                                        Anılarımızı ölümsüzleştiriyoruz.
+                                    </p>
+                                </div>
+                            </div>
+                        </li>
 
-						<li class="timeline-inverted animate-box">
-							<div class="timeline-badge">
-								<img class="badge_image" src="{% static 'invitation/images/icons/dinner.png' %}">
-							</div>
-							<div class="timeline-panel">
-								<div class="timeline-heading">
-									<h3 class="timeline-title">Yemek Servisi</h3>
-									<span class="date">Saat: 16.00</span>
-								</div>
-								<div class="timeline-body">
-									<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.</p>
-								</div>
-							</div>
-						</li>
+                        <li class="timeline-inverted animate-box">
+                            <div class="timeline-badge">
+                                <img class="badge_image" src="{% static 'invitation/images/icons/dinner.png' %}">
+                            </div>
+                            <div class="timeline-panel">
+                                <div class="timeline-heading">
+                                    <h3 class="timeline-title">Yemek Servisi</h3>
+                                    <span class="date">Saat: 16.00</span>
+                                </div>
+                                <div class="timeline-body">
+                                    <p>
+                                        Konforlu, nezih ve sıra dışı bir iç tasarım ile keyifli bir ortamda,
+                                        çok özel sunumlarla yemeklerimizi yiyoruz.
+                                    </p>
+                                </div>
+                            </div>
+                        </li>
 
-			    	</ul>
-				</div>
-			</div>
-		</div>
-	</div>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
 
-	<div id="fh5co-gallery" class="fh5co-section-gray">
-		<div class="container">
-			<div class="row">
-				<div class="col-md-8 col-md-offset-2 text-center fh5co-heading animate-box" style="margin-bottom: 3em;">
+    <div id="fh5co-gallery" class="fh5co-section-gray">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2 text-center fh5co-heading animate-box" style="margin-bottom: 3em;">
 
-					<h2 class="new-title">1889 Bursa Double F</h2>
-					<a href="http://www.doublef.com.tr" target="_blank">www.doublef.com.tr</a>
-					<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-				</div>
-			</div>
+                    <h2 class="new-title">1889 Bursa Double F</h2>
+                    <a href="http://www.doublef.com.tr" target="_blank">www.doublef.com.tr</a>
+                    <p>
+                        Bursa’da Uludağ’ın eteklerinde ormanın içinde ve şehir manzarasına hâkim konumundaki Double F,
+                        "Yemek ve Orman” (Food&Forest-DOUBLE F) kavramlarını en doğal halleriyle birleştiren eşsiz bir
+                        mekan.
+                    </p>
+                </div>
+            </div>
             <div style="margin-bottom: 4em;">
                 <div id="ww_27070315e9b7e" v='1.3' loc='id'
                      a='{"t":"ticker","lang":"tr","sl_lpl":1,"ids":["wl5912"],"font":"Arial","sl_ics":"one_a","sl_sot":"celsius","cl_bkg":"#FFFFFF00","cl_font":"#000000","cl_cloud":"#d4d4d4","cl_persp":"#2196F3","cl_sun":"#FFC107","cl_moon":"#FFC107","cl_thund":"#FF5722","el_nme":3}'>
@@ -225,143 +248,127 @@
                         widget</a></div>
                 <script async src="https://app1.weatherwidget.org/js/?id=ww_27070315e9b7e"></script>
             </div>
-			<div class="row row-bottom-padded-md">
-				<div class="col-md-12">
-					<ul id="fh5co-gallery-list">
-						
-						<li class="one-third animate-box" data-animate-effect="fadeIn" style="background-image: url({% static 'invitation/images/gallery/rest-1.jpeg' %}); ">
-							<a href="javascript:void(0);">
-							<div class="case-studies-summary">
-								<span>14 Photos</span>
-								<h2>Two Glas of Juice</h2>
-							</div>
-						</a>
-					</li>
-					<li class="one-third animate-box" data-animate-effect="fadeIn" style="background-image: url({% static 'invitation/images/gallery/rest-2.jpeg' %}); ">
-						<a href="javascript:void(0);" class="color-2">
-							<div class="case-studies-summary">
-								<span>30 Photos</span>
-								<h2>Timer starts now!</h2>
-							</div>
-						</a>
-					</li>
+            <div class="row row-bottom-padded-md">
+                <div class="col-md-12">
+                    <ul id="fh5co-gallery-list">
+
+                        <li class="one-third animate-box" data-animate-effect="fadeIn"
+                            style="background-image: url({% static 'invitation/images/gallery/rest-1.jpeg' %}); ">
+                            <a href="javascript:void(0);">
+                            </a>
+                        </li>
+                        <li class="one-third animate-box" data-animate-effect="fadeIn"
+                            style="background-image: url({% static 'invitation/images/gallery/rest-2.jpeg' %}); ">
+                            <a href="javascript:void(0);" class="color-2">
+                            </a>
+                        </li>
 
 
-					<li class="one-third animate-box" data-animate-effect="fadeIn" style="background-image: url({% static 'invitation/images/gallery/rest-3.jpeg' %}); ">
-						<a href="javascript:void(0);" class="color-3">
-							<div class="case-studies-summary">
-								<span>90 Photos</span>
-								<h2>Beautiful sunset</h2>
-							</div>
-						</a>
-					</li>
-					<li class="one-third animate-box" data-animate-effect="fadeIn" style="background-image: url({% static 'invitation/images/gallery/rest-4.jpeg' %}); ">
-						<a href="javascript:void(0);" class="color-4">
-							<div class="case-studies-summary">
-								<span>12 Photos</span>
-								<h2>Company's Conference Room</h2>
-							</div>
-						</a>
-					</li>
+                        <li class="one-third animate-box" data-animate-effect="fadeIn"
+                            style="background-image: url({% static 'invitation/images/gallery/rest-3.jpeg' %}); ">
+                            <a href="javascript:void(0);" class="color-3">
+                            </a>
+                        </li>
+                        <li class="one-third animate-box" data-animate-effect="fadeIn"
+                            style="background-image: url({% static 'invitation/images/gallery/rest-4.jpeg' %}); ">
+                            <a href="javascript:void(0);" class="color-4">
+                            </a>
+                        </li>
 
-						<li class="one-third animate-box" data-animate-effect="fadeIn" style="background-image: url({% static 'invitation/images/gallery/rest-5.jpeg' %}); ">
-							<a href="javascript:void(0);" class="color-3">
-								<div class="case-studies-summary">
-									<span>50 Photos</span>
-									<h2>Useful baskets</h2>
-								</div>
-							</a>
-						</li>
-						<li class="one-third animate-box" data-animate-effect="fadeIn" style="background-image: url({% static 'invitation/images/gallery/rest-1.jpeg' %}); ">
-							<a href="javascript:void(0);" class="color-4">
-								<div class="case-studies-summary">
-									<span>45 Photos</span>
-									<h2>Skater man in the road</h2>
-								</div>
-							</a>
-						</li>
-					</ul>		
-				</div>
-			</div>
-		</div>
-	</div>
+                        <li class="one-third animate-box" data-animate-effect="fadeIn"
+                            style="background-image: url({% static 'invitation/images/gallery/rest-5.jpeg' %}); ">
+                            <a href="javascript:void(0);" class="color-3">
+                            </a>
+                        </li>
+                        <li class="one-third animate-box" data-animate-effect="fadeIn"
+                            style="background-image: url({% static 'invitation/images/gallery/rest-1.jpeg' %}); ">
+                            <a href="javascript:void(0);" class="color-4">
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
 
-		<!-- map -->
-    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3048.1157292087805!2d28.980864676568036!3d40.184237869755904!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14ca17844d2da071%3A0x40601fa2a0fdf77e!2s1889%20Bursa%20(Double%20F)!5e0!3m2!1str!2str!4v1682361060883!5m2!1str!2str" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-		<!-- END map -->
+    <!-- map -->
+    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3048.1157292087805!2d28.980864676568036!3d40.184237869755904!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14ca17844d2da071%3A0x40601fa2a0fdf77e!2s1889%20Bursa%20(Double%20F)!5e0!3m2!1str!2str!4v1682361060883!5m2!1str!2str"
+            width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"></iframe>
+    <!-- END map -->
 
-	<footer id="fh5co-footer" role="contentinfo">
-		<div class="container">
+    <footer id="fh5co-footer" role="contentinfo">
+        <div class="container">
 
-			<div class="row copyright">
-				<div class="col-md-12 text-center">
-					<p>
-						<small class="block">&copy; 2023 All Rights Reserved.</small>
-						<small class="block">
+            <div class="row copyright">
+                <div class="col-md-12 text-center">
+                    <p>
+                        <small class="block">&copy; 2023 All Rights Reserved.</small>
+                        <small class="block">
                             Designed by <a href="http://freehtml5.co/" target="_blank">FREEHTML5.co</a>
                             | Developed by <a href="https://zeynepbusra.com" target="_blank">ZeynepBusra</a>
                             & <a href="https://berkaymizrak.com" target="_blank">BerkayMizrak</a>
                         </small>
-					</p>
-				</div>
-			</div>
+                    </p>
+                </div>
+            </div>
 
-		</div>
-	</footer>
-	</div>
+        </div>
+    </footer>
+</div>
 
-	<div class="gototop js-top">
-		<a href="#" class="js-gotop"><i class="icon-arrow-up"></i></a>
-	</div>
-	
-	<!-- jQuery -->
-	<script src="{% static 'invitation/js/jquery.min.js' %}"></script>
-	<!-- jQuery Easing -->
-	<script src="{% static 'invitation/js/jquery.easing.1.3.js' %}"></script>
-	<!-- Bootstrap -->
-	<script src="{% static 'invitation/js/bootstrap.min.js' %}"></script>
-	<!-- Waypoints -->
-	<script src="{% static 'invitation/js/jquery.waypoints.min.js' %}"></script>
-	<!-- Carousel -->
-	<script src="{% static 'invitation/js/owl.carousel.min.js' %}"></script>
-	<!-- countTo -->
-	<script src="{% static 'invitation/js/jquery.countTo.js' %}"></script>
+<div class="gototop js-top">
+    <a href="#" class="js-gotop"><i class="icon-arrow-up"></i></a>
+</div>
 
-	<!-- Stellar -->
-	<script src="{% static 'invitation/js/jquery.stellar.min.js' %}"></script>
-	<!-- Magnific Popup -->
-	<script src="{% static 'invitation/js/jquery.magnific-popup.min.js' %}"></script>
-	<script src="{% static 'invitation/js/magnific-popup-options.js' %}"></script>
+<!-- jQuery -->
+<script src="{% static 'invitation/js/jquery.min.js' %}"></script>
+<!-- jQuery Easing -->
+<script src="{% static 'invitation/js/jquery.easing.1.3.js' %}"></script>
+<!-- Bootstrap -->
+<script src="{% static 'invitation/js/bootstrap.min.js' %}"></script>
+<!-- Waypoints -->
+<script src="{% static 'invitation/js/jquery.waypoints.min.js' %}"></script>
+<!-- Carousel -->
+<script src="{% static 'invitation/js/owl.carousel.min.js' %}"></script>
+<!-- countTo -->
+<script src="{% static 'invitation/js/jquery.countTo.js' %}"></script>
 
-	<!-- // <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/0.0.1/prism.min.js"></script> -->
-	<script src="{% static 'invitation/js/simplyCountdown.js' %}"></script>
+<!-- Stellar -->
+<script src="{% static 'invitation/js/jquery.stellar.min.js' %}"></script>
+<!-- Magnific Popup -->
+<script src="{% static 'invitation/js/jquery.magnific-popup.min.js' %}"></script>
+<script src="{% static 'invitation/js/magnific-popup-options.js' %}"></script>
 
-	<!-- Main -->
-	<script src="{% static 'invitation/js/main.js' %}"></script>
+<!-- // <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/0.0.1/prism.min.js"></script> -->
+<script src="{% static 'invitation/js/simplyCountdown.js' %}"></script>
 
-	<script>
-		function smoothScroll(selector){
-			document.querySelector(selector).scrollIntoView({
-				behavior: 'smooth'
-			});
-		}
-	</script>
+<!-- Main -->
+<script src="{% static 'invitation/js/main.js' %}"></script>
 
-	<script>
+<script>
+    function smoothScroll(selector) {
+        document.querySelector(selector).scrollIntoView({
+            behavior: 'smooth'
+        });
+    }
+</script>
+
+<script>
     // default example
     simplyCountdown('.simply-countdown-one', {
         year: {{ event_date.year }},
         month: {{ event_date.month }},
         day: {{ event_date.day }},
-		hours: {{ event_date.hour }},
-		minutes: {{ event_date.minute }},
-		words: {
-			days: 'GÜN',
-			hours: 'SAAT',
-			minutes: 'DAKİKA',
-			seconds: 'SANİYE',
-			pluralLetter: ''
-		}
+        hours: {{ event_date.hour }},
+        minutes: {{ event_date.minute }},
+        words: {
+            days: 'GÜN',
+            hours: 'SAAT',
+            minutes: 'DAKİKA',
+            seconds: 'SANİYE',
+            pluralLetter: ''
+        }
     });
 
     // //jQuery example
@@ -373,6 +380,6 @@
     // });
 </script>
 
-	</body>
+</body>
 </html>
 
