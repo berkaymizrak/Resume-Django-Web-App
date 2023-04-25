@@ -74,8 +74,8 @@
     <script src="{% static 'invitation/js/modernizr-2.6.2.min.js' %}"></script>
     <!-- FOR IE9 below -->
     <!--[if lt IE 9]>
-	<script src="{% static 'invitation/js/respond.min.js' %}"></script>
-	<![endif]-->
+    <script src="{% static 'invitation/js/respond.min.js' %}"></script>
+    <![endif]-->
 
 </head>
 <body>
@@ -118,7 +118,8 @@
                             <h1 class="new-title">Zeynep &amp; Berkay</h1>
                             <h2>Bu özel günümüzde sizleri de aramızda görmekten büyük mutluluk duyarız.</h2>
                             <div class="simply-countdown simply-countdown-one"></div>
-                            <p><a href="javascript:smoothScroll('#fh5co-couple');" class="save_date btn btn-default btn-sm">
+                            <p><a href="javascript:smoothScroll('#fh5co-couple');"
+                                  class="save_date btn btn-default btn-sm">
                                 BU TARİHİ NOT ALIN!
                             </a></p>
                         </div>
@@ -165,8 +166,7 @@
                                 </div>
                                 <div class="timeline-body">
                                     <p>
-                                        Bursa’da ormanın içinde ve şehir manzarasına hâkim, Uludağ'ın uçsuz bucaksız
-                                        ormanlarının ortasında, doğanın içindeki mekanımızın bahçesinde buluşuyoruz.
+                                        Mekanın bahçesinde buluşuyoruz.
                                     </p>
                                 </div>
                             </div>
@@ -182,7 +182,7 @@
                                 </div>
                                 <div class="timeline-body">
                                     <p>
-                                        Yeşilliklerin arasında, açık havada nikahımızı kıyıyoruz.
+                                        Davetlilerin eşliğinde nikah törenimizi gerçekleştiriyoruz.
                                     </p>
                                 </div>
                             </div>
@@ -199,7 +199,7 @@
                                 </div>
                                 <div class="timeline-body">
                                     <p>
-                                        Anılarımızı ölümsüzleştiriyoruz.
+                                        Nikah sonrası fotoğraf çekimi için sizleri bekliyoruz.
                                     </p>
                                 </div>
                             </div>
@@ -216,8 +216,7 @@
                                 </div>
                                 <div class="timeline-body">
                                     <p>
-                                        Konforlu, nezih ve sıra dışı bir iç tasarım ile keyifli bir ortamda,
-                                        çok özel sunumlarla yemeklerimizi yiyoruz.
+                                        Herkes yerini alsın, yemek servisi başlıyor.
                                     </p>
                                 </div>
                             </div>
@@ -232,14 +231,13 @@
     <div id="fh5co-gallery" class="fh5co-section-gray">
         <div class="container">
             <div class="row">
-                <div class="gallery col-md-8 col-md-offset-2 text-center fh5co-heading animate-box" style="margin-bottom: 3em;">
+                <div class="gallery col-md-8 col-md-offset-2 text-center fh5co-heading animate-box"
+                     style="margin-bottom: 3em;">
 
                     <h2 class="new-title">1889 Bursa Double F</h2>
                     <a href="http://www.doublef.com.tr" target="_blank">www.doublef.com.tr</a>
                     <p>
-                        Bursa’da Uludağ’ın eteklerinde ormanın içinde ve şehir manzarasına hâkim konumundaki Double F,
-                        "Yemek ve Orman” (Food&Forest-DOUBLE F) kavramlarını en doğal halleriyle birleştiren eşsiz bir
-                        mekan.
+                        Gümüştepe, Atatürk Kent Ormanı No:8, 16110 Nilüfer/Bursa
                     </p>
                 </div>
             </div>
@@ -359,19 +357,52 @@
 <script>
     // default example
     simplyCountdown('.simply-countdown-one', {
-        year: {{ event_date.year }},
-        month: {{ event_date.month }},
-        day: {{ event_date.day }},
-        hours: {{ event_date.hour }},
-        minutes: {{ event_date.minute }},
-        words: {
-            days: 'GÜN',
-            hours: 'SAAT',
-            minutes: 'DAKİKA',
-            seconds: 'SANİYE',
-            pluralLetter: ''
+        year: {
+    {
+        event_date.year
+    }
+    },
+    month: {
+        {
+            event_date.month
         }
-    });
+    }
+    ,
+    day: {
+        {
+            event_date.day
+        }
+    }
+    ,
+    hours: {
+        {
+            event_date.hour
+        }
+    }
+    ,
+    minutes: {
+        {
+            event_date.minute
+        }
+    }
+    ,
+    words: {
+        days: 'GÜN',
+            hours
+    :
+        'SAAT',
+            minutes
+    :
+        'DAKİKA',
+            seconds
+    :
+        'SANİYE',
+            pluralLetter
+    :
+        ''
+    }
+    })
+    ;
 
     // //jQuery example
     // $('#simply-countdown-losange').simplyCountdown({
