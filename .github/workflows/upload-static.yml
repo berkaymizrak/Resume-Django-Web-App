@@ -10,6 +10,8 @@ on:
     paths:
       - static/**
 
+concurrency: {{ github.head_ref ||  github.ref }}
+
 env:
   SSH_HOST: ${{ secrets.SSH_HOST }}
   SSH_PORT: 22
