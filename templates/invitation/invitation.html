@@ -357,52 +357,19 @@
 <script>
     // default example
     simplyCountdown('.simply-countdown-one', {
-        year: {
-    {
-        event_date.year
-    }
-    },
-    month: {
-        {
-            event_date.month
+        year: {{ event_date.year }},
+        month: {{ event_date.month }},
+        day: {{ event_date.day }},
+        hours: {{ event_date.hour }},
+        minutes: {{ event_date.minute }},
+        words: {
+            days: 'GÜN',
+            hours: 'SAAT',
+            minutes: 'DAKİKA',
+            seconds: 'SANİYE',
+            pluralLetter: ''
         }
-    }
-    ,
-    day: {
-        {
-            event_date.day
-        }
-    }
-    ,
-    hours: {
-        {
-            event_date.hour
-        }
-    }
-    ,
-    minutes: {
-        {
-            event_date.minute
-        }
-    }
-    ,
-    words: {
-        days: 'GÜN',
-            hours
-    :
-        'SAAT',
-            minutes
-    :
-        'DAKİKA',
-            seconds
-    :
-        'SANİYE',
-            pluralLetter
-    :
-        ''
-    }
-    })
-    ;
+    });
 
     // //jQuery example
     // $('#simply-countdown-losange').simplyCountdown({
