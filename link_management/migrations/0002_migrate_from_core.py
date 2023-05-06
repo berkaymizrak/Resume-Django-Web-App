@@ -11,40 +11,40 @@ class Migration(migrations.Migration):
 
     operations = [
 
-        migrations.RunSQL("""
-            INSERT INTO link_management_redirectslug (
-                id,
-                slug,
-                new_url,
-                updated_date,
-                created_date
-            )
-            SELECT
-                id,
-                slug,
-                new_url,
-                updated_date,
-                created_date
-            FROM
-                core_redirectslug;
-            SELECT setval('link_management_redirectslug_id_seq', (SELECT MAX(id) FROM link_management_redirectslug)+1);
-        """, reverse_sql="""
-            INSERT INTO core_redirectslug (
-                id,
-                slug,
-                new_url,
-                updated_date,
-                created_date
-            )
-            SELECT
-                id,
-                slug,
-                new_url,
-                updated_date,
-                created_date
-            FROM
-                link_management_redirectslug;
-            SELECT setval('core_redirectslug_id_seq', (SELECT MAX(id) FROM core_redirectslug)+1);
-        """),
+        # migrations.RunSQL("""
+        #     INSERT INTO link_management_redirectslug (
+        #         id,
+        #         slug,
+        #         new_url,
+        #         updated_date,
+        #         created_date
+        #     )
+        #     SELECT
+        #         id,
+        #         slug,
+        #         new_url,
+        #         updated_date,
+        #         created_date
+        #     FROM
+        #         core_redirectslug;
+        #     SELECT setval('link_management_redirectslug_id_seq', (SELECT MAX(id) FROM link_management_redirectslug)+1);
+        # """, reverse_sql="""
+        #     INSERT INTO core_redirectslug (
+        #         id,
+        #         slug,
+        #         new_url,
+        #         updated_date,
+        #         created_date
+        #     )
+        #     SELECT
+        #         id,
+        #         slug,
+        #         new_url,
+        #         updated_date,
+        #         created_date
+        #     FROM
+        #         link_management_redirectslug;
+        #     SELECT setval('core_redirectslug_id_seq', (SELECT MAX(id) FROM core_redirectslug)+1);
+        # """),
 
     ]

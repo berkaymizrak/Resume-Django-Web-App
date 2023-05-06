@@ -186,41 +186,41 @@ class Migration(migrations.Migration):
             SELECT setval('user_message_id_seq', (SELECT MAX(id) FROM user_message)+1);
         """),
 
-        migrations.RunSQL("""
-            INSERT INTO core_redirectslug (
-                id,
-                slug,
-                new_url,
-                updated_date,
-                created_date
-            )
-            SELECT
-                id,
-                slug,
-                new_url,
-                updated_date,
-                created_date
-            FROM
-                user_redirectslug;
-            SELECT setval('core_redirectslug_id_seq', (SELECT MAX(id) FROM core_redirectslug)+1);
-        """, reverse_sql="""
-            INSERT INTO user_redirectslug (
-                id,
-                slug,
-                new_url,
-                updated_date,
-                created_date
-            )
-            SELECT
-                id,
-                slug,
-                new_url,
-                updated_date,
-                created_date
-            FROM
-                core_redirectslug;
-            SELECT setval('user_redirectslug_id_seq', (SELECT MAX(id) FROM user_redirectslug)+1);
-        """),
+        # migrations.RunSQL("""
+        #     INSERT INTO core_redirectslug (
+        #         id,
+        #         slug,
+        #         new_url,
+        #         updated_date,
+        #         created_date
+        #     )
+        #     SELECT
+        #         id,
+        #         slug,
+        #         new_url,
+        #         updated_date,
+        #         created_date
+        #     FROM
+        #         user_redirectslug;
+        #     SELECT setval('core_redirectslug_id_seq', (SELECT MAX(id) FROM core_redirectslug)+1);
+        # """, reverse_sql="""
+        #     INSERT INTO user_redirectslug (
+        #         id,
+        #         slug,
+        #         new_url,
+        #         updated_date,
+        #         created_date
+        #     )
+        #     SELECT
+        #         id,
+        #         slug,
+        #         new_url,
+        #         updated_date,
+        #         created_date
+        #     FROM
+        #         core_redirectslug;
+        #     SELECT setval('user_redirectslug_id_seq', (SELECT MAX(id) FROM user_redirectslug)+1);
+        # """),
 
         migrations.RunSQL("""
             INSERT INTO core_statistics (

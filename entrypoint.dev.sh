@@ -38,5 +38,11 @@ echo "Starting server"
 exec "$@"
 
 # To make migrations in continuous development, RUN:
-# docker-compose exec app_resume python manage.py makemigrations
-# docker-compose exec app_resume python manage.py migrate
+# docker exec -it app_resume python manage.py makemigrations
+# docker exec -it app_resume python manage.py migrate
+
+# Update requirements after adding new packages:
+# docker exec -it app_resume pip freeze > requirements.txt
+
+# Clear models:
+# docker exec -it app_resume python manage.py clear_models
