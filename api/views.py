@@ -76,6 +76,17 @@ class ExternalProgramView(views.APIView):
             else:
                 setting = get_first_object_or_none(self.model.objects, name=key)
 
+                if not setting:
+                    create_log(key, 'invalid_key', program, ip_address, False, save_log)
+                    return Response(
+                        {
+                            'success': False,
+                            'message': 'Invalid Key',
+                            'data': [],
+                        },
+                        status=status.HTTP_400_BAD_REQUEST,
+                    )
+
                 banned_program = check_banned('banned_programs', program)
                 create_log(key, 'Banned_Program', program, ip_address, False, banned_program and save_log)
                 banned_ip = check_banned('banned_ips', ip_address)
