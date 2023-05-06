@@ -10,7 +10,7 @@ from django.utils import timezone
 class SkillTypes(AbstractModel):
     name = models.CharField(
         default='',
-        max_length=254,
+        max_length=255,
         verbose_name='Name',
         help_text='',
         blank=True,
@@ -35,7 +35,7 @@ class Skill(AbstractModel):
     )
     name = models.CharField(
         default='',
-        max_length=254,
+        max_length=255,
         verbose_name='Name',
         help_text='',
         blank=True,
@@ -71,14 +71,14 @@ class SocialMedia(AbstractModel):
     )
     url = models.URLField(
         default='',
-        max_length=254,
+        max_length=255,
         verbose_name='URL',
         help_text='',
         blank=True,
     )
     icon = models.CharField(
         default='',
-        max_length=254,
+        max_length=255,
         verbose_name='Icon (Font Awesome)',
         help_text='https://fontawesome.com/v5.15/icons?d=gallery&p=2&m=free',
         blank=True,

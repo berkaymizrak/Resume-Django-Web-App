@@ -28,14 +28,14 @@ class AbstractModel(models.Model):
 class GeneralSetting(AbstractModel):
     name = models.CharField(
         default='',
-        max_length=254,
+        max_length=255,
         verbose_name='Name',
         help_text='',
         blank=True,
     )
     description = models.CharField(
         default='',
-        max_length=254,
+        max_length=255,
         verbose_name='Description',
         help_text='',
         blank=True,
@@ -59,7 +59,7 @@ class GeneralSetting(AbstractModel):
 class ImageSetting(AbstractModel):
     name = models.CharField(
         default='',
-        max_length=254,
+        max_length=255,
         verbose_name='Name',
         help_text='This works as slug end of the url after domain. (https://berkaymizrak.com/xxxx)',
         blank=True,
@@ -68,7 +68,7 @@ class ImageSetting(AbstractModel):
     )
     description = models.CharField(
         default='',
-        max_length=254,
+        max_length=255,
         verbose_name='Description',
         help_text='',
         blank=True,
@@ -102,7 +102,7 @@ class ImageSetting(AbstractModel):
 class Document(AbstractModel):
     name = models.CharField(
         default='',
-        max_length=254,
+        max_length=255,
         verbose_name='Name',
         help_text='This works as slug end of the url after domain. (https://berkaymizrak.com/xxxx)',
         blank=True,
@@ -111,7 +111,7 @@ class Document(AbstractModel):
     )
     button_text = models.CharField(
         default='Download',
-        max_length=254,
+        max_length=255,
         verbose_name='Button Text',
         help_text='',
         blank=True,
@@ -147,21 +147,21 @@ class Document(AbstractModel):
 class Message(AbstractModel):
     name = models.CharField(
         default='',
-        max_length=254,
+        max_length=255,
         verbose_name='Enter Your Name',
         help_text='',
         blank=True,
     )
     email = models.CharField(
         default='',
-        max_length=254,
+        max_length=255,
         verbose_name='Enter Email Address',
         help_text='',
         blank=True,
     )
     subject = models.CharField(
         default='',
-        max_length=254,
+        max_length=255,
         verbose_name='Enter Subject',
         help_text='',
         blank=True,
