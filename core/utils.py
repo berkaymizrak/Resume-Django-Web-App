@@ -172,3 +172,24 @@ def delete_media_file(model, instance=None, delete_older=False, path=None):
             return True
 
     return False
+
+
+def get_first_object_or_none(queryset, *args, **kwargs):
+    try:
+        return queryset.get(*args, **kwargs)
+    except queryset.model.MultipleObjectsReturned:
+        return queryset.filter(*args, **kwargs).first()
+    except queryset.model.DoesNotExist:
+        return queryset.none()
+
+
+def get_ip_address(request):
+    try:
+        x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+        if x_forwarded_for:
+            ip_address = x_forwarded_for.split(',')[0]
+        else:
+            ip_address = request.META.get('REMOTE_ADDR')
+    except:
+        ip_address = ''
+    return ip_address

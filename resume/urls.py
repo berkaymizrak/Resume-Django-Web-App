@@ -19,6 +19,9 @@ from django.conf.urls.static import static
 from django.urls import path, include
 
 urlpatterns = [
+    path('api/', include('api.urls')),
+    path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+
     path('admin/', admin.site.urls),
     path('', include('core.urls')),
     path('', include('frontend.urls')),

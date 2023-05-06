@@ -1,9 +1,18 @@
 from django.contrib import admin
 from import_export.admin import ImportExportModelAdmin
 from core.models import *
+from django.contrib import messages
 
 
 # Register your models here.
+
+
+def delete_all(modeladmin, request, queryset):
+    modeladmin.model.objects.all().delete()
+    messages.success(request, 'All data deleted successfully.')
+
+
+delete_all.short_description = 'Delete all data. Be careful, there is no warning yet!'
 
 
 @admin.register(GeneralSetting)

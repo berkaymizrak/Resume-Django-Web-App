@@ -54,12 +54,15 @@ INSTALLED_APPS = [
     'core.apps.CoreConfig',
     'user.apps.UserConfig',
     'frontend.apps.FrontendConfig',
+    'program.apps.ProgramConfig',
+    'api.apps.ApiConfig',
     'link_management.apps.LinkManagementConfig',
     'crispy_forms',
     'storages',
     'import_export',
     'mailqueue',
     'django_celery_beat',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
@@ -249,6 +252,24 @@ BROKER_POOL_LIMIT = 1
 BROKER_HEARTBEAT = None
 USER_AGENTS_CACHE = None
 # ---------------------------- CELERY ----------------------------
+
+
+# ---------------------------- REST_FRAMEWORK ----------------------------
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 100,
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+        # 'rest_framework.permissions.IsAuthenticatedOrReadOnly',
+        # 'rest_framework.permissions.IsAdminUser',
+        # 'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+
+    ),
+    # 'DEFAULT_AUTHENTICATION_CLASSES': [
+    #     'rest_framework.authentication.TokenAuthentication',  # <-- And here # TOKEN !!!
+    # ],
+}
+# ---------------------------- REST_FRAMEWORK ----------------------------
 
 
 # ---------------------------- MAILQUEUE ----------------------------
