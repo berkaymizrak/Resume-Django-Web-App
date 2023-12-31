@@ -30,6 +30,6 @@ jobs:
           username: $SSH_USERNAME
           password: $SSH_PASSWORD
           script: |
-            cd /home/berkay/Resume-Django-Web-App
+            cd /home/berkay/berkay_resume
             git pull
             docker compose -f docker-compose.prod.yml up --build -d

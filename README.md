@@ -53,7 +53,7 @@ To start project,
 
 2. Start services at background:
 
-   `docker-compose up -d --build`
+   `docker-compose up --build -d`
 
 
 3. Follow outputs alive and track errors, to make continuous development:

@@ -40,5 +40,5 @@ jobs:
           username: $SSH_USERNAME
           password: $SSH_PASSWORD
           script: |
-            cd /home/berkay/Resume-Django-Web-App
+            cd /home/berkay/berkay_resume
             docker exec app_resume python manage.py collectstatic --noinput
