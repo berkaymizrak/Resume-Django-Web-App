@@ -27,7 +27,7 @@ jobs:
 
       - name: Get changed files in the static folder
         id: changed-files-specific
-        uses: tj-actions/changed-files@v35
+        uses: tj-actions/changed-files@v41
         with:
           files: static/**
 
