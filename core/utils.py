@@ -1,5 +1,4 @@
 from core.enums import Browsers, Platforms
-from core.models import ActionLog
 from django.conf import settings
 from django.core.mail import EmailMessage
 import traceback
@@ -210,6 +209,7 @@ def get_browser(request):
 
 
 def create_action_log(request, action, message='', data=None):
+    from core.models import ActionLog
     get_params = request.GET.dict() if request.GET else {}
     try:
         ActionLog.objects.create(
