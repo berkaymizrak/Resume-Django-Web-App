@@ -13,7 +13,7 @@ click-plugins==1.1.1
 click-repl==0.2.0
 defusedxml==0.7.1
 diff-match-patch==20200713
-Django==4.2.7
+Django==4.0.6
 django-celery-beat==2.4.0
 django-crispy-forms==1.13.0
 django-environ==0.8.1
