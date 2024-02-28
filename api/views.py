@@ -1,5 +1,5 @@
 from api.serializers import ExternalProgramSerializer
-from core.utils import get_first_object_or_none, get_ip_address
+from core.utils import get_first_object_or_none, get_client_ip
 from program.models import ExternalProgram, ExternalLogs
 from rest_framework import views
 from rest_framework.response import Response
@@ -35,7 +35,7 @@ class ExternalProgramView(views.APIView):
     permission_classes = []
 
     def get(self, format=None):
-        ip_address = get_ip_address(self.request)
+        ip_address = get_client_ip(self.request)
 
         save_log = get_first_object_or_none(ExternalProgram.objects, name='save_log')
         save_log = save_log.parameter.lower() if save_log else ''

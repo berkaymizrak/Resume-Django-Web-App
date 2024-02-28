@@ -1,9 +1,12 @@
+from core.enums import Platforms, Browsers
 from core.utils import delete_media_file
 from django.db import models, IntegrityError
 from django.dispatch import receiver
 from django.utils.crypto import get_random_string
 from django.utils.text import slugify
+from django.template.defaultfilters import truncatechars
 from resume.custom_storages import ImageSettingStorage, DocumentStorage
+from django.contrib.auth.models import User
 
 
 # Create your models here.
@@ -259,3 +262,30 @@ def auto_delete_file_on_change(sender, instance, **kwargs):
     with new file.
     """
     delete_media_file(sender, instance=instance, delete_older=True)
+
+
+class ActionLog(AbstractModel):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, default=None, blank=True, null=True, )
+    action = models.CharField(max_length=255)
+    message = models.TextField(default='', max_length=255, blank=True)
+    data = models.JSONField(default=dict, blank=True, null=True)
+    get_params = models.JSONField(default=dict, blank=True, null=True)
+    platform = models.CharField(max_length=30, choices=Platforms.choices, default=Platforms.OTHER, )
+    browser = models.CharField(max_length=30, choices=Browsers.choices, default=Browsers.OTHER, )
+    user_agent = models.TextField(default='', max_length=255, blank=True)
+    ip_address = models.GenericIPAddressField(default=None, blank=True, null=True, )
+
+    def __str__(self):
+        return f'{self.user} - {self.action}'
+
+    @property
+    def short_data(self):
+        return truncatechars(self.data, 100)
+
+    @property
+    def short_user_agent(self):
+        return truncatechars(self.user_agent, 100)
+
+    @property
+    def short_get_params(self):
+        return truncatechars(self.get_params, 100)

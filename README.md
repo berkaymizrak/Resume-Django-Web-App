@@ -82,6 +82,10 @@ Usage on Heroku:
 heroku run python manage.py migrate
 heroku run python manage.py collectstatic --noinput
 heroku run python manage.py createsuperuser
+
+docker exec -it app_resume python manage.py migrate
+docker exec -it app_resume python manage.py makemigrations
+
  ```
 
 ## Setting a Cron Job

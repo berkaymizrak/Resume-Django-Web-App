@@ -1,5 +1,8 @@
+from core.enums import Browsers, Platforms
+from core.models import ActionLog
 from django.conf import settings
 from django.core.mail import EmailMessage
+import traceback
 
 
 def send_mail_check(name, subject_mail, subject_user, message, to, reply_to=settings.DEFAULT_FROM_EMAIL):
@@ -183,13 +186,52 @@ def get_first_object_or_none(queryset, *args, **kwargs):
         return queryset.none()
 
 
-def get_ip_address(request):
+def get_client_ip(request):
+    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+    if x_forwarded_for:
+        ip = x_forwarded_for.split(',')[0]
+    else:
+        ip = request.META.get('REMOTE_ADDR')
+    return ip
+
+
+def get_platform(request):
+    for platform in Platforms.choices:
+        if platform[0] in request.META.get('HTTP_USER_AGENT', '').lower():
+            return platform[0]
+    return Platforms.OTHER
+
+
+def get_browser(request):
+    for browser in Browsers.choices:
+        if browser[0] in request.META.get('HTTP_USER_AGENT', '').lower():
+            return browser[0]
+    return Browsers.OTHER
+
+
+def create_action_log(request, action, message='', data=None):
+    get_params = request.GET.dict() if request.GET else {}
     try:
-        x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
-        if x_forwarded_for:
-            ip_address = x_forwarded_for.split(',')[0]
-        else:
-            ip_address = request.META.get('REMOTE_ADDR')
+        ActionLog.objects.create(
+            user=request.user if request.user.is_authenticated else None,
+            action=action,
+            message=message,
+            data=data,
+            get_params=get_params,
+            platform=get_platform(request),
+            browser=get_browser(request),
+            ip_address=get_client_ip(request),
+            user_agent=request.META.get('HTTP_USER_AGENT', '')[0:255],
+        )
     except:
-        ip_address = ''
-    return ip_address
+        ActionLog.objects.create(
+            user=request.user if request.user.is_authenticated else None,
+            action=f'ERROR: {action}',
+            message=str(traceback.format_exc()) + '\n\n' + str(message),
+            data=None,
+            get_params=None,
+            platform=get_platform(request),
+            browser=get_browser(request),
+            ip_address=get_client_ip(request),
+            user_agent=request.META.get('HTTP_USER_AGENT', '')[0:255],
+        )

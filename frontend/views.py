@@ -9,6 +9,7 @@ from django.http import JsonResponse
 from core import models as core_models
 from core import forms as core_forms
 from core import utils
+from core.utils import create_action_log
 from frontend import models
 import requests
 
@@ -37,7 +38,9 @@ def index(request):
         else:
             context['success'] = False
             context['message'] = 'Invalid reCAPTCHA. Please try again.'
+        create_action_log(request, 'contact_form', 'POST success', context)
         return JsonResponse(context)
+    create_action_log(request, 'landing', 'GET success')
 
     person_name = utils.get_parameter('person_name')
     person_position = utils.get_parameter('person_position')
