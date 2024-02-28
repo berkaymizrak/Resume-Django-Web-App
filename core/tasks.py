@@ -1,6 +1,7 @@
 from celery import shared_task
 from core.models import Message
 from datetime import datetime
+from django.apps import apps
 from django.conf import settings
 from django.core.management import call_command
 from django.contrib.admin.models import LogEntry
@@ -75,39 +76,34 @@ def command_clear_sent_messages():
 
 
 @shared_task
-def clear_admin_logs(leave_last=100):
-    # The management command for clearing admin logs from LogEntry model of django.contrib.admin package.
-    # leave_last is the number of the latest logs to keep.
-    """
-        # Set Arguments as:
-        {
-        "leave_last" : 100
-        }
-    """
-    model_say = LogEntry.objects.count()
-    if model_say > leave_last:
-        rows = LogEntry.objects.all()[:leave_last].values_list('id', flat=True)  # only retrieve ids.
-        LogEntry.objects.exclude(pk__in=list(rows)).delete()
-
-
-@shared_task
-def clear_model_logs(model='', leave_last=100):
+def clear_model_logs(app_label, model_name, leave_last=100):
     # The management command for clearing entries from a model that is given as a parameter.
     # leave_last is the number of the latest entries to keep.
     """
         # Set Arguments as:
         {
-        'model' : 'Message',
-        'leave_last' : 100
+        "app_label" : "core",
+        "model_name" : "message",
+        "leave_last" : 100
+        }
+        # For admin logs:
+        {
+        "app_label" : "admin",
+        "model_name" : "logentry",
+        "leave_last" : 100
         }
     """
-    if model == 'Message':
-        Model = Message
-    else:
-        return
-    if Model.objects.count() > leave_last:
-        rows = Model.objects.all()[:leave_last].values_list('id', flat=True)  # only retrieve ids.
-        Model.objects.exclude(pk__in=list(rows)).delete()
+    print(f'[clear_model_logs] STARTED! app_label: {app_label}, model_name: {model_name}, leave_last: {leave_last}')
+    try:
+        MODEL = apps.get_model(app_label=app_label, model_name=model_name)
+        leave_last = int(leave_last)
+        if MODEL.objects.count() > leave_last:
+            rows = MODEL.objects.all()[:leave_last].values_list('id', flat=True)  # only retrieve ids.
+            MODEL.objects.exclude(pk__in=list(rows)).delete()
+        print(f'[clear_model_logs] FINISHED! '
+              f'app_label: {app_label}, model_name: {model_name}, leave_last: {leave_last}')
+    except Exception as e:
+        print(f'[clear_model_logs] Error on deletion: {e}')
 
 
 @shared_task
