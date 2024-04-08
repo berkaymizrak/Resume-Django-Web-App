@@ -10,6 +10,7 @@ env:
   SSH_PORT: 22
   SSH_USERNAME: ${{ secrets.SSH_USERNAME }}
   SSH_PASSWORD: ${{ secrets.SSH_PASSWORD }}
+  SSH_KEY: ${{ secrets.SSH_KEY }}
 
 jobs:
   clear-caches:
@@ -24,7 +25,7 @@ jobs:
           host: $SSH_HOST
           port: $SSH_PORT
           username: $SSH_USERNAME
-          password: $SSH_PASSWORD
+          key: $SSH_KEY
           script: |
             docker rmi $(docker images -q)
             docker builder prune -af
