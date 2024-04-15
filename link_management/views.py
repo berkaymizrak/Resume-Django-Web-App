@@ -72,8 +72,8 @@ def special_links(request, slug):
                 create_statistic(request, 'ImageSetting', f'Click slug: {slug}', 'direct_link')
                 create_action_log(request, 'special_links', f'GET image: {slug}', True)
                 return render(request, 'image.html', context=context)
-        create_action_log(request, 'special_links', 'GET not image or doc. Redirecting to index', False)
+        create_action_log(request, 'special_links', f'GET not image or doc: {slug}. Redirecting to index', False)
         return redirect('index')
     else:
-        create_action_log(request, 'special_links', 'GET not found', False)
+        create_action_log(request, 'special_links', f'GET not found: {slug}', False)
         raise Http404

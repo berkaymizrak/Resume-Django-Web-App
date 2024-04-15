@@ -85,6 +85,7 @@ heroku run python manage.py createsuperuser
 
 docker exec -it app_resume python manage.py migrate
 docker exec -it app_resume python manage.py makemigrations
+docker exec -it app_resume pip freeze > requirements.txt
 
  ```
 
