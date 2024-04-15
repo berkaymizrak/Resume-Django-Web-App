@@ -1,5 +1,6 @@
 from core import models as core_models
 from core.decorators import *
+from core.utils import create_action_log
 from django.shortcuts import render
 from django.http import Http404
 from link_management import models
@@ -61,6 +62,7 @@ def special_links(request, slug):
         if obj_type == 'doc':
             if obj.file:
                 create_statistic(request, 'Document', f'Click slug: {slug}', 'direct_link')
+                create_action_log(request, 'special_links', f'GET doc: {slug}', True)
                 return redirect(obj.file.url)
         elif obj_type == 'image':
             if obj.file:
@@ -68,7 +70,10 @@ def special_links(request, slug):
                     'object': obj,
                 }
                 create_statistic(request, 'ImageSetting', f'Click slug: {slug}', 'direct_link')
+                create_action_log(request, 'special_links', f'GET image: {slug}', True)
                 return render(request, 'image.html', context=context)
+        create_action_log(request, 'special_links', 'GET not image or doc. Redirecting to index', False)
         return redirect('index')
     else:
+        create_action_log(request, 'special_links', 'GET not found', False)
         raise Http404

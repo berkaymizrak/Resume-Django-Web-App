@@ -69,11 +69,11 @@ class StatisticsAdmin(ImportExportModelAdmin):
 
 @admin.register(ActionLog)
 class ActionLogAdmin(ImportExportModelAdmin):
-    list_display = ('user', 'action', 'message', 'short_data', 'short_get_params', 'platform', 'browser', 'ip_address',
-                    'short_user_agent', 'updated_date', 'created_date',)
+    list_display = ('user', 'action', 'success', 'short_data', 'short_get_params', 'message', 'platform', 'browser',
+                    'ip_address', 'short_user_agent', 'is_deleted', 'updated_date', 'created_date',)
     list_editable = ()
-    list_filter = ('action', 'platform', 'browser', 'platform',)
-    search_fields = ('user__email', 'user__first_name', 'user__last_name', 'user__phone', 'message', 'data',
+    list_filter = ('is_deleted', 'success', 'action', 'platform', 'browser', 'platform',)
+    search_fields = ('user__email', 'user__first_name', 'user__last_name', 'message', 'data',
                      'user_agent', 'get_params', 'ip_address',)
     autocomplete_fields = ('user',)
 

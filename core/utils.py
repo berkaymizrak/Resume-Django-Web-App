@@ -208,7 +208,7 @@ def get_browser(request):
     return Browsers.OTHER
 
 
-def create_action_log(request, action, message='', data=None):
+def create_action_log(request, action, message='', success=True, data=None):
     from core.models import ActionLog
     get_params = request.GET.dict() if request.GET else {}
     try:
@@ -216,6 +216,7 @@ def create_action_log(request, action, message='', data=None):
             user=request.user if request.user.is_authenticated else None,
             action=action,
             message=message,
+            success=success,
             data=data,
             get_params=get_params,
             platform=get_platform(request),
@@ -228,6 +229,7 @@ def create_action_log(request, action, message='', data=None):
             user=request.user if request.user.is_authenticated else None,
             action=f'ERROR: {action}',
             message=str(traceback.format_exc()) + '\n\n' + str(message),
+            success=success,
             data=None,
             get_params=None,
             platform=get_platform(request),
