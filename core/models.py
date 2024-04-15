@@ -13,6 +13,7 @@ from django.contrib.auth.models import User
 
 
 class AbstractModel(models.Model):
+    is_deleted = models.BooleanField(default=False)
     updated_date = models.DateTimeField(
         verbose_name='Updated Date',
         blank=True,
