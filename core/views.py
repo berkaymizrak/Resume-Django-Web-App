@@ -39,4 +39,5 @@ def csrf_failure(request, reason=''):
     context = {
         'reason': reason,
     }
+    utils.create_action_log(request, 'csrf_failure', f'GET: {reason}', False)
     return render(request, '403.html', context=context)
