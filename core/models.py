@@ -269,6 +269,7 @@ class ActionLog(AbstractModel):
     user = models.ForeignKey(User, on_delete=models.CASCADE, default=None, blank=True, null=True, )
     action = models.CharField(max_length=255)
     message = models.TextField(default='', max_length=255, blank=True)
+    method = models.CharField(default='', max_length=255, blank=True)
     success = models.BooleanField(default=True)
     data = models.JSONField(default=dict, blank=True, null=True)
     get_params = models.JSONField(default=dict, blank=True, null=True)
