@@ -9,7 +9,7 @@ click-plugins==1.1.1
 click-repl==0.2.0
 colorama==0.4.5
 Deprecated==1.2.13
-Django==4.0.7
+Django==4.1.13
 django-celery-beat==2.3.0
 django-timezone-field==5.0
 kombu==5.2.4
@@ -19,9 +19,9 @@ pyparsing==3.0.9
 python-crontab==2.6.0
 python-dateutil==2.8.2
 pytz==2022.2.1
-redis==4.3.4
+redis==4.4.4
 six==1.16.0
-sqlparse==0.4.2
+sqlparse==0.5.0
 tzdata==2022.2
 vine==5.0.0
 wcwidth==0.2.5
