@@ -20,7 +20,7 @@ class RedirectSlug(AbstractModel):
     class Meta:
         verbose_name_plural = 'Redirect Slugs'
         verbose_name = 'Redirect Slug'
-        ordering = ('-created_date',)
+        ordering = ('-created_at',)
 
     def __str__(self):
         return 'Redirect Slug: %s' % self.slug

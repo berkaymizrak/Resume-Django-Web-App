@@ -1,6 +1,6 @@
 from core import models as core_models
 from core.decorators import *
-from core.utils import create_action_log
+from core.utils import create_action_log, get_client_ip
 from django.shortcuts import render
 from django.http import Http404
 from link_management import models
@@ -11,11 +11,7 @@ from link_management import models
 
 def create_statistic(request, statistic_type, action, source):
     try:
-        x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
-        if x_forwarded_for:
-            ipaddress = x_forwarded_for.split(',')[-1].strip()
-        else:
-            ipaddress = request.META.get('REMOTE_ADDR')
+        ipaddress = get_client_ip(request)
 
         core_models.Statistics.objects.create(
             statistic_type=statistic_type,

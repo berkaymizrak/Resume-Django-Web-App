@@ -9,7 +9,7 @@ from program.models import *
 
 @admin.register(ExternalProgram)
 class ExternalProgramAdmin(ImportExportModelAdmin):
-    list_display = ['id', 'name', 'description', 'parameter', 'updated_date', 'created_date', ]
+    list_display = ['id', 'name', 'description', 'parameter', 'updated_at', 'created_at', ]
     search_fields = ['name', 'description', 'parameter', ]
     list_editable = ['description', 'parameter', ]
 
@@ -19,7 +19,7 @@ class ExternalProgramAdmin(ImportExportModelAdmin):
 
 @admin.register(ExternalLogs)
 class ExternalLogsAdmin(admin.ModelAdmin):
-    list_display = ['name', 'program', 'success', 'parameter', 'ip_address', 'updated_date', 'created_date', ]
+    list_display = ['name', 'program', 'success', 'parameter', 'ip_address', 'updated_at', 'created_at', ]
     search_fields = ['name', 'parameter', 'program', 'ip_address', ]
     list_filter = ['success', 'name', 'program', 'ip_address', ]
 

@@ -14,12 +14,12 @@ from django.contrib.auth.models import User
 
 class AbstractModel(models.Model):
     is_deleted = models.BooleanField(default=False)
-    updated_date = models.DateTimeField(
+    updated_at = models.DateTimeField(
         verbose_name='Updated Date',
         blank=True,
         auto_now=True,
     )
-    created_date = models.DateTimeField(
+    created_at = models.DateTimeField(
         verbose_name='Created Date',
         blank=True,
         auto_now_add=True,
@@ -134,7 +134,7 @@ class Document(AbstractModel):
     class Meta:
         verbose_name_plural = 'Documents'
         verbose_name = 'Document'
-        ordering = ('-created_date',)
+        ordering = ('-created_at',)
 
     def __str__(self):
         return 'Document: %s' % self.button_text
@@ -192,7 +192,7 @@ class Message(AbstractModel):
     class Meta:
         verbose_name_plural = 'Messages'
         verbose_name = 'Message'
-        ordering = ('-created_date',)
+        ordering = ('-created_at',)
 
     def __str__(self):
         return 'Message: %s' % self.name
@@ -238,7 +238,7 @@ class Statistics(AbstractModel):
     class Meta:
         verbose_name_plural = 'Statistics'
         verbose_name = 'Statistic'
-        ordering = ('-created_date',)
+        ordering = ('-created_at',)
 
     def __str__(self):
         return 'Statistic: %s - %s' % (self.statistic_type, self.action)
@@ -292,3 +292,11 @@ class ActionLog(AbstractModel):
     @property
     def short_get_params(self):
         return truncatechars(self.get_params, 100)
+
+
+class BlockedUser(AbstractModel):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, default=None, blank=True, null=True, )
+    ip_address = models.GenericIPAddressField(default=None, blank=True, null=True, )
+
+    def __str__(self):
+        return f'{self.user} - {self.ip_address}'

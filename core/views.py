@@ -31,6 +31,7 @@ def layout(request):
         'DEFAULT_PNG': settings.DEFAULT_PNG,
         'GOOGLE_RECAPTCHA_SITE_KEY': settings.GOOGLE_RECAPTCHA_SITE_KEY,
         'coupons': coupons,
+        'STATIC_VERSION': settings.STATIC_VERSION,
     }
     return context
 
@@ -39,5 +40,4 @@ def csrf_failure(request, reason=''):
     context = {
         'reason': reason,
     }
-    utils.create_action_log(request, 'csrf_failure', f'GET: {reason}', False)
     return render(request, '403.html', context=context)

@@ -17,7 +17,7 @@ delete_all.short_description = 'Delete all data. Be careful, there is no warning
 
 @admin.register(GeneralSetting)
 class GeneralSettingAdmin(ImportExportModelAdmin):
-    list_display = ['id', 'name', 'description', 'parameter', 'updated_date', 'created_date', ]
+    list_display = ['id', 'name', 'description', 'parameter', 'updated_at', 'created_at', ]
     search_fields = ['name', 'description', 'parameter', ]
     list_editable = ['description', 'parameter', ]
 
@@ -27,7 +27,7 @@ class GeneralSettingAdmin(ImportExportModelAdmin):
 
 @admin.register(ImageSetting)
 class ImageSettingAdmin(ImportExportModelAdmin):
-    list_display = ['id', 'name', 'description', 'file', 'updated_date', 'created_date', ]
+    list_display = ['id', 'name', 'description', 'file', 'updated_at', 'created_at', ]
     search_fields = ['name', 'description', 'file', ]
     list_editable = ['description', 'file', ]
 
@@ -37,7 +37,7 @@ class ImageSettingAdmin(ImportExportModelAdmin):
 
 @admin.register(Message)
 class MessageAdmin(ImportExportModelAdmin):
-    list_display = ['name', 'email', 'subject', 'message', 'success', 'error_message', 'updated_date', 'created_date', ]
+    list_display = ['name', 'email', 'subject', 'message', 'success', 'error_message', 'updated_at', 'created_at', ]
     search_fields = ['name', 'email', 'subject', 'message', ]
     list_filter = ['success', 'error_message', ]
 
@@ -47,7 +47,7 @@ class MessageAdmin(ImportExportModelAdmin):
 
 @admin.register(Document)
 class DocumentAdmin(ImportExportModelAdmin):
-    list_display = ['id', 'name', 'button_text', 'file', 'show_on_page', 'updated_date', 'created_date', ]
+    list_display = ['id', 'name', 'button_text', 'file', 'show_on_page', 'updated_at', 'created_at', ]
     search_fields = ['name', 'button_text', ]
     list_editable = ['name', 'button_text', 'file', 'show_on_page', ]
     list_filter = ['show_on_page', ]
@@ -58,7 +58,7 @@ class DocumentAdmin(ImportExportModelAdmin):
 
 @admin.register(Statistics)
 class StatisticsAdmin(ImportExportModelAdmin):
-    list_display = ['statistic_type', 'action', 'source', 'ip_address', 'user_agent', 'updated_date', 'created_date', ]
+    list_display = ['statistic_type', 'action', 'source', 'ip_address', 'user_agent', 'updated_at', 'created_at', ]
     search_fields = ['statistic_type', 'action', 'source', 'ip_address', 'user_agent', ]
     list_editable = []
     list_filter = ['statistic_type', 'action', 'source', ]
@@ -70,7 +70,7 @@ class StatisticsAdmin(ImportExportModelAdmin):
 @admin.register(ActionLog)
 class ActionLogAdmin(ImportExportModelAdmin):
     list_display = ('user', 'action', 'success', 'method', 'short_data', 'short_get_params', 'message', 'platform', 'browser',
-                    'ip_address', 'short_user_agent', 'is_deleted', 'updated_date', 'created_date',)
+                    'ip_address', 'short_user_agent', 'is_deleted', 'updated_at', 'created_at',)
     list_editable = ()
     list_filter = ('is_deleted', 'success', 'method', 'action', 'platform', 'browser', 'platform',)
     search_fields = ('user__email', 'user__first_name', 'user__last_name', 'message', 'data',
@@ -79,3 +79,12 @@ class ActionLogAdmin(ImportExportModelAdmin):
 
     class Meta:
         model = ActionLog
+
+
+@admin.register(BlockedUser)
+class BlockedUserAdmin(ImportExportModelAdmin):
+    list_display = ('id', 'user', 'ip_address', 'is_deleted', 'updated_at', 'created_at',)
+    list_filter = ('is_deleted',)
+    list_editable = ()
+    search_fields = ('user__email', 'user__first_name', 'user__last_name', 'ip_address',)
+    autocomplete_fields = ('user',)

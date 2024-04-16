@@ -426,8 +426,8 @@
     </script>
 
     <!-- contact js -->
-    <script src="{% static 'template/js/jquery.form.js' %}"></script>
-    <script src="{% static 'template/js/jquery.validate.min.js' %}"></script>
-    <script src="{% static 'template/js/contact.js' %}"></script>
+    <script src="{% static 'template/js/jquery.form.js' %}?v={{ STATIC_VERSION }}"></script>
+    <script src="{% static 'template/js/jquery.validate.min.js' %}?v={{ STATIC_VERSION }}"></script>
+    <script src="{% static 'template/js/contact.js' %}?v={{ STATIC_VERSION }}"></script>
 {% endblock %}
 

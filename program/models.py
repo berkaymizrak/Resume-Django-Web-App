@@ -73,7 +73,7 @@ class ExternalLogs(AbstractModel):
     class Meta:
         verbose_name_plural = 'External Program Logs'
         verbose_name = 'External Program Log'
-        ordering = ('-created_date',)
+        ordering = ('-created_at',)
 
     def __str__(self):
         return f'External Log: {self.name}'

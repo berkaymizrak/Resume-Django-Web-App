@@ -7,7 +7,7 @@ from link_management.models import *
 
 @admin.register(RedirectSlug)
 class RedirectSlugAdmin(ImportExportModelAdmin):
-    list_display = ['id', 'slug', 'new_url', 'updated_date', 'created_date', ]
+    list_display = ['id', 'slug', 'new_url', 'updated_at', 'created_at', ]
     search_fields = ['slug', 'new_url', ]
     list_editable = ['slug', 'new_url', ]
     list_filter = []
