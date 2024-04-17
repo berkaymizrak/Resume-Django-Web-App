@@ -1,6 +1,7 @@
 from datetime import datetime
 from django.utils import timezone
 from core.models import ActionLog, BlockedUser
+from core.tasks import send_mail_queued
 from core.utils import get_client_ip, create_action_log
 from django.core.exceptions import MiddlewareNotUsed
 from django.conf import settings
@@ -45,6 +46,13 @@ class SecurityMiddleware(object):
                     BlockedUser.objects.create(
                         ip_address=get_client_ip(request),
                         user=request.user if request.user.is_authenticated else None,
+                    )
+                    send_mail_queued.delay(
+                        mail_subject='User Blocked',
+                        message_context='Blocked by action log limit.'
+                                        f'IP: {get_client_ip(request)}'
+                                        f'User: {request.user if request.user.is_authenticated else None}',
+                        to=settings.DEFAULT_FROM_EMAIL,
                     )
                 create_action_log(request, 'blocked', False, 'Blocked by action log limit.')
                 return HttpResponseRedirect(reverse('csrf_failure'))
