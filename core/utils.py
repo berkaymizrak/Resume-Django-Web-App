@@ -195,19 +195,19 @@ def get_client_ip(request):
 
 
 def get_user_agent(request):
-    return request.META.get('HTTP_USER_AGENT', '')[0:255]
+    return request.META.get('HTTP_USER_AGENT', '')
 
 
 def get_platform(request):
     for platform in Platforms.choices:
-        if platform[0] in request.META.get('HTTP_USER_AGENT', '').lower():
+        if platform[0] in get_user_agent(request).lower():
             return platform[0]
     return Platforms.OTHER
 
 
 def get_browser(request):
     for browser in Browsers.choices:
-        if browser[0] in request.META.get('HTTP_USER_AGENT', '').lower():
+        if browser[0] in get_user_agent(request).lower():
             return browser[0]
     return Browsers.OTHER
 
@@ -227,7 +227,7 @@ def create_action_log(request, action, message='', success=True, data=None):
             platform=get_platform(request),
             browser=get_browser(request),
             ip_address=get_client_ip(request),
-            user_agent=get_user_agent(request),
+            user_agent=get_user_agent(request)[0:255],
         )
     except:
         ActionLog.objects.create(
@@ -241,5 +241,5 @@ def create_action_log(request, action, message='', success=True, data=None):
             platform=get_platform(request),
             browser=get_browser(request),
             ip_address=get_client_ip(request),
-            user_agent=get_user_agent(request),
+            user_agent=get_user_agent(request)[0:255],
         )
