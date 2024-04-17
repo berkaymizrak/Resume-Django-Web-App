@@ -43,18 +43,24 @@ SITE_DOMAINS = ['berkaymizrak.com', 'berkaymizrak.com.tr']
 BLOCKED_USER_DURATION = 24 * 60 * 60  # 1 day
 BLOCK_LIMITS = [
     {
-        'action': 'contact_form',
-        'limit': 10,
-        'duration': 5 * 60,
+        'limit': 300,
+        'duration': 3 * 60,
         'filters': {
-            'method': 'POST'
         }
     },
     {
-        'action': 'special_links',
+        'limit': 10,
+        'duration': 5 * 60,
+        'filters': {
+            'action': 'contact_form',
+            'method': 'POST',
+        }
+    },
+    {
         'limit': 20,
         'duration': 2 * 60,
         'filters': {
+            'action': 'special_links',
         }
     },
 ]

@@ -38,7 +38,6 @@ class SecurityMiddleware(object):
 
         for limitation in settings.BLOCK_LIMITS:
             if action_logs.filter(
-                    action=limitation.get('action', ''),
                     created_at__gte=datetime.fromtimestamp(timezone.now().timestamp() - limitation.get('duration', 60)),
                     **limitation.get('filters', {}),
             ).count() >= limitation.get('limit', 1000):
