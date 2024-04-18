@@ -38,7 +38,12 @@ def index(request):
         else:
             context['success'] = False
             context['message'] = 'Invalid reCAPTCHA. Please try again.'
-        create_action_log(request, 'contact_form', 'POST', True, context)
+        create_action_log(request, 'contact_form', 'POST', True,
+                          {
+                              'success': context['success'],
+                              'message': context['message'],
+                              'form_data': request.POST,
+                          })
         return JsonResponse(context)
     create_action_log(request, 'landing', 'GET', True)
 
