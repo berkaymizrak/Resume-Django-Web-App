@@ -71,21 +71,6 @@ class StatisticsAdmin(ImportExportModelAdmin):
         model = Statistics
 
 
-@admin.register(ActionLog)
-class ActionLogAdmin(ImportExportModelAdmin):
-    list_display = (
-        'user', 'action', 'success', 'method', 'short_data', 'short_get_params', 'message', 'platform', 'browser',
-        'ip_address', 'short_user_agent', 'is_deleted', 'updated_at', 'created_at',)
-    list_editable = ()
-    list_filter = ('is_deleted', 'success', 'method', 'action', 'platform', 'browser', 'platform',)
-    search_fields = ('user__email', 'user__first_name', 'user__last_name', 'message', 'data',
-                     'user_agent', 'get_params', 'ip_address',)
-    autocomplete_fields = ('user',)
-
-    class Meta:
-        model = ActionLog
-
-
 @admin.action(description='Block user and IP address')
 def block_user(modeladmin, request, queryset):
     blocked_users = BlockedUser.objects.filter(
@@ -107,6 +92,23 @@ def block_user(modeladmin, request, queryset):
     messages.success(request, f'{queryset.count()} items are updated.')
 
 
+@admin.register(ActionLog)
+class ActionLogAdmin(ImportExportModelAdmin):
+    list_display = (
+        'user', 'action', 'success', 'method', 'short_data', 'short_get_params', 'message', 'platform', 'browser',
+        'ip_address', 'short_user_agent', 'is_deleted', 'updated_at', 'created_at',)
+    list_editable = ()
+    list_filter = ('is_deleted', 'success', 'method', 'action', 'platform', 'browser', 'platform',)
+    search_fields = ('user__email', 'user__first_name', 'user__last_name', 'message', 'data',
+                     'user_agent', 'get_params', 'ip_address',)
+    autocomplete_fields = ('user',)
+
+    actions = (block_user,)
+
+    class Meta:
+        model = ActionLog
+
+
 @admin.register(BlockedUser)
 class BlockedUserAdmin(ImportExportModelAdmin):
     list_display = ('id', 'user', 'ip_address', 'is_deleted', 'updated_at', 'created_at',)
@@ -114,5 +116,3 @@ class BlockedUserAdmin(ImportExportModelAdmin):
     list_editable = ()
     search_fields = ('user__email', 'user__first_name', 'user__last_name', 'ip_address',)
     autocomplete_fields = ('user',)
-
-    actions = (block_user,)
