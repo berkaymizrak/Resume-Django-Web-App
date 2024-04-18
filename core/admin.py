@@ -1,7 +1,11 @@
+from datetime import datetime
 from django.contrib import admin
+from django.conf import settings
+from django.utils import timezone
 from import_export.admin import ImportExportModelAdmin
 from core.models import *
 from django.contrib import messages
+from django.db.models import Q
 
 
 # Register your models here.
@@ -69,8 +73,9 @@ class StatisticsAdmin(ImportExportModelAdmin):
 
 @admin.register(ActionLog)
 class ActionLogAdmin(ImportExportModelAdmin):
-    list_display = ('user', 'action', 'success', 'method', 'short_data', 'short_get_params', 'message', 'platform', 'browser',
-                    'ip_address', 'short_user_agent', 'is_deleted', 'updated_at', 'created_at',)
+    list_display = (
+        'user', 'action', 'success', 'method', 'short_data', 'short_get_params', 'message', 'platform', 'browser',
+        'ip_address', 'short_user_agent', 'is_deleted', 'updated_at', 'created_at',)
     list_editable = ()
     list_filter = ('is_deleted', 'success', 'method', 'action', 'platform', 'browser', 'platform',)
     search_fields = ('user__email', 'user__first_name', 'user__last_name', 'message', 'data',
@@ -81,6 +86,27 @@ class ActionLogAdmin(ImportExportModelAdmin):
         model = ActionLog
 
 
+@admin.action(description='Block user and IP address')
+def block_user(modeladmin, request, queryset):
+    blocked_users = BlockedUser.objects.filter(
+        created_at__gte=datetime.fromtimestamp(timezone.now().timestamp() - settings.BLOCKED_USER_DURATION)
+    )
+    for item in queryset:
+        if item.user:
+            filtered_users = blocked_users.filter(Q(user=item.user) | Q(ip_address=item.user.ip_address))
+        else:
+            filtered_users = blocked_users.filter(ip_address=item.ip_address)
+
+        if not filtered_users.exists():
+            BlockedUser.objects.create(
+                ip_address=item.ip_address,
+                user=item.user,
+            )
+            messages.success(request, f'User is blocked. IP address: {item.ip_address} User: {item.user}')
+
+    messages.success(request, f'{queryset.count()} items are updated.')
+
+
 @admin.register(BlockedUser)
 class BlockedUserAdmin(ImportExportModelAdmin):
     list_display = ('id', 'user', 'ip_address', 'is_deleted', 'updated_at', 'created_at',)
@@ -88,3 +114,5 @@ class BlockedUserAdmin(ImportExportModelAdmin):
     list_editable = ()
     search_fields = ('user__email', 'user__first_name', 'user__last_name', 'ip_address',)
     autocomplete_fields = ('user',)
+
+    actions = (block_user,)
