@@ -297,6 +297,7 @@ class ActionLog(AbstractModel):
 class BlockedUser(AbstractModel):
     user = models.ForeignKey(User, on_delete=models.CASCADE, default=None, blank=True, null=True, )
     ip_address = models.GenericIPAddressField(default=None, blank=True, null=True, )
+    permanent = models.BooleanField(default=False)
 
     def __str__(self):
         return f'{self.user} - {self.ip_address}'

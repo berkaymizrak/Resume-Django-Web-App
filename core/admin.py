@@ -74,7 +74,8 @@ class StatisticsAdmin(ImportExportModelAdmin):
 @admin.action(description='Block user and IP address')
 def block_user(modeladmin, request, queryset):
     blocked_users = BlockedUser.objects.filter(
-        created_at__gte=datetime.fromtimestamp(timezone.now().timestamp() - settings.BLOCKED_USER_DURATION)
+        Q(created_at__gte=datetime.fromtimestamp(timezone.now().timestamp() - settings.BLOCKED_USER_DURATION))
+        | Q(permanent=True)
     )
     for item in queryset:
         if item.user:
@@ -86,8 +87,32 @@ def block_user(modeladmin, request, queryset):
             BlockedUser.objects.create(
                 ip_address=item.ip_address,
                 user=item.user,
+                permanent=False,
             )
             messages.success(request, f'User is blocked. IP address: {item.ip_address} User: {item.user}')
+
+    messages.success(request, f'{queryset.count()} items are updated.')
+
+
+@admin.action(description='Permanent block user and IP address')
+def permanent_block_user(modeladmin, request, queryset):
+    blocked_users = BlockedUser.objects.filter(
+        Q(created_at__gte=datetime.fromtimestamp(timezone.now().timestamp() - settings.BLOCKED_USER_DURATION))
+        | Q(permanent=True)
+    )
+    for item in queryset:
+        if item.user:
+            filtered_users = blocked_users.filter(Q(user=item.user) | Q(ip_address=item.user.ip_address))
+        else:
+            filtered_users = blocked_users.filter(ip_address=item.ip_address)
+
+        if not filtered_users.exists():
+            BlockedUser.objects.create(
+                ip_address=item.ip_address,
+                user=item.user,
+                permanent=True,
+            )
+            messages.success(request, f'User is permanently blocked. IP address: {item.ip_address} User: {item.user}')
 
     messages.success(request, f'{queryset.count()} items are updated.')
 
@@ -111,8 +136,8 @@ class ActionLogAdmin(ImportExportModelAdmin):
 
 @admin.register(BlockedUser)
 class BlockedUserAdmin(ImportExportModelAdmin):
-    list_display = ('id', 'user', 'ip_address', 'is_deleted', 'updated_at', 'created_at',)
-    list_filter = ('is_deleted',)
+    list_display = ('id', 'user', 'ip_address', 'permanent', 'is_deleted', 'updated_at', 'created_at',)
+    list_filter = ('is_deleted', 'permanent',)
     list_editable = ()
     search_fields = ('user__email', 'user__first_name', 'user__last_name', 'ip_address',)
     autocomplete_fields = ('user',)

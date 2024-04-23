@@ -13,9 +13,9 @@ fi
 
 if [ "$SERVICE_NAME" = "app_resume" ]; then
 
-  echo " --- --- --- --- --- --- --- --- --- "
-  echo "Creating database migrations"
-  python manage.py makemigrations
+#  echo " --- --- --- --- --- --- --- --- --- "
+#  echo "Creating database migrations"
+#  python manage.py makemigrations
 
   echo " --- --- --- --- --- --- --- --- --- "
   echo "Applying database migrations"

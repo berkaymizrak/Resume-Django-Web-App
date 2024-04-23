@@ -30,7 +30,8 @@ class SecurityMiddleware(object):
         action_logs = ActionLog.objects.filter(ip_address=get_client_ip(request))
 
         blocked_users = BlockedUser.objects.filter(
-            created_at__gte=datetime.fromtimestamp(timezone.now().timestamp() - settings.BLOCKED_USER_DURATION)
+            Q(created_at__gte=datetime.fromtimestamp(timezone.now().timestamp() - settings.BLOCKED_USER_DURATION))
+            | Q(permanent=True)
         )
         if request.user.is_authenticated:
             blocked_users = blocked_users.filter(Q(user=request.user) | Q(ip_address=get_client_ip(request)))
@@ -46,6 +47,7 @@ class SecurityMiddleware(object):
                     BlockedUser.objects.create(
                         ip_address=get_client_ip(request),
                         user=request.user if request.user.is_authenticated else None,
+                        permanent=False,
                     )
                     send_mail_queued.delay(
                         mail_subject='User Blocked',
