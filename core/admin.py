@@ -128,10 +128,19 @@ class ActionLogAdmin(ImportExportModelAdmin):
                      'user_agent', 'get_params', 'ip_address',)
     autocomplete_fields = ('user',)
 
-    actions = (block_user,)
+    actions = (block_user, permanent_block_user,)
 
     class Meta:
         model = ActionLog
+
+
+@admin.action(description='Toggle permanent')
+def toogle_permanent(modeladmin, request, queryset):
+    for item in queryset:
+        item.permanent = not item.permanent
+        item.save()
+
+    messages.success(request, f'{queryset.count()} items are updated.')
 
 
 @admin.register(BlockedUser)
@@ -141,3 +150,5 @@ class BlockedUserAdmin(ImportExportModelAdmin):
     list_editable = ()
     search_fields = ('user__email', 'user__first_name', 'user__last_name', 'ip_address',)
     autocomplete_fields = ('user',)
+
+    actions = (toogle_permanent,)
