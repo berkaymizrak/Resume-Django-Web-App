@@ -113,6 +113,13 @@ def permanent_block_user(modeladmin, request, queryset):
                 permanent=True,
             )
             messages.success(request, f'User is permanently blocked. IP address: {item.ip_address} User: {item.user}')
+        else:
+            for blocked_user in filtered_users:
+                if not blocked_user.permanent:
+                    blocked_user.permanent = True
+                    blocked_user.save()
+                    messages.success(request,
+                                     f'User is permanently blocked. IP address: {item.ip_address} User: {item.user}')
 
     messages.success(request, f'{queryset.count()} items are updated.')
 
