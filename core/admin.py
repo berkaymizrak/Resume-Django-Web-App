@@ -79,7 +79,7 @@ def block_user(modeladmin, request, queryset):
     )
     for item in queryset:
         if item.user:
-            filtered_users = blocked_users.filter(Q(user=item.user) | Q(ip_address=item.user.ip_address))
+            filtered_users = blocked_users.filter(Q(user=item.user) | Q(ip_address=item.ip_address))
         else:
             filtered_users = blocked_users.filter(ip_address=item.ip_address)
 
@@ -102,7 +102,7 @@ def permanent_block_user(modeladmin, request, queryset):
     )
     for item in queryset:
         if item.user:
-            filtered_users = blocked_users.filter(Q(user=item.user) | Q(ip_address=item.user.ip_address))
+            filtered_users = blocked_users.filter(Q(user=item.user) | Q(ip_address=item.ip_address))
         else:
             filtered_users = blocked_users.filter(ip_address=item.ip_address)
 
