@@ -41,7 +41,9 @@ def special_links(request, slug):
         get_params = request.GET.dict() if request.GET else {}
         redirected_url = obj.new_url
         if get_params:
-            redirected_url += f'?{"&".join([f"{key}={value}" for key, value in get_params.items()])}'
+            if '?' not in redirected_url:
+                redirected_url += '?'
+            redirected_url += f'{"&".join([f"{key}={value}" for key, value in get_params.items()])}'
         return redirect(redirected_url)
     except models.RedirectSlug.DoesNotExist:
         pass
