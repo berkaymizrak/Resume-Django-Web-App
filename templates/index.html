@@ -279,7 +279,7 @@
                                     <td style="text-align: center;">{{ coupon.expiration_date|date:"d-m-Y H:i" }}</td>
                                     <td>
                                         <button class="btn btn-sm btn-primary"
-                                                onclick="window.open('{{ coupon.course_url }}_popup');">
+                                                onclick="window.open('{{ coupon.course_url }}_popup?couponCode={{ coupon.coupon_code }}');">
                                             Register
                                         </button>
                                     </td>
@@ -290,7 +290,9 @@
                         </table>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal" data-bs-dismiss="modal">
+                            Close
+                        </button>
                     </div>
                 </div>
             </div>
@@ -362,7 +364,9 @@
                         </table>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal" data-bs-dismiss="modal">
+                            Close
+                        </button>
                     </div>
                 </div>
             </div>
@@ -407,22 +411,22 @@
 {% block extra_scripts %}
 
     <script>
-        var queryString = window.location.search;
-        var urlParams = new URLSearchParams(queryString);
-        var coupons = urlParams.get('coupons')
-        if (coupons) {
-            showCoupons();
-        }
+      var queryString = window.location.search;
+      var urlParams = new URLSearchParams(queryString);
+      var coupons = urlParams.get("coupons");
+      if (coupons) {
+        showCoupons();
+      }
 
-        function showCoupons() {
-            if ($(window).width() < 992) {
-                $('#promotion_codes_mobile').fadeIn()
-                $('#promotion_codes_mobile').modal('show');
-            } else {
-                $('#promotion_codes_web').fadeIn()
-                $('#promotion_codes_web').modal('show');
-            }
+      function showCoupons() {
+        if ($(window).width() < 992) {
+          $("#promotion_codes_mobile").fadeIn();
+          $("#promotion_codes_mobile").modal("show");
+        } else {
+          $("#promotion_codes_web").fadeIn();
+          $("#promotion_codes_web").modal("show");
         }
+      }
     </script>
 
     <!-- contact js -->
