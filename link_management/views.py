@@ -37,6 +37,7 @@ def special_links(request, slug):
         slug = slug.replace('_popup', '')
         obj = models.RedirectSlug.objects.get(slug=slug)
         create_statistic(request, 'RedirectSlug', f'Click slug: {slug}', redirect_source)
+        create_action_log(request, 'special_links', f'{slug}', True)
         return redirect(obj.new_url)
     except models.RedirectSlug.DoesNotExist:
         pass
