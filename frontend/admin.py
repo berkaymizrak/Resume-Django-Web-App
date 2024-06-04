@@ -42,10 +42,10 @@ class SocialMediaAdmin(ImportExportModelAdmin):
 @admin.register(CourseCoupons)
 class CourseCouponsAdmin(ImportExportModelAdmin):
     list_display = ['id', 'order', 'course_name', 'course_url', 'coupon_code', 'original_price', 'discount_price',
-                    'expiration_date', 'is_active', 'updated_at', 'created_at', ]
+                    'start_date', 'expiration_date', 'is_active', 'updated_at', 'created_at', ]
     search_fields = ['course_name', 'course_url', 'coupon_code', ]
     list_editable = ['order', 'course_name', 'course_url', 'coupon_code', 'original_price', 'discount_price',
-                     'expiration_date', 'is_active', ]
+                     'start_date', 'expiration_date', 'is_active', ]
     list_filter = ['is_active', ]
 
     class Meta:

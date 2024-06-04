@@ -18,7 +18,11 @@ def layout(request):
     og_image = utils.get_image('og_image')
     header_logo = utils.get_image('header_logo')
 
-    coupons = fr_models.CourseCoupons.objects.filter(is_active=True, expiration_date__gt=timezone.now())
+    coupons = fr_models.CourseCoupons.objects.filter(
+        is_active=True,
+        expiration_date__gte=timezone.now(),
+        start_date__lte=timezone.now(),
+    )
 
     context = {
         'header_logo': header_logo,

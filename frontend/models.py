@@ -138,6 +138,11 @@ class CourseCoupons(AbstractModel):
         verbose_name='Discount Price',
         help_text='',
     )
+    start_date = models.DateTimeField(
+        default=timezone.now,
+        verbose_name='Start Date',
+        help_text='',
+    )
     expiration_date = models.DateTimeField(
         default=timezone.now,
         verbose_name='Expiration Date',
