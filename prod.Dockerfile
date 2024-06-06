@@ -20,7 +20,7 @@ RUN apt install -y postgresql-client
 
 # pip requirements
 RUN pip install --upgrade pip
-RUN pip install virtualenv && python -m virtualenv $VIRTUAL_ENV
+RUN pip install --upgrade virtualenv && python -m virtualenv $VIRTUAL_ENV
 
 ENV PATH="$VIRTUAL_ENV/bin:$PATH"
 
