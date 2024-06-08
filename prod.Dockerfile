@@ -19,8 +19,8 @@ RUN apt-get install build-essential -y
 RUN apt install -y postgresql-client
 
 # pip requirements
-RUN pip3 install --upgrade pip
-RUN pip3 install --upgrade virtualenv && python -m virtualenv $VIRTUAL_ENV
+RUN pip install --upgrade pip
+RUN pip install --upgrade virtualenv && python -m virtualenv $VIRTUAL_ENV
 
 ENV PATH="$VIRTUAL_ENV/bin:$PATH"
 
