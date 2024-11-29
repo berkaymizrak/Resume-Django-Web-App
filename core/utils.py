@@ -263,7 +263,7 @@ def custom_validation(request, FORM_CLASS):
         BlockedUser.objects.create(
             user=request.user if request.user.is_authenticated else None,
             ip_address=get_client_ip(request),
-            phone=request.user.phone if request.user.is_authenticated else '',
+            # phone=request.user.phone if request.user.is_authenticated else '',
             permanent=True,
         )
         return False

@@ -1,6 +1,7 @@
 from django import forms
 from core import models
 from core import utils
+from core.tasks import send_slack_notification
 
 
 class ContactForm(forms.Form):
@@ -46,6 +47,11 @@ class ContactForm(forms.Form):
             # 'cols': 80,
         }),
     )
+    captcha = forms.CharField(
+        required=False,
+        label='Verification Code',
+        widget=forms.TextInput(),
+    )
 
     def send_mail(self):
         if self.is_valid():
@@ -65,6 +71,11 @@ class ContactForm(forms.Form):
                 subject_user=subject,
                 message=message_context,
                 to=email,
+            )
+            send_slack_notification.delay(
+                '#berkay-mizrak',
+                'New message received',
+                message_context,
             )
             context = {
                 'success': True,

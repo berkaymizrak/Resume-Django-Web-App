@@ -76,7 +76,7 @@ $(document).ready(function () {
                     $('#submit_btn').loading_status(true);
                     $(form).ajaxSubmit({
                         type: "POST",
-                        data: $(form).serialize(),
+                        // data: JSON.stringify($(form).serialize()),
                         url: "/",
                         success: function (response) {
                             if (response.success == true) {

@@ -4,12 +4,12 @@ from datetime import datetime
 from django.conf import settings
 from django.db.models import Count
 from django.db.models.functions import Concat
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import JsonResponse
 from core import models as core_models
 from core import forms as core_forms
 from core import utils
-from core.utils import create_action_log
+from core.utils import create_action_log, custom_validation, recaptcha_check
 from frontend import models
 import requests
 
@@ -18,26 +18,21 @@ import requests
 
 
 def index(request):
+    if not custom_validation(request, core_forms.ContactForm):
+        return redirect('blocked_user')
+
     form = core_forms.ContactForm(request.POST or None)
     if request.method == 'POST':
         context = {
             'success': False,
             'message': '',
         }
-        ''' reCAPTCHA validation '''
-        recaptcha_response = request.POST.get('g-recaptcha-response')
-        data = {
-            'secret': settings.GOOGLE_RECAPTCHA_SECRET_KEY,
-            'response': recaptcha_response
-        }
-        r = requests.post('https://www.google.com/recaptcha/api/siteverify', data=data)
-        result = r.json()
-
-        if result['success']:
-            context = form.send_mail()
-        else:
+        captcha = request.POST.get('captcha')
+        if recaptcha_check(captcha) is not True:
             context['success'] = False
             context['message'] = 'Invalid reCAPTCHA. Please try again.'
+        else:
+            context = form.send_mail()
         create_action_log(request, 'contact_form', True,
                           data={
                               'success': context['success'],
