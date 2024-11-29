@@ -87,7 +87,7 @@ INSTALLED_APPS = [
     'rest_framework',
 ]
 
-SLACK_WEBHOOK = "https://hooks.slack.com/services/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"
+SLACK_WEBHOOK = env('SLACK_WEBHOOK')
 MAINTENANCE_MODE = False
 SITE_NAME = 'BERKAY MIZRAK'
 # META_KEYWORDS = ''
