@@ -32,38 +32,36 @@ SECRET_KEY = env('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env('DEBUG')
 
-ALLOWED_HOSTS = env('ALLOWED_HOSTS', cast=list)
+if DEBUG:
+    ALLOWED_HOSTS = ['*']
+else:
+    ALLOWED_HOSTS = [
+        # 'localhost',
+        # '127.0.0.1',
+        # '*.0.0.0.0',
+        '.berkaymizrak.com',
+    ]
 
 # Must be defined for Django 4+
-CSRF_TRUSTED_ORIGINS = env('CSRF_TRUSTED_ORIGINS', cast=list)
+if DEBUG:
+    CSRF_TRUSTED_ORIGINS = [
+        'http://*.localhost',
+        'http://*.127.0.0.1',
+        'http://*.0.0.0.0',
+    ]
+else:
+    CSRF_TRUSTED_ORIGINS = [
+        'https://*.berkaymizrak.com',
+        'http://*.berkaymizrak.com',
+    ]
 
-UNDER_MAINTENANCE = False
-
-SITE_DOMAINS = ['berkaymizrak.com', 'berkaymizrak.com.tr']
-BLOCKED_USER_DURATION = 24 * 60 * 60  # 1 day
-BLOCK_LIMITS = [
-    {
-        'limit': 300,
-        'duration': 3 * 60,
-        'filters': {
-        }
-    },
-    {
-        'limit': 10,
-        'duration': 5 * 60,
-        'filters': {
-            'action': 'contact_form',
-            'method': 'POST',
-        }
-    },
-    {
-        'limit': 20,
-        'duration': 2 * 60,
-        'filters': {
-            'action': 'special_links',
-        }
-    },
-]
+if DEBUG:
+    CORS_ALLOW_ALL_ORIGINS = True
+else:
+    CORS_ALLOWED_ORIGIN_REGEXES = [
+        r'^http://(\w+\.)?berkaymizrak\.com$',
+        r'^https://(\w+\.)?berkaymizrak\.com$',
+    ]
 
 # Application definition
 
@@ -89,6 +87,41 @@ INSTALLED_APPS = [
     'rest_framework',
 ]
 
+SLACK_WEBHOOK = "https://hooks.slack.com/services/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"
+MAINTENANCE_MODE = False
+SITE_NAME = 'BERKAY MIZRAK'
+# META_KEYWORDS = ''
+# META_DESCRIPTION = ''
+SITE_DOMAIN = 'berkaymizrak.com'
+TAX_RATE = 20
+PHONE_BLOCKED_HOURS = 1
+BLOCKED_USER_DURATION = 24 * 60 * 60  # 1 day
+BLOCK_LIMITS = [
+    {
+        'limit': 300,
+        'duration': 3 * 60,
+        'filters': {
+        }
+    },
+    {
+        'limit': 10,
+        'duration': 5 * 60,
+        'filters': {
+            'action': 'contact_form',
+            'method': 'POST',
+        }
+    },
+    {
+        'limit': 20,
+        'duration': 2 * 60,
+        'filters': {
+            'action': 'special_links',
+        }
+    },
+]
+
+SITE_DOMAINS = ['berkaymizrak.com', 'berkaymizrak.com.tr']
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     # 'whitenoise.middleware.WhiteNoiseMiddleware',  # White Noise for Heroku
@@ -103,7 +136,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 
-    'resume.MaintenanceMiddleware.MaintenanceMiddleware',  # Extra
+    'resume.MaintenanceModeMiddleware.MaintenanceModeMiddleware',  # Extra
     # 'resume.ParameterMiddleware.ParameterMiddleware',  # Extra
     'resume.SecurityMiddleware.SecurityMiddleware',
 ]

@@ -1,7 +1,274 @@
 from core.enums import Browsers, Platforms
+from core.models import ActionLog, BlockedUser
 from django.conf import settings
 from django.core.mail import EmailMessage
 import traceback
+from django import forms
+from django.core.serializers.json import DjangoJSONEncoder
+from django.conf import settings
+from django.contrib import messages
+from django.db.models import Model
+from django.utils.safestring import mark_safe
+from django.utils.html import strip_tags
+from django.utils.translation import get_language
+from django.utils.translation import gettext_lazy as _
+from django.utils import timezone
+import random
+import string
+import traceback
+import requests
+import uuid
+import json
+import time
+import unidecode
+
+def get_client_ip(request):
+    if not request:
+        return None
+    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+    if x_forwarded_for:
+        ip = x_forwarded_for.split(',')[0]
+    else:
+        ip = request.META.get('REMOTE_ADDR')
+    return ip
+
+
+def get_user_agent(request):
+    if request:
+        return request.META.get('HTTP_USER_AGENT', '')
+    else:
+        return ''
+
+
+def get_platform(request):
+    if not request:
+        return Platforms.OTHER
+    for platform in Platforms.choices:
+        if platform[0] in get_user_agent(request).lower():
+            return platform[0]
+    return Platforms.OTHER
+
+
+def get_browser(request):
+    if not request:
+        return Browsers.OTHER
+    for browser in Browsers.choices:
+        if browser[0] in get_user_agent(request).lower():
+            return browser[0]
+    return Browsers.OTHER
+
+
+def create_action_log(request, action, success=True, message='', data=None):
+    if request:
+        if data is None:
+            data = request.POST.dict() if request.POST else data
+        get_params = request.GET.dict() if request.GET else {}
+        user = request.user if request.user.is_authenticated else None
+        method = request.method
+        path = request.path
+    else:
+        get_params = {}
+        user = None
+        method = 'UNKNOWN'
+        path = ''
+    action = action[:255]
+    path = path[:255]
+    message = message[:255]
+    try:
+        ActionLog.objects.create(
+            user=user,
+            action=action,
+            message=message,
+            method=method,
+            success=success,
+            path=path,
+            data=data,
+            get_params=get_params,
+            platform=get_platform(request),
+            browser=get_browser(request),
+            ip_address=get_client_ip(request),
+            user_agent=get_user_agent(request)[0:255],
+        )
+    except:
+        message = str(traceback.format_exc()) + '\n\n' + str(message)
+        message = message[:255]
+        ActionLog.objects.create(
+            user=user,
+            action=f'ERROR: {action}',
+            message=message,
+            method=method,
+            success=False,
+            path=path,
+            data=None,
+            get_params=None,
+            platform=get_platform(request),
+            browser=get_browser(request),
+            ip_address=get_client_ip(request),
+            user_agent=get_user_agent(request)[0:255],
+        )
+
+
+def recaptcha_check(recaptcha_response):
+    if settings.DEBUG:
+        return True
+    try:
+        verify_url = 'https://www.google.com/recaptcha/api/siteverify'
+        value = {
+            'secret': settings.GOOGLE_RECAPTCHA_SECRET_KEY,
+            'response': recaptcha_response
+        }
+        response = requests.post(verify_url, value, headers={'Content-Type': 'application/x-www-form-urlencoded'})
+        result = response.json()
+        if result.get('success') is True:
+            return True
+        else:
+            return {'status': result.get('success'), 'reason': result.get('error-codes')}
+    except Exception as e:
+        return {'status': False, 'reason': 'Unknown error. Error: ' + str(e)}
+
+
+def random_digits(length):
+    return ''.join(random.choice(string.digits) for i in range(length))
+
+
+def generate_random_id():
+    return str(uuid.uuid4())
+
+
+def get_random_code(length=6):
+    return ''.join(random.choices(string.digits, k=length))
+    # return ''.join(random.choices(string.ascii_uppercase + string.digits, k=length))
+
+
+def get_html_message(plain_message, html_message):
+    if plain_message and not html_message:
+        html_message = plain_message.replace('\n', '<br>')
+    elif html_message and not plain_message:
+        plain_message = strip_tags(html_message)
+    elif not plain_message and not html_message:
+        plain_message = ''
+        html_message = ''
+
+    return plain_message, html_message
+
+
+def check_repeated_chars(check_string, recurrent_chars=8):
+    # Create a dictionary to store the count of each character
+    char_count = {}
+
+    # Loop through each character in the string and count its occurrences
+    for char in check_string:
+        if char in char_count:
+            char_count[char] += 1
+        else:
+            char_count[char] = 1
+
+        # If any character count reaches recurrent_chars, raise a flag
+        if char_count[char] >= recurrent_chars:
+            return True
+
+    return False
+
+
+def convert_to_latin(turkish_string):
+    # Convert to Latin characters
+    latin_string = unidecode.unidecode(turkish_string)
+    return latin_string
+
+
+def sanitize_object(obj):
+    def serialize_field(value):
+        if isinstance(value, Model):
+            return {'id': value.id, 'name': value.name}
+        return value
+
+    cleaned_data = {key: serialize_field(value) for key, value in obj.items()}
+
+    try:
+        return json.dumps(cleaned_data, cls=DjangoJSONEncoder)
+    except Exception as e:
+        return {'sanitize_error': str(e)}
+
+
+def remove_tag(text, tag):
+    text = text \
+        .replace('\n', ' ') \
+        .replace('\r', ' ')
+    while f'<{tag}' in text:
+        contents = text.split(f'<{tag}', 1)
+        text = contents[0]
+        if len(contents) > 1:
+            end = contents[1].find('>')
+            text += contents[1][end + 1:]
+    return text
+
+
+def remove_all_tags(text):
+    text = text \
+        .replace('\n', ' ') \
+        .replace('\r', ' ')
+    while '<' in text:
+        contents = text.split('<', 1)
+        text = contents[0]
+        if len(contents) > 1:
+            end = contents[1].find('>')
+            text += contents[1][end + 1:]
+    return text
+
+
+def custom_validation(request, FORM_CLASS):
+    if request.method != 'POST':
+        return True
+
+    block_user = False
+
+    csrfmiddlewaretoken = request.POST.get('csrfmiddlewaretoken')
+    if not csrfmiddlewaretoken:
+        create_action_log(request, 'custom_validation', False, message='csrfmiddlewaretoken not found.')
+        block_user = True
+
+    if not block_user:
+        data_names = list(request.POST.keys())
+        if 'csrfmiddlewaretoken' in data_names:
+            data_names.remove('csrfmiddlewaretoken')
+
+        boolean_fields = []
+
+        form_instance = FORM_CLASS()
+        field_names = list(form_instance.fields.keys())
+
+        for field_name in field_names:
+            field = form_instance.fields[field_name]
+            if isinstance(field, forms.BooleanField):
+                boolean_fields.append(field_name)
+
+        for data_name in data_names:
+            if data_name in boolean_fields:
+                continue
+            if data_name not in field_names:
+                create_action_log(request, 'custom_validation', False, message=f'Unknown field: {data_name}')
+                block_user = True
+                break
+
+        if not block_user:
+            for field_name in field_names:
+                if field_name in boolean_fields:
+                    continue
+                if field_name not in data_names:
+                    create_action_log(request, 'custom_validation', False, message=f'Missing field: {field_name}')
+                    block_user = True
+                    break
+
+    if block_user:
+        BlockedUser.objects.create(
+            user=request.user if request.user.is_authenticated else None,
+            ip_address=get_client_ip(request),
+            phone=request.user.phone if request.user.is_authenticated else '',
+            permanent=True,
+        )
+        return False
+
+    return True
 
 
 def send_mail_check(name, subject_mail, subject_user, message, to, reply_to=settings.DEFAULT_FROM_EMAIL):
@@ -183,63 +450,3 @@ def get_first_object_or_none(queryset, *args, **kwargs):
         return queryset.filter(*args, **kwargs).first()
     except queryset.model.DoesNotExist:
         return queryset.none()
-
-
-def get_client_ip(request):
-    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
-    if x_forwarded_for:
-        ip = x_forwarded_for.split(',')[0]
-    else:
-        ip = request.META.get('REMOTE_ADDR')
-    return ip
-
-
-def get_user_agent(request):
-    return request.META.get('HTTP_USER_AGENT', '')
-
-
-def get_platform(request):
-    for platform in Platforms.choices:
-        if platform[0] in get_user_agent(request).lower():
-            return platform[0]
-    return Platforms.OTHER
-
-
-def get_browser(request):
-    for browser in Browsers.choices:
-        if browser[0] in get_user_agent(request).lower():
-            return browser[0]
-    return Browsers.OTHER
-
-
-def create_action_log(request, action, message='', success=True, data=None):
-    from core.models import ActionLog
-    get_params = request.GET.dict() if request.GET else {}
-    try:
-        ActionLog.objects.create(
-            user=request.user if request.user.is_authenticated else None,
-            action=action,
-            message=message,
-            method=request.method,
-            success=success,
-            data=data,
-            get_params=get_params,
-            platform=get_platform(request),
-            browser=get_browser(request),
-            ip_address=get_client_ip(request),
-            user_agent=get_user_agent(request)[0:255],
-        )
-    except:
-        ActionLog.objects.create(
-            user=request.user if request.user.is_authenticated else None,
-            action=f'ERROR: {action}',
-            message=str(traceback.format_exc()) + '\n\n' + str(message),
-            method=request.method,
-            success=success,
-            data=None,
-            get_params=None,
-            platform=get_platform(request),
-            browser=get_browser(request),
-            ip_address=get_client_ip(request),
-            user_agent=get_user_agent(request)[0:255],
-        )

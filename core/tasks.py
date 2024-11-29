@@ -42,6 +42,30 @@ def send_mail_queued(mail_subject, message_context, to, from_mail=settings.DEFAU
 
 
 @shared_task
+def send_slack_notification(channel, header, message, summary_message=None):
+    if settings.DEBUG or not settings.SLACK_WEBHOOK:
+        print(f'[send_slack_notification] channel: {channel}, header: {header}, message: {message}')
+        return
+    try:
+        requests.post(
+            url=settings.SLACK_WEBHOOK,
+            json={
+                'channel': channel,
+                'username': header,
+                'text': message,
+            }
+        )
+        if summary_message:
+            send_slack_notification.delay(
+                '#berkay-mizrak-ozet',
+                header,
+                summary_message,
+            )
+    except Exception as e:
+        print(f'[send_slack_notification] Error: {e}')
+
+
+@shared_task
 def command_clear_expired_sessions():
     # The management command for clearing expired sessions from Session model of django.contrib.sessions package.
     # This is a built-in management command of Django.

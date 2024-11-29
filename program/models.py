@@ -1,11 +1,11 @@
-from core.models import AbstractModel
+from core.models import BaseAbstractModel
 from django.db import models
 
 
 # Create your models here.
 
 
-class ExternalProgram(AbstractModel):
+class ExternalProgram(BaseAbstractModel):
     name = models.CharField(
         default='',
         max_length=255,
@@ -36,7 +36,7 @@ class ExternalProgram(AbstractModel):
         return f'External-Setting: {self.name}'
 
 
-class ExternalLogs(AbstractModel):
+class ExternalLogs(BaseAbstractModel):
     name = models.CharField(
         default='',
         max_length=255,

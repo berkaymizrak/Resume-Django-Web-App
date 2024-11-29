@@ -1,35 +1,43 @@
 from core.enums import Platforms, Browsers
-from core.utils import delete_media_file
+from core.managers import FilterManager
 from django.db import models, IntegrityError
 from django.dispatch import receiver
 from django.utils.crypto import get_random_string
 from django.utils.text import slugify
 from django.template.defaultfilters import truncatechars
-from resume.custom_storages import ImageSettingStorage, DocumentStorage
 from django.contrib.auth.models import User
+from django.utils.translation import gettext_lazy as _
+from resume.custom_storages import ImageSettingStorage, DocumentStorage
 
 
 # Create your models here.
 
 
-class AbstractModel(models.Model):
-    is_deleted = models.BooleanField(default=False)
+class BaseAbstractModel(models.Model):
+    is_deleted = models.BooleanField(default=False, verbose_name=_('Silindi'), )
     updated_at = models.DateTimeField(
-        verbose_name='Updated Date',
+        verbose_name=_('Güncellenme Tarihi'),
         blank=True,
         auto_now=True,
     )
     created_at = models.DateTimeField(
-        verbose_name='Created Date',
+        verbose_name=_('Oluşturulma Tarihi'),
         blank=True,
         auto_now_add=True,
     )
 
+    objects = FilterManager()
+
     class Meta:
         abstract = True
+        ordering = ('-created_at', 'id',)
+
+    def save(self, *args, **kwargs):
+        self.full_clean()
+        return super().save(*args, **kwargs)
 
 
-class GeneralSetting(AbstractModel):
+class GeneralSetting(BaseAbstractModel):
     name = models.CharField(
         default='',
         max_length=255,
@@ -60,7 +68,7 @@ class GeneralSetting(AbstractModel):
         return 'General Setting: %s' % self.name
 
 
-class ImageSetting(AbstractModel):
+class ImageSetting(BaseAbstractModel):
     name = models.CharField(
         default='',
         max_length=255,
@@ -103,7 +111,7 @@ class ImageSetting(AbstractModel):
                 self.name += get_random_string(allowed_chars='0123456789', length=2)
 
 
-class Document(AbstractModel):
+class Document(BaseAbstractModel):
     name = models.CharField(
         default='',
         max_length=255,
@@ -148,7 +156,7 @@ class Document(AbstractModel):
                 self.name += get_random_string(allowed_chars='0123456789', length=2)
 
 
-class Message(AbstractModel):
+class Message(BaseAbstractModel):
     name = models.CharField(
         default='',
         max_length=255,
@@ -198,7 +206,7 @@ class Message(AbstractModel):
         return 'Message: %s' % self.name
 
 
-class Statistics(AbstractModel):
+class Statistics(BaseAbstractModel):
     statistic_type = models.CharField(
         default='',
         max_length=255,
@@ -251,6 +259,7 @@ def auto_delete_file_on_delete(sender, instance, **kwargs):
     Deletes file from filesystem
     when corresponding `MediaFile` object is deleted.
     """
+    from core.utils import delete_media_file
     delete_media_file(sender, instance=instance, delete_older=False)
 
 
@@ -262,15 +271,17 @@ def auto_delete_file_on_change(sender, instance, **kwargs):
     when corresponding `MediaFile` object is updated
     with new file.
     """
+    from core.utils import delete_media_file
     delete_media_file(sender, instance=instance, delete_older=True)
 
 
-class ActionLog(AbstractModel):
+class ActionLog(BaseAbstractModel):
     user = models.ForeignKey(User, on_delete=models.CASCADE, default=None, blank=True, null=True, )
     action = models.CharField(max_length=255)
     message = models.TextField(default='', max_length=255, blank=True)
     method = models.CharField(default='', max_length=255, blank=True)
     success = models.BooleanField(default=True)
+    path = models.CharField(default='', max_length=255, blank=True)
     data = models.JSONField(default=dict, blank=True, null=True)
     get_params = models.JSONField(default=dict, blank=True, null=True)
     platform = models.CharField(max_length=30, choices=Platforms.choices, default=Platforms.OTHER, )
@@ -283,7 +294,7 @@ class ActionLog(AbstractModel):
 
     @property
     def short_data(self):
-        return truncatechars(self.data, 100)
+        return truncatechars(self.data, 200)
 
     @property
     def short_user_agent(self):
@@ -294,9 +305,10 @@ class ActionLog(AbstractModel):
         return truncatechars(self.get_params, 100)
 
 
-class BlockedUser(AbstractModel):
+class BlockedUser(BaseAbstractModel):
     user = models.ForeignKey(User, on_delete=models.CASCADE, default=None, blank=True, null=True, )
     ip_address = models.GenericIPAddressField(default=None, blank=True, null=True, )
+    phone = models.CharField(default='', max_length=20, blank=True)
     permanent = models.BooleanField(default=False)
 
     def __str__(self):

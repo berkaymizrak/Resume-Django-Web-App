@@ -38,14 +38,14 @@ def index(request):
         else:
             context['success'] = False
             context['message'] = 'Invalid reCAPTCHA. Please try again.'
-        create_action_log(request, 'contact_form', '', True,
-                          {
+        create_action_log(request, 'contact_form', True,
+                          data={
                               'success': context['success'],
                               'message': context['message'],
                               'POST': request.POST,
                           })
         return JsonResponse(context)
-    create_action_log(request, 'landing', '', True)
+    create_action_log(request, 'landing', True)
 
     person_name = utils.get_parameter('person_name')
     person_position = utils.get_parameter('person_position')
@@ -82,7 +82,7 @@ def index(request):
 def invitation(request):
     event_date = datetime.strptime('2023-05-21 14:30:00', '%Y-%m-%d %H:%M:%S')
 
-    create_action_log(request, 'invitation', 'GET', True)
+    create_action_log(request, 'invitation', True)
     context = {
         'event_date': event_date,
     }
@@ -105,5 +105,5 @@ def statistics(request):
         'statistics_source_count': statistics_source_count,
         'statistics_action_source_count': statistics_action_source_count,
     }
-    create_action_log(request, 'statistics', 'GET', True)
+    create_action_log(request, 'statistics', True)
     return render(request, 'statistics.html', context=context)

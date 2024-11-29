@@ -10,179 +10,179 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.RunSQL("""
-            INSERT INTO frontend_skilltypes (
-                id,
-                name,
-                updated_date,
-                created_date
-            )
-            SELECT
-                id,
-                name,
-                updated_date,
-                created_date
-            FROM
-                user_skilltypes;
-            SELECT setval('frontend_skilltypes_id_seq', (SELECT MAX(id) FROM frontend_skilltypes)+1);
-        """, reverse_sql="""
-            INSERT INTO user_skilltypes (
-                id,
-                name,
-                updated_date,
-                created_date
-            )
-            SELECT
-                id,
-                name,
-                updated_date,
-                created_date
-            FROM
-                frontend_skilltypes;
-            SELECT setval('user_skilltypes_id_seq', (SELECT MAX(id) FROM user_skilltypes)+1);
-        """),
-
-        migrations.RunSQL("""
-            INSERT INTO frontend_skill (
-                id,
-                "order",
-                name,
-                percent,
-                skill_type_id,
-                updated_date,
-                created_date
-            )
-            SELECT
-                id,
-                "order",
-                name,
-                percent,
-                skill_type_id,
-                updated_date,
-                created_date
-            FROM
-                user_skill;
-            SELECT setval('frontend_skill_id_seq', (SELECT MAX(id) FROM frontend_skill)+1);
-        """, reverse_sql="""
-            INSERT INTO user_skill (
-                id,
-                "order",
-                name,
-                percent,
-                skill_type_id,
-                updated_date,
-                created_date
-            )
-            SELECT
-                id,
-                "order",
-                name,
-                percent,
-                skill_type_id,
-                updated_date,
-                created_date
-            FROM
-                frontend_skill;
-            SELECT setval('user_skill_id_seq', (SELECT MAX(id) FROM user_skill)+1);
-        """),
-
-        migrations.RunSQL("""
-            INSERT INTO frontend_socialmedia (
-                id,
-                "order",
-                url,
-                icon,
-                updated_date,
-                created_date
-            )
-            SELECT
-                id,
-                "order",
-                url,
-                icon,
-                updated_date,
-                created_date
-            FROM
-                user_socialmedia;
-            SELECT setval('frontend_socialmedia_id_seq', (SELECT MAX(id) FROM frontend_socialmedia)+1);
-        """, reverse_sql="""
-            INSERT INTO user_socialmedia (
-                id,
-                "order",
-                url,
-                icon,
-                updated_date,
-                created_date
-            )
-            SELECT
-                id,
-                "order",
-                url,
-                icon,
-                updated_date,
-                created_date
-            FROM
-                frontend_socialmedia;
-            SELECT setval('user_socialmedia_id_seq', (SELECT MAX(id) FROM user_socialmedia)+1);
-        """),
-
-        migrations.RunSQL("""
-            INSERT INTO frontend_coursecoupons (
-                id,
-                "order",
-                course_name,
-                course_url,
-                coupon_code,
-                original_price,
-                discount_price,
-                expiration_date,
-                is_active,
-                updated_date,
-                created_date
-            )
-            SELECT
-                id,
-                "order",
-                course_name,
-                course_url,
-                coupon_code,
-                original_price,
-                discount_price,
-                expiration_date,
-                is_active,
-                updated_date,
-                created_date
-            FROM
-                user_coursecoupons;
-            SELECT setval('frontend_coursecoupons_id_seq', (SELECT MAX(id) FROM frontend_coursecoupons)+1);
-        """, reverse_sql="""
-            INSERT INTO user_coursecoupons (
-                id,
-                "order",
-                course_name,
-                course_url,
-                coupon_code,
-                original_price,
-                discount_price,
-                expiration_date,
-                is_active,
-                updated_date,
-                created_date
-            )
-            SELECT
-                id,
-                "order",
-                course_name,
-                course_url,
-                coupon_code,
-                original_price,
-                discount_price,
-                expiration_date,
-                is_active,
-                updated_date,
-                created_date
-            FROM
-                frontend_coursecoupons;
-            SELECT setval('user_coursecoupons_id_seq', (SELECT MAX(id) FROM user_coursecoupons)+1);
-        """),
+        # migrations.RunSQL("""
+        #     INSERT INTO frontend_skilltypes (
+        #         id,
+        #         name,
+        #         updated_date,
+        #         created_date
+        #     )
+        #     SELECT
+        #         id,
+        #         name,
+        #         updated_date,
+        #         created_date
+        #     FROM
+        #         user_skilltypes;
+        #     SELECT setval('frontend_skilltypes_id_seq', (SELECT MAX(id) FROM frontend_skilltypes)+1);
+        # """, reverse_sql="""
+        #     INSERT INTO user_skilltypes (
+        #         id,
+        #         name,
+        #         updated_date,
+        #         created_date
+        #     )
+        #     SELECT
+        #         id,
+        #         name,
+        #         updated_date,
+        #         created_date
+        #     FROM
+        #         frontend_skilltypes;
+        #     SELECT setval('user_skilltypes_id_seq', (SELECT MAX(id) FROM user_skilltypes)+1);
+        # """),
+        #
+        # migrations.RunSQL("""
+        #     INSERT INTO frontend_skill (
+        #         id,
+        #         "order",
+        #         name,
+        #         percent,
+        #         skill_type_id,
+        #         updated_date,
+        #         created_date
+        #     )
+        #     SELECT
+        #         id,
+        #         "order",
+        #         name,
+        #         percent,
+        #         skill_type_id,
+        #         updated_date,
+        #         created_date
+        #     FROM
+        #         user_skill;
+        #     SELECT setval('frontend_skill_id_seq', (SELECT MAX(id) FROM frontend_skill)+1);
+        # """, reverse_sql="""
+        #     INSERT INTO user_skill (
+        #         id,
+        #         "order",
+        #         name,
+        #         percent,
+        #         skill_type_id,
+        #         updated_date,
+        #         created_date
+        #     )
+        #     SELECT
+        #         id,
+        #         "order",
+        #         name,
+        #         percent,
+        #         skill_type_id,
+        #         updated_date,
+        #         created_date
+        #     FROM
+        #         frontend_skill;
+        #     SELECT setval('user_skill_id_seq', (SELECT MAX(id) FROM user_skill)+1);
+        # """),
+        #
+        # migrations.RunSQL("""
+        #     INSERT INTO frontend_socialmedia (
+        #         id,
+        #         "order",
+        #         url,
+        #         icon,
+        #         updated_date,
+        #         created_date
+        #     )
+        #     SELECT
+        #         id,
+        #         "order",
+        #         url,
+        #         icon,
+        #         updated_date,
+        #         created_date
+        #     FROM
+        #         user_socialmedia;
+        #     SELECT setval('frontend_socialmedia_id_seq', (SELECT MAX(id) FROM frontend_socialmedia)+1);
+        # """, reverse_sql="""
+        #     INSERT INTO user_socialmedia (
+        #         id,
+        #         "order",
+        #         url,
+        #         icon,
+        #         updated_date,
+        #         created_date
+        #     )
+        #     SELECT
+        #         id,
+        #         "order",
+        #         url,
+        #         icon,
+        #         updated_date,
+        #         created_date
+        #     FROM
+        #         frontend_socialmedia;
+        #     SELECT setval('user_socialmedia_id_seq', (SELECT MAX(id) FROM user_socialmedia)+1);
+        # """),
+        #
+        # migrations.RunSQL("""
+        #     INSERT INTO frontend_coursecoupons (
+        #         id,
+        #         "order",
+        #         course_name,
+        #         course_url,
+        #         coupon_code,
+        #         original_price,
+        #         discount_price,
+        #         expiration_date,
+        #         is_active,
+        #         updated_date,
+        #         created_date
+        #     )
+        #     SELECT
+        #         id,
+        #         "order",
+        #         course_name,
+        #         course_url,
+        #         coupon_code,
+        #         original_price,
+        #         discount_price,
+        #         expiration_date,
+        #         is_active,
+        #         updated_date,
+        #         created_date
+        #     FROM
+        #         user_coursecoupons;
+        #     SELECT setval('frontend_coursecoupons_id_seq', (SELECT MAX(id) FROM frontend_coursecoupons)+1);
+        # """, reverse_sql="""
+        #     INSERT INTO user_coursecoupons (
+        #         id,
+        #         "order",
+        #         course_name,
+        #         course_url,
+        #         coupon_code,
+        #         original_price,
+        #         discount_price,
+        #         expiration_date,
+        #         is_active,
+        #         updated_date,
+        #         created_date
+        #     )
+        #     SELECT
+        #         id,
+        #         "order",
+        #         course_name,
+        #         course_url,
+        #         coupon_code,
+        #         original_price,
+        #         discount_price,
+        #         expiration_date,
+        #         is_active,
+        #         updated_date,
+        #         created_date
+        #     FROM
+        #         frontend_coursecoupons;
+        #     SELECT setval('user_coursecoupons_id_seq', (SELECT MAX(id) FROM user_coursecoupons)+1);
+        # """),
     ]

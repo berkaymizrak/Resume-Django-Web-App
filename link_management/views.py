@@ -37,7 +37,7 @@ def special_links(request, slug):
         slug = slug.replace('_popup', '')
         obj = models.RedirectSlug.objects.get(slug=slug)
         create_statistic(request, 'RedirectSlug', f'Click slug: {slug}', redirect_source)
-        create_action_log(request, 'special_links', f'{slug}', True)
+        create_action_log(request, 'special_links', True, f'{slug}')
         get_params = request.GET.dict() if request.GET else {}
         redirected_url = obj.new_url
         if get_params:
@@ -67,7 +67,7 @@ def special_links(request, slug):
         if obj_type == 'doc':
             if obj.file:
                 create_statistic(request, 'Document', f'Click slug: {slug}', 'direct_link')
-                create_action_log(request, 'special_links', f'GET doc: {slug}', True)
+                create_action_log(request, 'special_links', True, f'GET doc: {slug}')
                 return redirect(obj.file.url)
         elif obj_type == 'image':
             if obj.file:
@@ -75,10 +75,10 @@ def special_links(request, slug):
                     'object': obj,
                 }
                 create_statistic(request, 'ImageSetting', f'Click slug: {slug}', 'direct_link')
-                create_action_log(request, 'special_links', f'GET image: {slug}', True)
+                create_action_log(request, 'special_links', True, f'GET image: {slug}')
                 return render(request, 'image.html', context=context)
-        create_action_log(request, 'special_links', f'GET not image or doc: {slug}. Redirecting to index', False)
+        create_action_log(request, 'special_links', False, f'GET not image or doc: {slug}. Redirecting to index')
         return redirect('index')
     else:
-        create_action_log(request, 'special_links', f'GET not found: {slug}', False)
+        create_action_log(request, 'special_links', False, f'GET not found: {slug}')
         raise Http404

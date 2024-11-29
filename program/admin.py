@@ -1,29 +1,24 @@
-from core.admin import delete_all
+from core.admin import AbstractAdmin, create_resource
 from django.contrib import admin
-from import_export.admin import ImportExportModelAdmin
-from program.models import *
+from program import models
 
 
 # Register your models here.
 
 
-@admin.register(ExternalProgram)
-class ExternalProgramAdmin(ImportExportModelAdmin):
+@admin.register(models.ExternalProgram)
+class ExternalProgramAdmin(AbstractAdmin):
+    resource_class = create_resource(models.ExternalProgram)
     list_display = ['id', 'name', 'description', 'parameter', 'updated_at', 'created_at', ]
-    search_fields = ['name', 'description', 'parameter', ]
+    list_filter = AbstractAdmin.list_filter
     list_editable = ['description', 'parameter', ]
-
-    class Meta:
-        model = ExternalProgram
+    search_fields = ['name', 'description', 'parameter', ]
 
 
-@admin.register(ExternalLogs)
-class ExternalLogsAdmin(admin.ModelAdmin):
+@admin.register(models.ExternalLogs)
+class ExternalLogsAdmin(AbstractAdmin):
+    resource_class = create_resource(models.ExternalLogs)
     list_display = ['name', 'program', 'success', 'parameter', 'ip_address', 'updated_at', 'created_at', ]
+    list_filter = AbstractAdmin.list_filter + ('success', 'name', 'program', 'ip_address',)
+    list_editable = []
     search_fields = ['name', 'parameter', 'program', 'ip_address', ]
-    list_filter = ['success', 'name', 'program', 'ip_address', ]
-
-    actions = [delete_all]
-
-    class Meta:
-        model = ExternalLogs

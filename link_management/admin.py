@@ -1,16 +1,15 @@
+from core.admin import AbstractAdmin, create_resource
 from django.contrib import admin
-from import_export.admin import ImportExportModelAdmin
-from link_management.models import *
+from link_management import models
+
 
 # Register your models here.
 
 
-@admin.register(RedirectSlug)
-class RedirectSlugAdmin(ImportExportModelAdmin):
+@admin.register(models.RedirectSlug)
+class RedirectSlugAdmin(AbstractAdmin):
+    resource_class = create_resource(models.RedirectSlug)
     list_display = ['id', 'slug', 'new_url', 'updated_at', 'created_at', ]
-    search_fields = ['slug', 'new_url', ]
+    list_filter = AbstractAdmin.list_filter
     list_editable = ['slug', 'new_url', ]
-    list_filter = []
-
-    class Meta:
-        model = RedirectSlug
+    search_fields = ['slug', 'new_url', ]

@@ -1,4 +1,4 @@
-from core.models import AbstractModel
+from core.models import BaseAbstractModel
 from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.utils import timezone
@@ -7,7 +7,7 @@ from django.utils import timezone
 # Create your models here.
 
 
-class SkillTypes(AbstractModel):
+class SkillTypes(BaseAbstractModel):
     name = models.CharField(
         default='',
         max_length=255,
@@ -27,7 +27,7 @@ class SkillTypes(AbstractModel):
         return 'Skill Type: %s' % self.name
 
 
-class Skill(AbstractModel):
+class Skill(BaseAbstractModel):
     order = models.IntegerField(
         default=1,
         verbose_name='Order',
@@ -63,7 +63,7 @@ class Skill(AbstractModel):
         return 'Skill: %s' % self.name
 
 
-class SocialMedia(AbstractModel):
+class SocialMedia(BaseAbstractModel):
     order = models.IntegerField(
         default=1,
         verbose_name='Order',
@@ -102,7 +102,7 @@ class SocialMedia(AbstractModel):
         super().save(*args, **kwargs)
 
 
-class CourseCoupons(AbstractModel):
+class CourseCoupons(BaseAbstractModel):
     order = models.IntegerField(
         default=10,
         verbose_name='Order',
