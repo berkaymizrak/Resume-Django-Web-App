@@ -33,7 +33,7 @@ def index(request):
             context['message'] = 'Invalid reCAPTCHA. Please try again.'
         else:
             context = form.send_mail()
-        create_action_log(request, 'contact_form', True,
+        create_action_log(request, 'contact_form', context['success'],
                           data={
                               'success': context['success'],
                               'message': context['message'],
