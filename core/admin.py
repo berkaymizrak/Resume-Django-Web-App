@@ -191,19 +191,25 @@ def permanent_block_ip_address(modeladmin, request, queryset):
     messages.success(request, f'{queryset.count()} öğe güncellendi.')
 
 
+def generate_unique_uuids(modeladmin, request, queryset):
+    from core.tasks import generate_unique_uuids_task
+    generate_unique_uuids_task.delay()
+
+
 @admin.register(models.ActionLog)
 class ActionLogAdmin(AbstractAdmin):
     resource_class = create_resource(models.ActionLog)
     list_display = ('created_at', 'user', 'action', 'success', 'path',
-                    'method', 'ip_address', 'short_data', 'short_get_params',
+                    'method', 'ip_address', 'unique_key', 'short_data', 'short_get_params',
                     'message', 'platform', 'browser', 'short_user_agent', 'is_deleted', 'updated_at',)
     list_filter = AbstractAdmin.list_filter + ('success', 'method', 'action', 'platform', 'browser', 'platform',)
     list_editable = ()
     search_fields = ('user__email', 'user__first_name', 'user__last_name', 'message', 'data',
-                     'user_agent', 'get_params', 'ip_address', 'path',)
+                     'user_agent', 'get_params', 'ip_address', 'unique_key', 'path',)
     autocomplete_fields = ('user',)
 
     actions = AbstractAdmin.actions + (
+        generate_unique_uuids,
         block_user, permanent_block_user, permanent_block_ip_address,
     )
 

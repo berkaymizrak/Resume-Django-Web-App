@@ -8,6 +8,7 @@ from django.template.defaultfilters import truncatechars
 from django.contrib.auth.models import User
 from django.utils.translation import gettext_lazy as _
 from resume.custom_storages import ImageSettingStorage, DocumentStorage
+import uuid
 
 
 # Create your models here.
@@ -288,6 +289,7 @@ class ActionLog(BaseAbstractModel):
     browser = models.CharField(max_length=30, choices=Browsers.choices, default=Browsers.OTHER, )
     user_agent = models.TextField(default='', max_length=255, blank=True)
     ip_address = models.GenericIPAddressField(default=None, blank=True, null=True, )
+    unique_key = models.UUIDField(default=uuid.uuid4, editable=True)
 
     def __str__(self):
         return f'{self.user} - {self.action}'

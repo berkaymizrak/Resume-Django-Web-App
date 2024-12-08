@@ -7,7 +7,7 @@ from django import forms
 from django.core.serializers.json import DjangoJSONEncoder
 from django.conf import settings
 from django.contrib import messages
-from django.db.models import Model
+from django.db.models import Model, Q
 from django.utils.safestring import mark_safe
 from django.utils.html import strip_tags
 from django.utils.translation import get_language
@@ -58,10 +58,58 @@ def get_browser(request):
     return Browsers.OTHER
 
 
-def create_action_log(request, action, success=True, message='', data=None):
+def get_unique_key(request, ip_address, force_update=False):
+    if force_update:
+        unique_key = None
+    else:
+        unique_key = request.session.get('unique_key', None)
+        if unique_key:
+            try:
+                unique_key = uuid.UUID(unique_key)
+            except Exception as e:
+                unique_key = None
+
+    if not unique_key or force_update:
+        if request.user.is_authenticated:
+            existing_logs = ActionLog.objects.filter(Q(user=request.user) | Q(ip_address=ip_address))
+        else:
+            existing_logs = ActionLog.objects.filter(ip_address=ip_address)
+
+        if existing_logs.exists():
+            unique_key = existing_logs.first().unique_key
+            if request.user.is_authenticated:
+                previous_logs_of_user = ActionLog.objects.filter(
+                    Q(user=request.user) | Q(ip_address=ip_address),
+                    ~Q(unique_key=unique_key),
+                )
+                if previous_logs_of_user.exists():
+                    previous_logs_of_user.update(unique_key=unique_key)
+            else:
+                previous_logs_of_user = ActionLog.objects.filter(
+                    Q(ip_address=ip_address),
+                    ~Q(unique_key=unique_key),
+                )
+                if previous_logs_of_user.exists():
+                    previous_logs_of_user.update(unique_key=unique_key)
+
+    if not isinstance(unique_key, uuid.UUID):
+        unique_key = generate_random_uuid()
+
+    request.session['unique_key'] = str(unique_key)
+    return unique_key
+
+
+def create_action_log(request, action, success=True, message='', data=None, force_update=False):
+    ip_address = get_client_ip(request)
+    unique_key = get_unique_key(request, ip_address, force_update)
     if request:
         if data is None:
             data = request.POST.dict() if request.POST else data
+        else:
+            if request.POST:
+                data.update({
+                    'POST': request.POST.dict()
+                })
         get_params = request.GET.dict() if request.GET else {}
         user = request.user if request.user.is_authenticated else None
         method = request.method
@@ -86,7 +134,8 @@ def create_action_log(request, action, success=True, message='', data=None):
             get_params=get_params,
             platform=get_platform(request),
             browser=get_browser(request),
-            ip_address=get_client_ip(request),
+            ip_address=ip_address,
+            unique_key=unique_key,
             user_agent=get_user_agent(request)[0:255],
         )
     except:
@@ -103,7 +152,8 @@ def create_action_log(request, action, success=True, message='', data=None):
             get_params=None,
             platform=get_platform(request),
             browser=get_browser(request),
-            ip_address=get_client_ip(request),
+            ip_address=ip_address,
+            unique_key=unique_key,
             user_agent=get_user_agent(request)[0:255],
         )
 
@@ -127,17 +177,14 @@ def recaptcha_check(recaptcha_response):
         return {'status': False, 'reason': 'Unknown error. Error: ' + str(e)}
 
 
-def random_digits(length):
-    return ''.join(random.choice(string.digits) for i in range(length))
-
-
-def generate_random_id():
-    return str(uuid.uuid4())
-
-
-def get_random_code(length=6):
+def random_digits(length=6):
     return ''.join(random.choices(string.digits, k=length))
+    # return ''.join(random.choice(string.digits) for i in range(length))
     # return ''.join(random.choices(string.ascii_uppercase + string.digits, k=length))
+
+
+def generate_random_uuid():
+    return str(uuid.uuid4())
 
 
 def get_html_message(plain_message, html_message):

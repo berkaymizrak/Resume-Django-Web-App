@@ -137,3 +137,22 @@ def clear_expired_payments():
     now = datetime.now()
     query = Payment.objects.filter(valid_to__lt=now, payment_success=None, confirmation_success=None)
     query.delete()
+
+
+@shared_task
+def generate_unique_uuids_task():
+    import uuid
+    from core import models
+
+    ip_addresses = models.ActionLog.objects.values('ip_address').distinct()
+
+    queryset = models.ActionLog.objects.all()
+
+    for ip_address in ip_addresses:
+        unique_key = str(uuid.uuid4())
+        ip_filtered = queryset.filter(ip_address=ip_address.get('ip_address'))
+        ip_filtered.update(unique_key=unique_key)
+        user = ip_filtered.filter(user__isnull=False).first()
+        if user:
+            user_filtered = queryset.filter(user=user.user)
+            user_filtered.update(unique_key=unique_key)
