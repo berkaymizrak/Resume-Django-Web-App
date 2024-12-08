@@ -1,4 +1,5 @@
 from core.models import BaseAbstractModel
+from django.conf import settings
 from django.db import models
 
 # Create your models here.
@@ -17,10 +18,13 @@ class RedirectSlug(BaseAbstractModel):
         help_text='',
     )
 
-    class Meta:
+    class Meta(BaseAbstractModel.Meta):
         verbose_name_plural = 'Redirect Slugs'
         verbose_name = 'Redirect Slug'
-        ordering = ('-created_at',)
 
     def __str__(self):
-        return 'Redirect Slug: %s' % self.slug
+        return self.slug
+
+    @property
+    def redirect_url(self):
+        return f'https://{settings.SITE_DOMAIN}/r/{self.slug}/'
