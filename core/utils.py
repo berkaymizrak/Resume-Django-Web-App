@@ -25,6 +25,8 @@ import unidecode
 def get_client_ip(request):
     if not request:
         return None
+    if not hasattr(request, 'META'):
+        return None
     x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
     if x_forwarded_for:
         ip = x_forwarded_for.split(',')[0]
@@ -35,9 +37,9 @@ def get_client_ip(request):
 
 def get_user_agent(request):
     if request:
-        return request.META.get('HTTP_USER_AGENT', '')
-    else:
-        return ''
+        if hasattr(request, 'META'):
+            return request.META.get('HTTP_USER_AGENT', '')
+    return ''
 
 
 def get_platform(request):
@@ -59,6 +61,10 @@ def get_browser(request):
 
 
 def get_unique_key(request, ip_address, force_update=False):
+    if not request:
+        return generate_random_uuid()
+    if not hasattr(request, 'session'):
+        return generate_random_uuid()
     if force_update:
         unique_key = None
     else:
@@ -70,9 +76,13 @@ def get_unique_key(request, ip_address, force_update=False):
                 unique_key = None
 
     if not unique_key or force_update:
-        if request.user.is_authenticated:
-            existing_logs = ActionLog.objects.filter(Q(user=request.user) | Q(ip_address=ip_address))
-        else:
+        user = None
+        if request:
+            if request.user:
+                if request.user.is_authenticated:
+                    user = request.user
+                    existing_logs = ActionLog.objects.filter(Q(user=request.user) | Q(ip_address=ip_address))
+        if not user:
             existing_logs = ActionLog.objects.filter(ip_address=ip_address)
 
         if existing_logs.exists():
@@ -103,12 +113,17 @@ def create_action_log(request, action, success=True, message='', data=None, forc
     ip_address = get_client_ip(request)
     unique_key = get_unique_key(request, ip_address, force_update)
     if request:
+        post_data = request.POST
+        if not post_data:
+            if hasattr(request, 'data'):
+                post_data = request.data
+
         if data is None:
-            data = request.POST.dict() if request.POST else data
+            data = dict(post_data) if post_data else data
         else:
-            if request.POST:
+            if post_data:
                 data.update({
-                    'POST': request.POST.dict()
+                    'POST': dict(post_data),
                 })
         get_params = request.GET.dict() if request.GET else {}
         user = request.user if request.user.is_authenticated else None
@@ -121,7 +136,11 @@ def create_action_log(request, action, success=True, message='', data=None, forc
         path = ''
     action = action[:255]
     path = path[:255]
-    message = message[:255]
+    try:
+        if data:
+            data = json.dumps(data, cls=DjangoJSONEncoder)
+    except Exception as e:
+        data = {'serialize_error': str(e), **data}
     try:
         ActionLog.objects.create(
             user=user,
@@ -139,12 +158,10 @@ def create_action_log(request, action, success=True, message='', data=None, forc
             user_agent=get_user_agent(request)[0:255],
         )
     except:
-        message = str(traceback.format_exc()) + '\n\n' + str(message)
-        message = message[:255]
         ActionLog.objects.create(
             user=user,
             action=f'ERROR: {action}',
-            message=message,
+            message=str(traceback.format_exc()) + '\n\n' + str(message),
             method=method,
             success=False,
             path=path,
@@ -183,6 +200,13 @@ def random_digits(length=6):
     # return ''.join(random.choices(string.ascii_uppercase + string.digits, k=length))
 
 
+def random_string(length=6, uppercase=False):
+    if uppercase:
+        return ''.join(random.choices(string.ascii_uppercase + string.digits, k=length))
+    else:
+        return ''.join(random.choices(string.ascii_lowercase + string.digits, k=length))
+
+
 def generate_random_uuid():
     return str(uuid.uuid4())
 
@@ -218,6 +242,8 @@ def check_repeated_chars(check_string, recurrent_chars=8):
 
 
 def convert_to_latin(turkish_string):
+    if not turkish_string:
+        return ''
     # Convert to Latin characters
     latin_string = unidecode.unidecode(turkish_string)
     return latin_string
@@ -263,19 +289,25 @@ def remove_all_tags(text):
     return text
 
 
-def custom_validation(request, FORM_CLASS):
+def custom_validation(request, FORM_CLASS, csrf_check=True):
     if request.method != 'POST':
         return True
 
+    post_data = request.POST
+    if not post_data:
+        if hasattr(request, 'data'):
+            post_data = request.data
+
     block_user = False
 
-    csrfmiddlewaretoken = request.POST.get('csrfmiddlewaretoken')
-    if not csrfmiddlewaretoken:
-        create_action_log(request, 'custom_validation', False, message='csrfmiddlewaretoken not found.')
-        block_user = True
+    if csrf_check:
+        csrfmiddlewaretoken = post_data.get('csrfmiddlewaretoken')
+        if not csrfmiddlewaretoken:
+            create_action_log(request, 'custom_validation', False, message='csrfmiddlewaretoken not found.')
+            block_user = True
 
     if not block_user:
-        data_names = list(request.POST.keys())
+        data_names = list(post_data.keys())
         if 'csrfmiddlewaretoken' in data_names:
             data_names.remove('csrfmiddlewaretoken')
 
